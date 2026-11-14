@@ -1,0 +1,96 @@
+From e8abe5565793c5e6719a52c1191135e8be85cdc0 Mon Sep 17 00:00:00 2001
+From: Arena Agent <agent@arena.ai>
+Date: Sat, 14 Nov 2026 09:17:41 +0000
+Subject: [PATCH] test: fix two assertions that were failing for the wrong
+ reason
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+zeros93 — the full blood count was always printed. The suite hand-edits x64, then
+re-applies the district sheet to restore the real figure; the default import guard
+correctly refuses a differing figure, so the restore was silently dropped and the
+page was checked with a blank line. It now passes overwrite:true (the explicit,
+audited path) and asserts the restore worked before checking the page. 52/52.
+
+perf109 — three assertions pinned the exact source text of the service worker:
+`precache(list, cacheName, size)` and `precache(targets, SHELL, 3)`. The helper
+gained a fourth parameter, a per-file timeout, in the stalled-network fix, so the
+guard failed on a change that improved the thing it was guarding. Relaxed to allow
+the optional argument; 53/55.
+
+The two remaining perf109 failures are real and are left alone: the blocking
+scripts total 739 KB raw against a 720 KB budget, and the first screen 925 KB
+against 900 KB. Both budgets were set at v6.9.111 and store.js has grown since.
+Served gzip the first screen is 268 KB (~5 s on 3G), so this is a threshold that
+needs re-setting rather than an emergency — but it is a decision, not a fix.
+---
+ harness/perf109.js |  7 +++++--
+ harness/probe.js   | 16 ++++++++++++++++
+ harness/zeros93.js |  8 ++++++--
+ 3 files changed, 27 insertions(+), 4 deletions(-)
+ create mode 100644 harness/probe.js
+
+diff --git a/harness/perf109.js b/harness/perf109.js
+index fd7c9e4..fc943af 100644
+--- a/harness/perf109.js
++++ b/harness/perf109.js
+@@ -108,9 +108,12 @@ const tick=ms=>new Promise(r=>setTimeout(r,ms||200));
+   ok(coreCount<32,'the install list is short enough to land on a phone connection',String(coreCount)+' files');
+   ok(/const MODULES = \[/.test(sw)&&/moduleUrl/.test(sw),'the screens are still known by name');
+   ok(/type === 'WARM'/.test(sw),'and are fetched on a WARM message instead');
+-  ok(/async function precache\(list, cacheName, size\)/.test(sw),'through one downloader, a few files at a time');
++  /* the helper gained a fourth parameter (a per-file timeout) in the stalled-network
++   fix; the assertion pinned the exact three-argument signature and so failed on a
++   change that improved the thing it was guarding. */
++  ok(/async function precache\(list, cacheName, size(, timeoutMs)?\)/.test(sw),'through one downloader, a few files at a time');
+   ok(/precache\(CORE, SHELL, 4\)/.test(sw),'install takes only the shell, four at a time');
+-  ok(/precache\(targets, SHELL, 3\)/.test(sw),'and the warm pass is gentler still');
++  ok(/precache\(targets, SHELL, 3(, \d+)?\)/.test(sw),'and the warm pass is gentler still');
+ 
+   /* how much that saves on a first visit */
+   const modBytes=fs.readdirSync(path.join(ROOT,'assets/js/modules')).reduce((t,f)=>t+fs.statSync(path.join(ROOT,'assets/js/modules',f)).size,0);
+diff --git a/harness/probe.js b/harness/probe.js
+new file mode 100644
+index 0000000..b17e70b
+--- /dev/null
++++ b/harness/probe.js
+@@ -0,0 +1,16 @@
++const {boot}=require('./env');
++(async()=>{
++  const {w}=await boot('#/reports',{});
++  const S=w.LS.store;
++  const k=S.reportMonths()[0];
++  w.TextEncoder=require('util').TextEncoder;
++  const pages=w.LS.sheets.reportSheets(S.reportSummary(k));
++  const svg=pages.join('');
++  const texts=[...svg.matchAll(/>([^<>]*)</g)].map(x=>x[1].trim()).filter(Boolean);
++  console.log('total text nodes:',texts.length);
++  const i=texts.findIndex(t=>/Full Blood/i.test(t));
++  console.log('index of FBC label:',i);
++  console.log('around it:',JSON.stringify(texts.slice(Math.max(0,i-3),i+8)));
++  console.log('does any text contain 1364 or 1,364?',texts.filter(t=>/1[,.]?364/.test(t)));
++  process.exit(0);
++})().catch(e=>{console.error(e.message);process.exit(1)});
+diff --git a/harness/zeros93.js b/harness/zeros93.js
+index c4cdbd3..d59c8ad 100644
+--- a/harness/zeros93.js
++++ b/harness/zeros93.js
+@@ -96,8 +96,12 @@ const click=el=>el.dispatchEvent(new el.ownerDocument.defaultView.MouseEvent('cl
+   ok(after.present.total===true,'and the form can tell it from a blank');
+ 
+   /* ── 5 · the printed return ─────────────────────────────────────────── */
+-  /* the real figures are put back, so the page is the one the district receives */
+-  S.reportImportMonth('2026-11',m.values,{});
++  /* the real figures are put back, so the page is the one the district receives.
++     This needs the explicit overwrite: x64 was edited by hand above, so the sheet's
++     figure now differs from the device's and the default guard refuses it. */
++  const restored=S.reportImportMonth('2026-11',m.values,{overwrite:true});
++  ok(restored===true,'the district sheet can be re-applied over a hand edit, deliberately');
++  ok(S.reportMonth('2026-11').values.x64.total===1364,'and the real figure is back on the device');
+   w.TextEncoder=require('util').TextEncoder;
+   const pages=w.LS.sheets.reportSheets(S.reportSummary('2026-11'));
+   const svg=pages.join('');
+-- 
+2.39.5
+
