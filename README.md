@@ -1,60 +1,57 @@
-<!DOCTYPE html>
-<html style="background-color:lightgray;">
-<body>
+# welcome
 
-<h1 style="color:green;font-family: Bookman Old Style;">Alleviating Technologies</h1>
+The website for **Alleviating Technologies** — tech tips and tricks, hacks, trending
+tech news, video games, top 10 lists, and Android and iOS customisation.
 
-<p1 style="color:purple;border: 2px solid DodgerBlue;">Inspires New Technogy</p1>
+- **Live:** <https://ssamahan.github.io/welcome/>
+- **YouTube:** <https://www.youtube.com/@alleviatingtechnologies>
 
-<hr>
-<title>Alleviating Technologies Website</title>
-<p1 style="background-color:blue;border:black;">We bring the Best Tech Tips and Tricks with hacks, 
-Trending Tech news, Best Video Games, Tech Top 10, Android and iOS phones customization.</p1>
-</hr>  
+## How this repository works
 
-<hr>
-<p2>If you wish to enjoy watching our latest video we uploaded on our youtube channel ALLEVIATING TECHNOLOGIES, simply click DOWN HERE 
+It is a static site, served straight from this repository by GitHub Pages
+(`main`, root folder, HTTPS enforced). There is no build step and no dependency.
 
+| File | What it is |
+| --- | --- |
+| `index.html` | The whole site — markup, styles and one small script. |
+| `README.md` | This file. |
 
-<iframe width="759" height="424" src="https://www.youtube.com/embed/aMXQ_DYYo2s" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p2>
+Because Pages publishes the repository root, **`index.html` is the site** and this
+README is the repository's front page. They are separate files on purpose.
 
-</hr>
+## Editing
 
-<hr>
-<p3 style="font-family:lucidy calligraphy;background-color:solid violet">Don't forget to SUBSCRIBE, LIKE and SHARE our videos to your soulmates, relatives and friends.
-<br>
-</p3>
-<p4 style="color:blue;border: 2px black;">Sharing is caring</p4>
-</hr>
+Everything is in `index.html`. The styles are in the `<style>` block at the top, and
+the colours are CSS variables under `:root` (`--ink`, `--gold`, `--paper`), so
+changing the palette is four lines.
 
-<p5>Tap
-<a href="https://www.youtube.com/c/alleviatingtechnologies">here</a>
-to reach our youtube channel.
-</p5>
+To change the video, replace `aMXQ_DYYo2s` in the two YouTube links and in the
+thumbnail URL (`https://i.ytimg.com/vi/<ID>/maxresdefault.jpg`).
 
-<br>
-<p6>The next part consists the latest 10 videos excluding the above video. Enjoy Watching!</p6>
-</hr>
+## Why it looks the way it does
 
-<hr>
-<p7>
-<pre>
-The secret is; this website was made to try if we can own one
-Funnily, @DAMSHOWTV has iniated to start this project
-Why? <a href="https://www.instagtam.com/ssamahan_">ALLEVIATING TECHNOLOGIES' Creator,</a> currently is studying with the owner of that YT Channel
-What else? He is for sure advanced in hardware and software repairing. Text us if you need any help on our mail
-<a href="'mailto:alleviatingtechnologies@gmail.com'>alleviatingtechnologies@gmail.com</a>
-</pre>
-</p7>
-</hr>
+This page began life as a complete HTML document pasted into `README.md`. That
+mostly worked in a browser, but on GitHub it did not: Markdown sanitises HTML, so
+every `style="…"` attribute was stripped, the YouTube `<iframe>` was escaped into
+visible source code, and custom tags such as `<p1>` were discarded — leaving the
+"p9 Copyright" line visible on the public page.
 
-<br>
-<p8 style="color:blue;">Follow us on <a href="https://www.instagram.com/alleviatingtechnologies">INSTAGRAM</a> and/or <a href="https://www.facebook.com/alleviatingtechnologies">FACEBOOK</a> and our username is @alleviatingTechnologies</p8>
+It now lives in `index.html` where that markup is valid, with three deliberate
+changes:
 
-<p9
-Copyright @2021 by <a href="https://www.youtube.com/alleviatingtechnologies">Ssamahan</a>
-</p9>
+- **A click-to-load video**, not an embedded player. An embed costs a request to
+  YouTube and sets cookies before the visitor has asked for anything; the thumbnail
+  costs one image and no cookie, and still links to the video.
+- **Real HTML**, not invented tags. `<p1>`–`<p9>` and `</hr>` are not elements; a
+  `<style>` block with classes gives the same look and actually renders.
+- **A viewport meta tag**, so the page is readable on a phone instead of rendering
+  zoomed-out at desktop width.
 
+## Deploying
 
-</body>
-</html>
+Push to `main`. Pages rebuilds within a minute or two. There is nothing to install.
+
+## Licence
+
+The text and images in this repository are © Alleviating Technologies. The
+YouTube video and thumbnail belong to the channel.
