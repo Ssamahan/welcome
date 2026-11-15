@@ -94,7 +94,12 @@ for _e in ("top", "left", "bottom", "right", "insideH", "insideV"):
     _x.set(qn("w:val"), "none")
     _x.set(qn("w:sz"), "0")
     _bd.append(_x)
-_logo._tbl.tblPr.append(_bd)
+_tp = _logo._tbl.tblPr
+_lk = _tp.find(qn("w:tblLook"))
+if _lk is not None:
+    _lk.addprevious(_bd)
+else:
+    _tp.append(_bd)
 
 para(doc, "REPUBLIC OF RWANDA \u2022 MINISTRY OF HEALTH \u2022 GAKENKE DISTRICT",
      size=8, bold=True, color=GREY, align=WD_ALIGN_PARAGRAPH.CENTER, space_after=1)

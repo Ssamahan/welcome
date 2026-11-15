@@ -78,7 +78,12 @@ def letterhead(doc):
         e.set(qn("w:val"), "none")
         e.set(qn("w:sz"), "0")
         borders.append(e)
-    tblPr.append(borders)
+    # w:tblPr requires this order: tblW, jc, tblLayout, tblBorders, tblLook
+    _look = tblPr.find(qn("w:tblLook"))
+    if _look is not None:
+        _look.addprevious(borders)
+    else:
+        tblPr.append(borders)
 
     # ---- official address block (verbatim) ----
     for text, size in (
