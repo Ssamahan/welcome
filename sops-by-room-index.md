@@ -127,9 +127,15 @@ Quality Manual, Safety Manual and Master List live. Six subfolders:
    RULI DISTRICT HOSPITAL / LABORATORY DEPARTMENT, then P.O. BOX 1285 KIGALI, Tel
    (+250) 0781 316 368, ruli.hospital@moh.gov.rw and rulihospital.rw. The telephone
    number on the Normal Ranges document itself is still the old 0782 000 853 and needs
-   correcting there. No logo image is embedded: none exists in the Drive tree, and the
-   only PNG logos there are the LTP twinning-partnership marks, which are not the
-   hospital's.
+   correcting there.
+
+   Above that address block sit the two logos, taken from the same Normal Ranges
+   document: the Republic of Rwanda coat of arms on the left and the Ruli District
+   Hospital logo (Kigali Archidiocese / Ruli District Hospital, "Cura Cum Caritate") on
+   the right. They are the images embedded in that .docx, extracted to lab-sops/assets/
+   as rwanda-crest.jpeg and ruli-hospital.png and placed in a borderless two-cell layout
+   table at the source proportions (crest 2.62 cm, Ruli 2.46 cm). The LTP twinning-
+   partnership marks are not used: they are not the hospital's.
 
    Three blank forms are issued beside them, each an Excel workbook with one sheet per
    month so it can be printed or typed into:
