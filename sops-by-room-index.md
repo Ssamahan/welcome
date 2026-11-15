@@ -166,9 +166,28 @@ RliDHL-DEPARTMENT-SOP-NUMBER-VERS-VERSION - Title.docx
 DEPARTMENT is HEM, BIO, SER, MOL, MYC or PARA.
 The code, not the folder, is what identifies the controlled document.
 
-The management-system SOPs keep their own numbering (1–52). They are laboratory-wide
-policy documents, not bench SOPs, which is why they sit under Administration rather than
-in a room bench folder.
+The management-system SOPs keep their own numbering and run 1 to 56. They are
+laboratory-wide policy documents, not bench SOPs, which is why they sit under
+Administration rather than in a room bench folder.
+
+That run is not clean, and the numbers were taken from MASTER LIST 2025.docx rather
+than assumed:
+
+  - the register carries 49 crosscutting SOPs numbered 1 to 49, so 050 was the next
+    free number, not 053
+  - number 35 has never been used
+  - number 49 is carried twice, for Biological Reference Intervals and for Meet the
+    Clinicians, so two documents share one identifier. ISO 15189:2022, 8.3.2 a)
+    requires documents to be uniquely identified, so this must be resolved
+  - number 52 exists on disk as "52. Resolution of complaints" but was never added
+    to the register
+  - RliDHL-ADM-SOP-008-VERS-005, "Use and Maintenance of Biomedical Equipment",
+    collides with the legacy 008, Authorization. It is left unchanged and flagged,
+    not renumbered silently
+
+The November 2026 equipment block therefore takes 050, 051, 052 and 060 to 063. The
+060-063 group is used rather than 053-059 because two management SOPs numbered above
+52 sit on disk without being registered, so 053-059 cannot be shown to be free.
 
 Older SOPs still carry their original numbering (1., 2., 3. ...). They have been kept
 because the bench still uses them. They are NOT controlled revisions and should be
