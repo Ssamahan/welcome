@@ -1448,12 +1448,48 @@ def nonmedical():
                                                               "plus data logger"),
             ("Blood bank refrigerator", "2 \u00b0C to 6 \u00b0C",
              "Twice daily, manual log, plus data logger"),
-            ("Freezer", "-20 \u00b0C \u00b1 5 \u00b0C", "Twice daily, manual log"),
+            ("Freezer", "-20 \u00b0C \u00b1 5 \u00b0C",
+             "Twice daily, manual log. The unit in use was acquired on 11 August 2026"),
             ("Cold box in transit", "2 \u00b0C to 8 \u00b0C",
              "On departure and on arrival, with a temperature indicator"),
         ],
         widths=[4.6, 4.4, 7.6],
     )
+    H(doc, "6.2.1  Bringing a newly acquired unit into service")
+    P(
+        doc,
+        "Equipment that has been moved from another site is not a working cold store until "
+        "it has been shown to hold temperature at this site. This applies to every "
+        "refrigerator or freezer acquired second-hand or transferred from a health centre, "
+        "and it is not satisfied by switching the unit on and reading the display once.",
+    )
+    NUM(
+        doc,
+        [
+            "Inspect the unit before it is loaded: door seal intact, interior clean and "
+            "free of mould, no corrosion on the evaporator, plug and cable undamaged, "
+            "compressor running without abnormal noise.",
+            "Record the make, model, serial number and, once the biomedical department has "
+            "issued one, the hospital asset code. Until an asset code exists, write "
+            "\u201cnot yet assigned\u201d and the date of acquisition, and add the unit to "
+            "the hospital equipment inventory at the next revision.",
+            "Run the unit empty for 24 hours.",
+            "Verify the temperature for a full week against a calibrated thermometer or a "
+            "data logger, not against the display alone: record the reading at the start "
+            "and at the end of each working day for seven consecutive days and confirm it "
+            "stays within the range for that class of unit.",
+            "Confirm that the door alarm, if fitted, operates, and that the unit recovers "
+            "its temperature within 30 minutes of the door being closed after a loading.",
+            "Only then load specimens or reagents, and record the verification on the "
+            "maintenance record before the first load.",
+        ],
+    )
+    P(
+        doc,
+        "A unit that fails the week of verification is not used, and the fault is reported "
+        "to the biomedical department in the same way as any other equipment fault.",
+    )
+
     P(doc, "Routine monitoring:", bold_lead="")
     B(
         doc,

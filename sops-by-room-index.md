@@ -110,8 +110,10 @@ Quality Manual, Safety Manual and Master List live. Six subfolders:
      - Form RliDHL-ADM-SOP-059-F01  GeneXpert maintenance log (Cepheid task list, 2-letter
        initials row) plus a permanent Module calibration register
      - Form RliDHL-ADM-SOP-056-F01  Temperature monitoring for the three refrigerators,
-       the sample-transport cold box and the four rooms, with a device register of
-       required ranges. No freezer is in service, so none is listed.
+       the freezer, the sample-transport cold box and the four rooms, with a device
+       register of required ranges. The freezer was acquired 11 August 2026 and is not
+       yet on the hospital inventory; its model, serial and asset code are left blank to
+       be filled in when assigned.
 
    Also here: the Master List insert sheet carrying the rows for 053-059 and the three
    forms in Master List column order, and the approval tracker

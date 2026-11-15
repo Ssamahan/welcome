@@ -3,7 +3,7 @@
 Builds the three tracking forms:
   1. Daily PM log for Sysmex hematology analysers
   2. Daily PM log for the GeneXpert Dx System, following the Cepheid log (302-8386 Rev. C)
-  3. Temperature monitoring for refrigerators, cold box and rooms
+  3. Temperature monitoring for refrigerators, freezer, cold box and rooms
 One worksheet per month, printable landscape on A4.
 """
 import os, calendar
@@ -536,7 +536,7 @@ def temperature_log():
     # device register
     ws = wb.create_sheet("Device register")
     head(ws, "TEMPERATURE MONITORING \u2013 DEVICE REGISTER",
-         "Register each refrigerator, cold box and air-conditioned room before logging "
+         "Register each refrigerator, freezer, cold box and air-conditioned room before logging "
          "temperatures for it.", 9)
     hr = 4
     cols = ["No.", "Device / room", "Location", "Asset no.",
@@ -553,6 +553,8 @@ def temperature_log():
          "RULIDH/LAB/ME/0106", "2 \u00b0C to 8 \u00b0C", "", "", "", "Twice daily"),
         ("Refrigerator \u2013 FIOCCHETTI", "TB Preparation Room",
          "RULIDH/LAB/ME/0105", "2 \u00b0C to 8 \u00b0C", "", "", "", "Twice daily"),
+        ("Freezer", "fill in \u2013 acquired 11/08/2026",
+         "not yet on inventory", "-20 \u00b0C \u00b1 5 \u00b0C", "", "", "", "Twice daily"),
         ("Cold box \u2013 sample transport", "Reception", "", "2 \u00b0C to 8 \u00b0C",
          "", "", "", "At departure and arrival"),
         ("Room \u2013 Hematology", "Hematology Room", "", "18 \u00b0C to 25 \u00b0C",
@@ -584,10 +586,13 @@ def temperature_log():
         ws.column_dimensions[get_column_letter(i)].width = w
     note = r + 9
     ws.cell(row=note, column=1,
-            value="Ranges: refrigerator 2\u20138 \u00b0C, cold box 2\u20138 \u00b0C in "
-                  "transit, rooms 18\u201325 \u00b0C and below 70% relative humidity, per "
-                  "RliDHL-ADM-SOP-056. The laboratory has no freezer in service; the "
-                  "register lists what exists, not what a generic form would expect.").font = Font(italic=True, size=8.5)
+            value="Ranges: refrigerator 2\u20138 \u00b0C, freezer -20 \u00b0C \u00b1 5 "
+                  "\u00b0C, cold box 2\u20138 \u00b0C in transit, rooms 18\u201325 "
+                  "\u00b0C and below 70% relative humidity, per RliDHL-ADM-SOP-056. "
+                  "The freezer was acquired on 11 August 2026 and is not yet on the "
+                  "hospital equipment inventory; write its model, serial number and asset "
+                  "code here as soon as they are assigned, and add it to the inventory at "
+                  "the next revision.").font = Font(italic=True, size=8.5)
     ws.merge_cells(start_row=note, start_column=1, end_row=note, end_column=9)
     ws.cell(row=note, column=1).alignment = Alignment(wrap_text=True, vertical="top")
     ws.row_dimensions[note].height = 30
@@ -599,7 +604,7 @@ def temperature_log():
         ndays = calendar.monthrange(YEAR, mnum)[1]
         ncols = 2 + ndays + 3
         head(ws, "TEMPERATURE MONITORING RECORD",
-             f"{mname} {YEAR}  \u2022  refrigerators, cold box and rooms  \u2022  "
+             f"{mname} {YEAR}  \u2022  refrigerators, freezer, cold box and rooms  \u2022  "
              f"RliDHL-ADM-SOP-056", ncols)
 
         id_block(ws, 4, [
@@ -621,6 +626,7 @@ def temperature_log():
             ("Refrigerator \u2013 BB R625 S", "2\u20138 \u00b0C"),
             ("Refrigerator \u2013 0914327-03", "2\u20138 \u00b0C"),
             ("Refrigerator \u2013 FIOCCHETTI", "2\u20138 \u00b0C"),
+            ("Freezer", "-20 \u00b0C \u00b1 5"),
             ("Cold box \u2013 transport", "2\u20138 \u00b0C"),
             ("Room \u2013 Hematology", "18\u201325 \u00b0C"),
             ("Room \u2013 Biochemistry", "18\u201325 \u00b0C"),
@@ -694,15 +700,15 @@ def temperature_log():
     ws.column_dimensions["A"].width = 3
     ws.column_dimensions["B"].width = 100
     lines = [
-        ("t", "Temperature monitoring \u2013 refrigerators, cold box and rooms"),
+        ("t", "Temperature monitoring \u2013 refrigerators, freezer, cold box and rooms"),
         ("n", "RliDHL-ADM-SOP-056 \u2022 Ruli District Hospital Laboratory \u2022 forms "
               "prepared 14 November 2026"),
         ("b", ""),
         ("h", "Sheets in this workbook"),
-        ("p", "Device register \u2013 fill this in once. It is pre-filled with the "
-              "refrigerators, cold box and rooms that are actually on the hospital "
-              "equipment inventory. There is no freezer in service, so none is listed. "
-              "Add a device only when it exists and has been assigned a required range."),
+        ("p", "Device register \u2013 fill this in once. It is pre-filled with every "
+              "unit the laboratory actually holds: three refrigerators, the freezer, the "
+              "sample-transport cold box and four rooms. Add a unit only when it exists "
+              "and has been assigned a required range."),
         ("p", "Jan to Dec \u2013 one monitoring sheet per month."),
         ("b", ""),
         ("h", "How to record"),
@@ -714,6 +720,15 @@ def temperature_log():
         ("p", "4.  Circle or highlight any reading outside the required range and write "
               "the action taken in the comments box."),
         ("p", "5.  The section head signs at the bottom of the sheet each month."),
+        ("b", ""),
+        ("h", "A newly acquired unit must be verified before it holds anything"),
+        ("p", "The freezer arrived on 11 August 2026 from a health centre. An instrument "
+              "that has been moved is not the same instrument until it has been shown to "
+              "hold temperature. Before it is trusted with specimens or reagents: let it "
+              "run empty for 24 hours, then record the temperature at start and end of day "
+              "for a full week with a calibrated thermometer or a logger, confirm it holds "
+              "-20 \u00b0C \u00b1 5 \u00b0C across that week, and record the "
+              "verification here and in the comments box of the first monthly sheet."),
         ("b", ""),
         ("h", "If a reading is out of range"),
         ("p", "Do not discard the contents on the basis of the reading alone. Move them "
@@ -730,7 +745,7 @@ def temperature_log():
               "hygrometer, add the humidity reading to the comments box."),
         ("b", ""),
         ("h", "Minimum expectations"),
-        ("p", "\u2022  Refrigerators: twice every working day."),
+        ("p", "\u2022  Refrigerators and the freezer: twice every working day."),
         ("p", "\u2022  Rooms: once every working day."),
         ("p", "\u2022  Cold boxes: at departure and at arrival."),
         ("p", "\u2022  Data loggers: downloaded and filed at least monthly, in addition "
