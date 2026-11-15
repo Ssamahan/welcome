@@ -31,7 +31,7 @@ ws.column_dimensions["B"].width = 112
 
 rows = [
     ("t", "New equipment-maintenance SOPs \u2013 approval and issue tracker"),
-    ("n", "Prepared 14 November 2026 for the Laboratory Manager, Ruli District Hospital."),
+    ("n", "Prepared 14 November 2026 for the Head of Laboratory, Ruli District Hospital."),
     ("b", ""),
     ("h", "What this file is for"),
     ("p", "Seven SOPs were written in November 2026 to close gaps found during the "
@@ -110,22 +110,28 @@ for kind, text in rows:
 
 # ---------------------------------------------------------------- TRACKER
 ws = wb.create_sheet("Approval tracker")
-ws["A1"] = "Approval and issue tracker \u2013 new equipment-maintenance SOPs (November 2026)"
-ws["A1"].font = TITLE_FONT
-ws.merge_cells("A1:L1")
+ws["A1"] = "RULI DISTRICT HOSPITAL \u2013 LABORATORY DEPARTMENT\nP.O. BOX 1285 KIGALI  \u2022  Tel: (+250) 0781 316 368  \u2022  ruli.hospital@moh.gov.rw  \u2022  rulihospital.rw"
+ws["A1"].font = Font(size=8.5, color="595959")
+ws["A1"].alignment = Alignment(horizontal="center", wrap_text=True)
+ws.row_dimensions[1].height = 26
+ws.merge_cells("A1:K1")
+ws["A2"] = "Approval and issue tracker \u2013 new equipment-maintenance SOPs (November 2026)"
+ws["A2"].font = TITLE_FONT
+ws.merge_cells("A2:K2")
 
-ws["A2"] = ("Fill the shaded columns as each step is completed. A SOP is not in force "
-            "until both the prepared-by and the authorised-by signatures and dates are "
+ws["A3"] = ("Fill the shaded columns as each step is completed. A SOP is not in force "
+            "until the prepared-by, reviewed-by and approved-by signatures and dates are "
             "entered and the signed scan is filed.")
-ws["A2"].font = NOTE_FONT
-ws["A2"].alignment = Alignment(wrap_text=True, vertical="top")
-ws.merge_cells("A2:L2")
-ws.row_dimensions[2].height = 28
+ws["A3"].font = NOTE_FONT
+ws["A3"].alignment = Alignment(wrap_text=True, vertical="top")
+ws.merge_cells("A3:K3")
+ws.row_dimensions[3].height = 28
 
 headers = [
     "SOP code", "Title", "Version", "Proposed effective\ndate",
-    "Review due", "Prepared by\n(name)", "Prepared\n(date)",
-    "Authorised by\n(name)", "Authorised\n(date)",
+    "Review due", "Prepared by\nHead of Laboratory\n(name / date)",
+    "Reviewed by\nBMeT\n(name / date)",
+    "Approved by\nDirector General\n(name / date)",
     "Signed scan\nfiled?", "Master List\nupdated?", "Status",
 ]
 HR = 4
@@ -157,27 +163,27 @@ SOPs = [
 r = HR + 1
 for code, title in SOPs:
     vals = [code, title, "001", "14/11/2026", "14/11/2028",
-            "Kelvin SAMAHANI", "", "Dr. D\u00e9ogratias KANEZA", "", "No", "No",
-            "Awaiting signature"]
+            "Kelvin SAMAHANI", "Pacifique ISHIMWE", "Dr. D\u00e9ogratias KANEZA",
+            "No", "No", "Awaiting approval"]
     for i, v in enumerate(vals, 1):
         c = ws.cell(row=r, column=i, value=v)
         c.border = BORDER
         c.alignment = WRAP
         c.font = Font(size=9)
-        if i in (7, 9, 10, 11, 12):
+        if i in (6, 7, 8, 9, 10, 11):
             c.fill = PatternFill("solid", fgColor="FFF2CC")
-    ws.row_dimensions[r].height = 34
+    ws.row_dimensions[r].height = 40
     r += 1
 
-dv = DataValidation(type="list", formula1='"Awaiting signature,Prepared - awaiting authorisation,Authorised - in force,Superseded,Withdrawn"', allow_blank=True)
+dv = DataValidation(type="list", formula1='"Awaiting approval,Prepared - awaiting BMeT review,Reviewed - awaiting DG approval,Approved - in force,Superseded,Withdrawn"', allow_blank=True)
 ws.add_data_validation(dv)
-dv.add(f"L{HR+1}:L{r-1}")
+dv.add(f"K{HR+1}:K{r-1}")
 
 dv2 = DataValidation(type="list", formula1='"Yes,No,Not applicable"', allow_blank=True)
 ws.add_data_validation(dv2)
-dv2.add(f"J{HR+1}:K{r-1}")
+dv2.add(f"I{HR+1}:J{r-1}")
 
-widths = [27, 46, 9, 14, 12, 20, 11, 22, 12, 11, 12, 24]
+widths = [27, 46, 9, 14, 12, 22, 20, 22, 11, 12, 24]
 for i, w in enumerate(widths, 1):
     ws.column_dimensions[get_column_letter(i)].width = w
 ws.freeze_panes = f"C{HR+1}"
@@ -186,7 +192,7 @@ nr = r + 1
 ws.cell(row=nr, column=1,
         value="Rows are pre-filled with the code, title and proposed dates. Enter the "
               "signature dates and change the status as each step completes.").font = NOTE_FONT
-ws.merge_cells(f"A{nr}:L{nr}")
+ws.merge_cells(f"A{nr}:K{nr}")
 
 # ---------------------------------------------------------------- CONTENT MAP
 ws2 = wb.create_sheet("Content map")

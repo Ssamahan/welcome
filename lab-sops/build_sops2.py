@@ -194,7 +194,7 @@ def hematology():
              "Approves this SOP and signs the cover block and the signature page. Under "
              "ISO 15189:2022 the approval of a controlled laboratory document rests with "
              "the head of the institution, not with the laboratory."),
-            ("Laboratory Manager",
+            ("Head of Laboratory",
              "Is accountable for this SOP and for the resources it requires. Authorises "
              "the withdrawal of an analyser from service and the purchase of reagents and "
              "service, and countersigns the SOP for approval by the Director General."),
@@ -476,7 +476,7 @@ def hematology():
     )
     P(
         doc,
-        "The service report is signed by the engineer and by the Laboratory Manager, filed "
+        "The service report is signed by the engineer and by the Head of Laboratory, filed "
         "with the equipment records, and the next service date is entered on the PM "
         "schedule in the format of the laboratory PM planner.",
     )
@@ -705,7 +705,7 @@ def genexpert():
              "Approves this SOP and signs the cover block and the signature page. Under "
              "ISO 15189:2022 the approval of a controlled laboratory document rests with "
              "the head of the institution, not with the laboratory."),
-            ("Laboratory Manager",
+            ("Head of Laboratory",
              "Is accountable for this SOP and for the resources it requires. Ensures the "
              "annual calibration kits are budgeted and procured. Authorises withdrawal of "
              "a module from use, and countersigns the SOP for approval by the Director "

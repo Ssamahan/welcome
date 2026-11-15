@@ -30,6 +30,12 @@ ws.column_dimensions["F"].width = 26
 ws.column_dimensions["G"].width = 50
 
 r = 1
+ws.cell(row=r, column=2, value="RULI DISTRICT HOSPITAL \u2013 LABORATORY DEPARTMENT\nP.O. BOX 1285 KIGALI  \u2022  Tel: (+250) 0781 316 368  \u2022  ruli.hospital@moh.gov.rw  \u2022  rulihospital.rw")
+ws.cell(row=r, column=2).font = Font(size=8.5, color="595959")
+ws.cell(row=r, column=2).alignment = Alignment(wrap_text=True)
+ws.merge_cells(start_row=r, start_column=2, end_row=r, end_column=7)
+ws.row_dimensions[r].height = 26
+r += 1
 ws.cell(row=r, column=2, value="Change log addendum \u2013 equipment maintenance block, November 2026")
 ws.cell(row=r, column=2).font = Font(bold=True, size=13, color=NAVY)
 r += 1
@@ -123,7 +129,7 @@ ROWS = [
      "portable-use rules are stated separately. Instrument limits are deferred to each "
      "operator manual. Section 3.1 records the withdrawal of the KX-21N, XS-500i, Pochi "
      "and Humacount 5 and states that this SOP does not apply to them.",
-     "The CD4 analyser was added to 058 at the Laboratory Manager's instruction of "
+     "The CD4 analyser was added to 058 at the Head of Laboratory's instruction of "
      "November 2026, since the Pima is held in the Hematology section. Confirm whether the "
      "CD4 bench SOP is to be merged into 058 or kept as a separate bench SOP; 058 "
      "currently cites it as a supporting document.",

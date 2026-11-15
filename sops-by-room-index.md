@@ -114,7 +114,18 @@ Quality Manual, Safety Manual and Master List live. Six subfolders:
    No. 058/2021, IEC and CLSI standards, and the Cepheid and GLI GeneXpert material.
    Manufacturer manuals that ship with the instrument are cited as supplied with it and
    carry no link. Titles follow the Rwandan hospital posts: BMeT (Biomedical Equipment
-   Technician), ICT Officer and IT Officer, not "equipment officer".
+   Technician), ICT Officer and IT Officer, not "equipment officer". The head of the
+   laboratory is the Head of Laboratory throughout; "Laboratory Manager" and "laboratory
+   director" are not used.
+
+   The letterhead is copied from Lab Tests - Normal Ranges, the laboratory's own current
+   document, and reads REPUBLIC OF RWANDA / MINISTRY OF HEALTH / GAKENKE DISTRICT /
+   RULI DISTRICT HOSPITAL / LABORATORY DEPARTMENT, then P.O. BOX 1285 KIGALI, Tel
+   (+250) 0781 316 368, ruli.hospital@moh.gov.rw and rulihospital.rw. The telephone
+   number on the Normal Ranges document itself is still the old 0782 000 853 and needs
+   correcting there. No logo image is embedded: none exists in the Drive tree, and the
+   only PNG logos there are the LTP twinning-partnership marks, which are not the
+   hospital's.
 
    Three blank forms are issued beside them, each an Excel workbook with one sheet per
    month so it can be printed or typed into:

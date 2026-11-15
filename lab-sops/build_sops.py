@@ -49,15 +49,39 @@ def base_doc(code, title, version="001"):
     # ---- cover block ----
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    r = p.add_run("REPUBLIC OF RWANDA \u2013 MINISTRY OF HEALTH")
+    r = p.add_run("REPUBLIC OF RWANDA")
     r.bold = True
     r.font.size = Pt(10)
-
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    r = p.add_run("RULI DISTRICT HOSPITAL \u2013 LABORATORY DEPARTMENT")
+    r = p.add_run("MINISTRY OF HEALTH")
     r.bold = True
-    r.font.size = Pt(12)
+    r.font.size = Pt(10)
+    p = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r = p.add_run("GAKENKE DISTRICT")
+    r.bold = True
+    r.font.size = Pt(10)
+    p = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r = p.add_run("RULI DISTRICT HOSPITAL")
+    r.bold = True
+    r.font.size = Pt(13)
+    p = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r = p.add_run("LABORATORY DEPARTMENT")
+    r.bold = True
+    r.font.size = Pt(11)
+    p = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r = p.add_run("P.O. BOX 1285 KIGALI   \u2022   Tel: (+250) 0781 316 368   \u2022   "
+                  "E-mail: ruli.hospital@moh.gov.rw")
+    r.font.size = Pt(8)
+    p = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r = p.add_run("Website: rulihospital.rw")
+    r.font.size = Pt(8)
+    p.paragraph_format.space_after = Pt(14)
 
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -126,21 +150,35 @@ def base_doc(code, title, version="001"):
         "The master copy of this SOP is held electronically in the laboratory "
         "Google Drive, folder SOPs by Room > 4. Reception > Administration > "
         "6. Equipment, Stock and Suppliers. One printed, signed copy is held by the "
-        "Laboratory Manager. Printed copies taken to a bench are uncontrolled unless "
+        "Head of Laboratory. Printed copies taken to a bench are uncontrolled unless "
         "stamped and signed."
     )
     p = doc.add_paragraph()
     p.add_run("Supersedes. ").bold = True
     p.add_run("No previous version. This is the first issue of this SOP.")
 
-    # footer
-    for s in doc.sections:
-        fp = s.footer.paragraphs[0]
+    # footer: document identity on every page, plus page x of y
+    for sec in doc.sections:
+        fp = sec.footer.paragraphs[0]
         fp.text = f"RliDHL-ADM-SOP-{code}-VERS-{version} \u2013 {title}"
         fp.alignment = WD_ALIGN_PARAGRAPH.CENTER
         for run in fp.runs:
             run.font.size = Pt(8)
             run.font.color.rgb = RGBColor(0x66, 0x66, 0x66)
+        fp2 = sec.footer.add_paragraph()
+        fp2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r = fp2.add_run("Page ")
+        r.font.size = Pt(8)
+        r.font.color.rgb = RGBColor(0x66, 0x66, 0x66)
+        fld = OxmlElement("w:fldSimple")
+        fld.set(qn("w:instr"), " PAGE ")
+        fp2._p.append(fld)
+        r2 = fp2.add_run(" of ")
+        r2.font.size = Pt(8)
+        r2.font.color.rgb = RGBColor(0x66, 0x66, 0x66)
+        fld2 = OxmlElement("w:fldSimple")
+        fld2.set(qn("w:instr"), " NUMPAGES ")
+        fp2._p.append(fld2)
 
     doc.add_page_break()
     return doc
@@ -422,7 +460,7 @@ def microscope():
              "Approves this SOP and signs the cover block and the signature page. Under "
              "ISO 15189:2022 the approval of a controlled laboratory document rests with "
              "the head of the institution, not with the laboratory."),
-            ("Laboratory Manager",
+            ("Head of Laboratory",
              "Is accountable for this SOP and for the resources it requires. Authorises "
              "the purchase of replacement instruments and lenses. Signs service reports "
              "and countersigns the SOP for approval by the Director General."),
@@ -610,8 +648,8 @@ def microscope():
     )
     P(
         doc,
-        "The service report is signed by the service provider and by the Laboratory "
-        "Manager, filed with the equipment records, and the PM date is entered on the PM "
+        "The service report is signed by the service provider and by the Head of "
+        "Laboratory, filed with the equipment records, and the PM date is entered on the PM "
         "log and in the equipment inventory.",
     )
 
@@ -814,7 +852,7 @@ def centrifuge():
              "Approves this SOP and signs the cover block and the signature page. Under "
              "ISO 15189:2022 the approval of a controlled laboratory document rests with "
              "the head of the institution, not with the laboratory."),
-            ("Laboratory Manager",
+            ("Head of Laboratory",
              "Is accountable for this SOP and for the resources it requires. Authorises "
              "purchase and withdrawal from service. Signs service and verification "
              "reports, and countersigns the SOP for approval by the Director General."),
@@ -1183,7 +1221,7 @@ def waterbath():
              "Approves this SOP and signs the cover block and the signature page. Under "
              "ISO 15189:2022 the approval of a controlled laboratory document rests with "
              "the head of the institution, not with the laboratory."),
-            ("Laboratory Manager",
+            ("Head of Laboratory",
              "Is accountable for this SOP and for the resources it requires. Authorises "
              "withdrawal from service, and countersigns the SOP for approval by the "
              "Director General."),
@@ -1490,7 +1528,7 @@ def nonmedical():
              "Approves this SOP and signs the cover block and the signature page. Under "
              "ISO 15189:2022 the approval of a controlled laboratory document rests with "
              "the head of the institution, not with the laboratory."),
-            ("Laboratory Manager",
+            ("Head of Laboratory",
              "Is accountable for this SOP and for the resources it requires. Authorises "
              "purchase, replacement and disposal. Signs service contracts and service "
              "reports, and countersigns the SOP for approval by the Director General."),
@@ -1726,8 +1764,8 @@ def nonmedical():
     P(
         doc,
         "When a non-medical item fails, the bench reports it to the BMeT the same day. "
-        "The BMeT records it, arranges repair, and informs the Laboratory "
-        "Manager where the failure compromises a service. Where the failure affects "
+        "The BMeT records it, arranges repair, and informs the Head of Laboratory "
+        "where the failure compromises a service. Where the failure affects "
         "patient testing, the contingency arrangements in RliDHL-ADM-SOP-047 apply.",
     )
 
@@ -1886,7 +1924,7 @@ def ict():
              "Approves this SOP and signs the cover block and the signature page. Under "
              "ISO 15189:2022 the approval of a controlled laboratory document rests with "
              "the head of the institution, not with the laboratory."),
-            ("Laboratory Manager",
+            ("Head of Laboratory",
              "Is accountable for this SOP and for the access rights of staff. Authorises "
              "changes to the LIS configuration in writing, and countersigns the SOP for "
              "approval by the Director General."),
@@ -1942,8 +1980,8 @@ def ict():
             "are known to another person.",
             "Accounts of staff who leave, or who move to another department, are disabled "
             "on the last working day. The ICT Officer checks the user list against "
-            "the staff list every quarter and reports discrepancies to the Laboratory "
-            "Manager.",
+            "the staff list every quarter and reports discrepancies to the Head of "
+            "Laboratory.",
             "Screens lock automatically after a period set by policy, not longer than ten "
             "minutes, and staff lock the screen manually when leaving the bench.",
             "The audit trail of the LIS is enabled and is not edited or deleted by "
@@ -2035,7 +2073,7 @@ def ict():
     NUM(
         doc,
         [
-            "The ICT Officer declares downtime, informs the Laboratory Manager and "
+            "The ICT Officer declares downtime, informs the Head of Laboratory and "
             "records the start time in the downtime log.",
             "Specimens are registered on the paper downtime register, which is kept at "
             "reception and is pre-printed with the same fields as the LIS.",
@@ -2065,7 +2103,7 @@ def ict():
         [
             "Any change to the LIS configuration, an interface, a report template or a "
             "workstation that affects result handling is requested in writing and "
-            "approved by the Laboratory Manager before it is made. The change is recorded "
+            "approved by the Head of Laboratory before it is made. The change is recorded "
             "with the date, the person who made it and how it was verified.",
             "Operating system and application updates are applied in a defined change "
             "window, after a backup, and the LIS and each interface are tested afterwards.",
@@ -2126,7 +2164,7 @@ def ict():
                                                          "vendor immediately"),
             ("Suspected data breach or lost device", "Do not delete anything; secure the "
                                                      "area",
-             "Laboratory Manager and Quality Officer immediately"),
+             "Head of Laboratory and Quality Officer immediately"),
         ],
         widths=[5.2, 5.6, 5.8],
     )
