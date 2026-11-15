@@ -77,48 +77,48 @@ r += 1
 
 ROWS = [
     ("53", "Use, Care and Preventive Maintenance of the Microscope", "\u2014",
-     "RliDHL-ADM-SOP-053-VERS-001",
+     "RliDHL-ADM-SOP-050-VERS-001",
      "New SOP. Daily care, objective and condenser cleaning, Koehler alignment, oil "
      "immersion discipline, bulb and fuse replacement, annual service. Closes a gap: the "
      "laboratory had RliDHL-PAR-SOP-017 on using a microscope, but nothing on maintaining "
      "one.",
      "\u2014",
-     "RliDHL-ADM-SOP-053-VERS-001 - Use, Care and Preventive Maintenance of the "
+     "RliDHL-ADM-SOP-050-VERS-001 - Use, Care and Preventive Maintenance of the "
      "Microscope.docx"),
     ("54", "Operation, Care and Preventive Maintenance of the Centrifuge", "\u2014",
-     "RliDHL-ADM-SOP-054-VERS-001",
+     "RliDHL-ADM-SOP-051-VERS-001",
      "New SOP. Balancing, lid interlock, brush wear, speed and timer verification, spill "
      "and broken-tube decontamination, service interval.",
      "\u2014",
-     "RliDHL-ADM-SOP-054-VERS-001 - Operation, Care and Preventive Maintenance of the "
+     "RliDHL-ADM-SOP-051-VERS-001 - Operation, Care and Preventive Maintenance of the "
      "Centrifuge.docx"),
     ("55", "Operation, Care and Preventive Maintenance of the Water Bath", "\u2014",
-     "RliDHL-ADM-SOP-055-VERS-001",
+     "RliDHL-ADM-SOP-052-VERS-001",
      "New SOP. Daily water change, weekly disinfection, monthly temperature verification "
      "against a calibrated thermometer, fungal and algal control, drain-down procedure.",
      "\u2014",
-     "RliDHL-ADM-SOP-055-VERS-001 - Operation, Care and Preventive Maintenance of the "
+     "RliDHL-ADM-SOP-052-VERS-001 - Operation, Care and Preventive Maintenance of the "
      "Water Bath.docx"),
     ("56", "Management and Maintenance of Non-Medical Laboratory Equipment", "\u2014",
-     "RliDHL-ADM-SOP-056-VERS-001",
+     "RliDHL-ADM-SOP-060-VERS-001",
      "New SOP. Refrigerators and cold chain, freezer, water distiller and deioniser, air "
      "conditioning, UPS and power protection, fire extinguishers, eye wash and emergency "
      "shower. Includes the temperature-excursion procedure and the device register.",
      "Confirm the required range for the blood bank refrigerator: the SOP uses 2\u20136 "
      "\u00b0C, which is tighter than the 2\u20138 \u00b0C used for reagent fridges.",
-     "RliDHL-ADM-SOP-056-VERS-001 - Management and Maintenance of Non-Medical Laboratory "
+     "RliDHL-ADM-SOP-060-VERS-001 - Management and Maintenance of Non-Medical Laboratory "
      "Equipment.docx"),
     ("57", "Maintenance of Laboratory ICT Equipment and the Laboratory Information System",
-     "\u2014", "RliDHL-ADM-SOP-057-VERS-001",
+     "\u2014", "RliDHL-ADM-SOP-061-VERS-001",
      "New SOP. Workstations, server, printers, network, analyser interfaces, backup and "
      "restore with a monthly restore test, access control and password rules, downtime "
      "procedure, data destruction at disposal. Written against ISO 15189:2022 7.4.3 and "
      "8.4.",
      "\u2014",
-     "RliDHL-ADM-SOP-057-VERS-001 - Maintenance of Laboratory ICT Equipment and the "
+     "RliDHL-ADM-SOP-061-VERS-001 - Maintenance of Laboratory ICT Equipment and the "
      "Laboratory Information System.docx"),
     ("58", "Use, Care and Preventive Maintenance of Hematology Analysers", "\u2014",
-     "RliDHL-ADM-SOP-058-VERS-001",
+     "RliDHL-ADM-SOP-062-VERS-001",
      "New SOP, covering the three analysers in service in the Hematology section: Sysmex "
      "XN-330 (serial 17156, asset RULIDH/LAB/ME/0501), Sysmex XQ-320 (serial 12357, asset "
      "RULIDH/LAB/ME/0499) and the Alere Pima CD4 (serial PIMA-D-005378, asset "
@@ -129,14 +129,14 @@ ROWS = [
      "portable-use rules are stated separately. Instrument limits are deferred to each "
      "operator manual. Section 3.1 records the withdrawal of the KX-21N, XS-500i, Pochi "
      "and Humacount 5 and states that this SOP does not apply to them.",
-     "The CD4 analyser was added to 058 at the Laboratory Manager's instruction of "
+     "The CD4 analyser was added to 062 at the Laboratory Manager's instruction of "
      "November 2026, since the Pima is held in the Hematology section. Confirm whether the "
-     "CD4 bench SOP is to be merged into 058 or kept as a separate bench SOP; 058 "
+     "CD4 bench SOP is to be merged into 062 or kept as a separate bench SOP; 062 "
      "currently cites it as a supporting document.",
-     "RliDHL-ADM-SOP-058-VERS-001 - Use, Care and Preventive Maintenance of Hematology "
+     "RliDHL-ADM-SOP-062-VERS-001 - Use, Care and Preventive Maintenance of Hematology "
      "Analysers.docx"),
     ("59", "Use, Care and Preventive Maintenance of the GeneXpert Dx System", "\u2014",
-     "RliDHL-ADM-SOP-059-VERS-001",
+     "RliDHL-ADM-SOP-063-VERS-001",
      "New SOP, written from Cepheid source documents: maintenance presentation 301-7990 "
      "Rev. C, maintenance log 302-8386 Rev. C and Operator Manual Chapter 9. Daily, "
      "weekly, monthly, quarterly and yearly tasks; cleaning agents and their dilutions; "
@@ -145,7 +145,7 @@ ROWS = [
      "whichever comes first; Xpert Check; the Cepheid support route.",
      "Confirm the number of modules and the installation date of the instrument, and "
      "whether an Xpert Check kit is on the annual order.",
-     "RliDHL-ADM-SOP-059-VERS-001 - Use, Care and Preventive Maintenance of the GeneXpert "
+     "RliDHL-ADM-SOP-063-VERS-001 - Use, Care and Preventive Maintenance of the GeneXpert "
      "Dx System.docx"),
 ]
 
@@ -175,27 +175,27 @@ ws.row_dimensions[r].height = 26
 r += 1
 
 FORMS = [
-    ("F01", "RliDHL-ADM-SOP-056-F01", "056",
+    ("F01", "RliDHL-ADM-SOP-060-F01", "060",
      "Excel, device register plus twelve monthly sheets, printable A4 landscape",
      "Temperature of every refrigerator, freezer, cold box and room, twice daily for "
      "fridges and daily for rooms, with a device register carrying each required range.",
      "Twice daily / daily",
-     "Form RliDHL-ADM-SOP-056-F01 - Temperature monitoring fridges freezers and rooms.xlsx"),
-    ("F01", "RliDHL-ADM-SOP-058-F01", "058",
+     "Form RliDHL-ADM-SOP-060-F01 - Temperature monitoring fridges freezers and rooms.xlsx"),
+    ("F01", "RliDHL-ADM-SOP-062-F01", "062",
      "Excel, twelve monthly sheets plus a year-long CD4 register, printable A4 landscape",
      "Start-up, background count, IQC outcome, probe inspection, shutdown and operator "
      "initials for each Sysmex analyser, one row per task and one column per day; the Pima "
      "CD4 has its own register carrying date, site, cartridge lot, control outcome and "
      "number of patient runs, because it is portable and run on request rather than daily.",
      "Daily",
-     "Form RliDHL-ADM-SOP-058-F01 - Hematology analyser daily maintenance log.xlsx"),
-    ("F01", "RliDHL-ADM-SOP-059-F01", "059",
+     "Form RliDHL-ADM-SOP-062-F01 - Hematology analyser daily maintenance log.xlsx"),
+    ("F01", "RliDHL-ADM-SOP-063-F01", "063",
      "Excel, twelve monthly sheets plus a permanent module calibration register",
      "The Cepheid task list \u2013 daily, weekly, monthly, quarterly and yearly \u2013 with "
      "a two-letter initials row, plus module calibration date, kit lot and tests since "
      "calibration.",
      "Daily to annual",
-     "Form RliDHL-ADM-SOP-059-F01 - GeneXpert maintenance log.xlsx"),
+     "Form RliDHL-ADM-SOP-063-F01 - GeneXpert maintenance log.xlsx"),
 ]
 for row in FORMS:
     for i, v in enumerate(row, 2):
@@ -210,8 +210,8 @@ for row in FORMS:
 # closing notes
 r += 1
 NOTES = [
-    ("Coding", "053 to 059 continue the three-digit ADM series in which the biomedical "
-               "equipment SOP sits as ADM-008. The management series runs 1 to 52. 053 "
+    ("Coding", "050 to 063 continue the three-digit ADM series in which the biomedical "
+               "equipment SOP sits as ADM-008. The management series runs 1 to 52. 050 "
                "onwards was confirmed free against the Master List, the 50-series folder "
                "and the SOP review register before the first file was written. The next "
                "free number is 060."),
@@ -234,7 +234,7 @@ NOTES = [
                           "(iso.org/standard/76677), WHO Laboratory quality management system "
                           "handbook, WHO Laboratory biosafety manual 4th ed., WHO malaria "
                           "microscopy QA manual, WHO consolidated HIV guidelines, Rwanda Law "
-                          "No. 058/2021, ISO/IEC 27001:2022, IEC 61010-2-020:2026, CLSI C24 and "
+                          "No. 062/2021, ISO/IEC 27001:2022, IEC 61010-2-020:2026, CLSI C24 and "
                           "QMS01, the Cepheid 301-7990 maintenance presentation and the GLI "
                           "Xpert training package. Manufacturer manuals that ship with the "
                           "instrument carry no link and are cited as supplied with it. Two "

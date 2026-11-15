@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
 Adds the instrument-specific maintenance SOPs:
-  ADM-058  Hematology analysers (Sysmex XN-330, Sysmex XQ-320 and the Alere Pima
+  ADM-062  Hematology analysers (Sysmex XN-330, Sysmex XQ-320 and the Alere Pima
            CD4 analyser, the three in service)
-  ADM-059  GeneXpert Dx System, written from Cepheid source material
+  ADM-063  GeneXpert Dx System, written from Cepheid source material
 Reuses the layout helpers in build_sops.py.
 """
 import os
@@ -13,7 +13,7 @@ OUT = os.path.dirname(os.path.abspath(__file__))
 
 
 def hematology():
-    code = "058"
+    code = "062"
     title = "Use, Care and Preventive Maintenance of Hematology Analysers"
     doc = base_doc(code, title)
 
@@ -575,9 +575,9 @@ def hematology():
         ],
         [
             "17. Use and Maintenance of Biomedical Equipment (RliDHL-ADM-SOP-008-VERS-005)",
-            "RliDHL-ADM-SOP-056 \u2013 Management and Maintenance of Non-Medical "
+            "RliDHL-ADM-SOP-060 \u2013 Management and Maintenance of Non-Medical "
             "Laboratory Equipment (power protection)",
-            "RliDHL-ADM-SOP-058 daily maintenance log form and the scheduled PM record",
+            "RliDHL-ADM-SOP-062 daily maintenance log form and the scheduled PM record",
             "Bench SOP for the full blood count and for each analyser model in use, "
             "including the CD4 bench SOP",
             "HIV testing and treatment monitoring algorithm of the Rwanda Ministry of "
@@ -604,7 +604,7 @@ def hematology():
 
 
 def genexpert():
-    code = "059"
+    code = "063"
     title = ("Use, Care and Preventive Maintenance of the GeneXpert Dx System")
     doc = base_doc(code, title)
 
@@ -1083,7 +1083,7 @@ def genexpert():
         ],
         [
             "17. Use and Maintenance of Biomedical Equipment (RliDHL-ADM-SOP-008-VERS-005)",
-            "RliDHL-ADM-SOP-056 \u2013 Management and Maintenance of Non-Medical "
+            "RliDHL-ADM-SOP-060 \u2013 Management and Maintenance of Non-Medical "
             "Laboratory Equipment (power protection)",
             "RliDHL-MYC-SOP-002 \u2013 TB Bacilloscopy using Auramine",
             "RliDHL-MOL-SOP-002 \u2013 HIV Early Infant Diagnosis using GeneXpert",

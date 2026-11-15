@@ -430,7 +430,7 @@ def tail(doc, records, supporting, references):
 # 1. MICROSCOPE
 # =====================================================================
 def microscope():
-    code, title = "053", "Use, Care and Preventive Maintenance of the Microscope"
+    code, title = "050", "Use, Care and Preventive Maintenance of the Microscope"
     doc = base_doc(code, title)
 
     H(doc, "1. Introduction")
@@ -821,7 +821,7 @@ def microscope():
 # 2. CENTRIFUGE
 # =====================================================================
 def centrifuge():
-    code, title = "054", "Operation, Care and Preventive Maintenance of the Centrifuge"
+    code, title = "051", "Operation, Care and Preventive Maintenance of the Centrifuge"
     doc = base_doc(code, title)
 
     H(doc, "1. Introduction")
@@ -1208,7 +1208,7 @@ def centrifuge():
 # 3. WATER BATH
 # =====================================================================
 def waterbath():
-    code, title = "055", "Operation, Care and Preventive Maintenance of the Water Bath"
+    code, title = "052", "Operation, Care and Preventive Maintenance of the Water Bath"
     doc = base_doc(code, title)
 
     H(doc, "1. Introduction")
@@ -1488,7 +1488,7 @@ def waterbath():
 # 4. NON-MEDICAL EQUIPMENT
 # =====================================================================
 def nonmedical():
-    code, title = "056", "Management and Maintenance of Non-Medical Laboratory Equipment"
+    code, title = "060", "Management and Maintenance of Non-Medical Laboratory Equipment"
     doc = base_doc(code, title)
 
     H(doc, "1. Introduction")
@@ -1865,7 +1865,7 @@ def nonmedical():
             "RliDHL-ADM-SOP-047 \u2013 Laboratory Contingency Plan",
             "RliDHL-ADM-SOP-004 \u2013 Laboratory Temperature Control",
             "RliDHL-ADM-SOP-034 \u2013 Laboratory Waste Management",
-            "RliDHL-ADM-SOP-057 \u2013 Maintenance of ICT Equipment",
+            "RliDHL-ADM-SOP-061 \u2013 Maintenance of ICT Equipment",
         ],
         [
         ("ISO 15189:2022, Medical laboratories \u2014 Requirements for quality and competence. 4th edition. Geneva: International Organization for Standardization; 2022.",
@@ -1883,7 +1883,7 @@ def nonmedical():
 # 5. ICT EQUIPMENT
 # =====================================================================
 def ict():
-    code, title = "057", "Maintenance of Laboratory ICT Equipment and the Laboratory Information System"
+    code, title = "061", "Maintenance of Laboratory ICT Equipment and the Laboratory Information System"
     doc = base_doc(code, title)
 
     H(doc, "1. Introduction")
@@ -2265,7 +2265,7 @@ def ict():
             "RliDHL-ADM-SOP-042 \u2013 Laboratory Information System",
             "RliDHL-ADM-SOP-047 \u2013 Laboratory Contingency Plan",
             "RliDHL-ADM-SOP-008 \u2013 Use and Maintenance of Biomedical Equipment",
-            "RliDHL-ADM-SOP-056 \u2013 Management and Maintenance of Non-Medical "
+            "RliDHL-ADM-SOP-060 \u2013 Management and Maintenance of Non-Medical "
             "Laboratory Equipment",
             "RliDHL-ADM-SOP-019 \u2013 Document and Record Control",
         ],
@@ -2276,7 +2276,7 @@ def ict():
         "ISO 15189:2022, clauses 6.4 (equipment) and 8.4 (control of records).",
         ("ISO/IEC 27001:2022, Information security, cybersecurity and privacy protection \u2014 Information security management systems \u2014 Requirements. Geneva: ISO/IEC; 2022, with Amendment 1:2024, where the hospital operates a certified system.",
          "https://www.iso.org/standard/27001"),
-        ("Republic of Rwanda. Law No. 058/2021 of 13/10/2021 relating to the protection of personal data and privacy. Official Gazette n\u00b0 Special of 15/10/2021.",
+        ("Republic of Rwanda. Law No. 062/2021 of 13/10/2021 relating to the protection of personal data and privacy. Official Gazette n\u00b0 Special of 15/10/2021.",
          "https://cyber.gov.rw/fileadmin/user_upload/NCSA/Documents/Laws/OG_Special_of_15.10.2021_Amakuru_bwite.pdf"),
         "Manufacturer and vendor documentation for the LIS and the analyser interfaces in use.",
         ],

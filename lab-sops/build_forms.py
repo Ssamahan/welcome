@@ -70,6 +70,89 @@ def id_block(ws, row, fields, ncols):
     return col
 
 
+def review_block(ws, top, ncols, form_code, parent_sop):
+    """Document-control review block for the BLANK form (ISO 15189:2022 8.3.2 b and c),
+    plus a register that exposes days on which the record was not completed."""
+    # --- part 1: control of this form as a document
+    r = top
+    ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=ncols)
+    c = ws.cell(row=r, column=1, value="REVIEW AND SIGN-OFF OF THIS BLANK FORM")
+    c.font = Font(bold=True, size=9, color=NAVY)
+    c.alignment = LEFT
+    c.fill = PatternFill("solid", fgColor="DCE6F1")
+    r += 1
+
+    ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=ncols)
+    c = ws.cell(row=r, column=1,
+                value=f"{form_code} is a controlled document under its parent SOP "
+                      f"{parent_sop}. The blank form is reviewed every month for "
+                      f"continued adequacy and the reviewer signs below. The version "
+                      f"changes only when the review finds that something must change; "
+                      f"a review that finds no change is recorded here and the version "
+                      f"stays the same. This is the periodic review required by ISO "
+                      f"15189:2022, 8.3.2 c).")
+    c.font = Font(size=8.5)
+    c.alignment = Alignment(wrap_text=True, vertical="top")
+    ws.row_dimensions[r].height = 30
+    r += 1
+
+    hdr = ["Form version", "Month reviewed", "Date of review",
+           "Reviewed by (name)", "Signature", "Finding",
+           "Version changed? (Y/N)"]
+    for i, h in enumerate(hdr, start=1):
+        c = ws.cell(row=r, column=i, value=h)
+        c.font = Font(bold=True, size=8, color="FFFFFF")
+        c.fill = PatternFill("solid", fgColor=NAVY)
+        c.alignment = CEN
+        c.border = BOX
+    r += 1
+    for _ in range(6):
+        for i in range(1, 8):
+            c = ws.cell(row=r, column=i)
+            c.border = BOX
+            c.font = Font(size=9)
+        r += 1
+
+    # --- part 2: days on which the record was not completed
+    r += 1
+    ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=ncols)
+    c = ws.cell(row=r, column=1,
+                value="DAYS NOT RECORDED  \u2014  every day the log was not completed, "
+                      "why, and what was done about it")
+    c.font = Font(bold=True, size=9, color=NAVY)
+    c.alignment = LEFT
+    c.fill = PatternFill("solid", fgColor="DCE6F1")
+    r += 1
+
+    ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=ncols)
+    c = ws.cell(row=r, column=1,
+                value="A blank box cannot show whether the task was done, or whether "
+                      "the day was simply missed. Any day not covered in the monthly "
+                      "sheets is entered here, with the reason. A recurring pattern here "
+                      "is a nonconformity and must be raised as one.")
+    c.font = Font(size=8.5, italic=True)
+    c.alignment = Alignment(wrap_text=True, vertical="top")
+    ws.row_dimensions[r].height = 22
+    r += 1
+
+    hdr2 = ["Date not recorded", "Which task or reading was missed", "Reason",
+            "Action taken", "Reported to", "Closed on", "Initials"]
+    for i, h in enumerate(hdr2, start=1):
+        c = ws.cell(row=r, column=i, value=h)
+        c.font = Font(bold=True, size=8, color="FFFFFF")
+        c.fill = PatternFill("solid", fgColor="C00000")
+        c.alignment = CEN
+        c.border = BOX
+    r += 1
+    for _ in range(8):
+        for i in range(1, 8):
+            c = ws.cell(row=r, column=i)
+            c.border = BOX
+            c.font = Font(size=9)
+        r += 1
+    return r
+
+
 def setup_print(ws, ncols):
     ws.page_setup.orientation = "landscape"
     ws.page_setup.paperSize = ws.PAPERSIZE_A4
@@ -106,7 +189,7 @@ def hematology_log():
         last_day = first_day + ndays - 1
         ncols = last_day + 1
         head(ws, "HEMATOLOGY ANALYSER \u2013 DAILY MAINTENANCE AND START-UP LOG",
-             f"{mname} {YEAR}  \u2022  RliDHL-ADM-SOP-058  \u2022  one row per task, "
+             f"{mname} {YEAR}  \u2022  RliDHL-ADM-SOP-062  \u2022  one row per task, "
              f"initial and tick the box each day", ncols)
 
         id_block(ws, 4, [
@@ -204,7 +287,7 @@ def hematology_log():
     ncols = len(PCOLS)
 
     head(ws, "ALERE PIMA CD4 ANALYSER \u2013 DAILY CHECK AND RUN REGISTER",
-         f"RliDHL-ADM-SOP-058  \u2022  one line per day the instrument is used, "
+         f"RliDHL-ADM-SOP-062  \u2022  one line per day the instrument is used, "
          f"whole year on one sheet  \u2022  {YEAR}", ncols)
 
     id_block(ws, 5, [
@@ -263,7 +346,7 @@ def hematology_log():
     ws.column_dimensions["B"].width = 100
     lines = [
         ("t", "Hematology analyser \u2013 daily maintenance and start-up log"),
-        ("n", "RliDHL-ADM-SOP-058 \u2022 Ruli District Hospital Laboratory \u2022 forms "
+        ("n", "RliDHL-ADM-SOP-062 \u2022 Ruli District Hospital Laboratory \u2022 forms "
               "prepared 14 November 2026"),
         ("b", ""),
         ("h", "What this form is for"),
@@ -334,7 +417,9 @@ def hematology_log():
             c.alignment = Alignment(wrap_text=True, vertical="top")
         r += 1
 
-    wb.save(os.path.join(OUT, "Form RliDHL-ADM-SOP-058-F01 - Hematology analyser daily maintenance log.xlsx"))
+    review_block(ws, r + 2, 8, "Form RliDHL-ADM-SOP-062-F01",
+                 "RliDHL-ADM-SOP-062")
+    wb.save(os.path.join(OUT, "Form RliDHL-ADM-SOP-062-F01 - Hematology analyser daily maintenance log.xlsx"))
 
 
 # =====================================================================
@@ -351,7 +436,7 @@ def genexpert_log():
         last_day = first_day + ndays - 1
         ncols = last_day + 1
         head(ws, "GENEXPERT Dx SYSTEM \u2013 MAINTENANCE LOG",
-             f"{mname} {YEAR}  \u2022  RliDHL-ADM-SOP-059  \u2022  modelled on Cepheid "
+             f"{mname} {YEAR}  \u2022  RliDHL-ADM-SOP-063  \u2022  modelled on Cepheid "
              f"document 302-8386 Rev. C", ncols)
 
         id_block(ws, 4, [
@@ -518,7 +603,7 @@ def genexpert_log():
     ws.column_dimensions["B"].width = 100
     lines = [
         ("t", "GeneXpert Dx System \u2013 maintenance log"),
-        ("n", "RliDHL-ADM-SOP-059 \u2022 modelled on the Cepheid GeneXpert System "
+        ("n", "RliDHL-ADM-SOP-063 \u2022 modelled on the Cepheid GeneXpert System "
               "Maintenance Log, document 302-8386 Rev. C \u2022 prepared 14 November 2026"),
         ("b", ""),
         ("h", "Structure"),
@@ -595,7 +680,9 @@ def genexpert_log():
             c.alignment = Alignment(wrap_text=True, vertical="top")
         r += 1
 
-    wb.save(os.path.join(OUT, "Form RliDHL-ADM-SOP-059-F01 - GeneXpert maintenance log.xlsx"))
+    review_block(ws, r + 2, 8, "Form RliDHL-ADM-SOP-063-F01",
+                 "RliDHL-ADM-SOP-063")
+    wb.save(os.path.join(OUT, "Form RliDHL-ADM-SOP-063-F01 - GeneXpert maintenance log.xlsx"))
 
 
 # =====================================================================
@@ -660,7 +747,7 @@ def temperature_log():
     ws.cell(row=note, column=1,
             value="Ranges: refrigerator 2\u20138 \u00b0C, freezer -20 \u00b0C \u00b1 5 "
                   "\u00b0C, cold box 2\u20138 \u00b0C in transit, rooms 18\u201325 "
-                  "\u00b0C and below 70% relative humidity, per RliDHL-ADM-SOP-056. "
+                  "\u00b0C and below 70% relative humidity, per RliDHL-ADM-SOP-060. "
                   "The freezer was acquired on 11 August 2026 and is not yet on the "
                   "hospital equipment inventory; write its model, serial number and asset "
                   "code here as soon as they are assigned, and add it to the inventory at "
@@ -677,7 +764,7 @@ def temperature_log():
         ncols = 2 + ndays + 3
         head(ws, "TEMPERATURE MONITORING RECORD",
              f"{mname} {YEAR}  \u2022  refrigerators, freezer, cold box and rooms  \u2022  "
-             f"RliDHL-ADM-SOP-056", ncols)
+             f"RliDHL-ADM-SOP-060", ncols)
 
         id_block(ws, 4, [
             ("Month", f"{mname} {YEAR}", 2),
@@ -773,7 +860,7 @@ def temperature_log():
     ws.column_dimensions["B"].width = 100
     lines = [
         ("t", "Temperature monitoring \u2013 refrigerators, freezer, cold box and rooms"),
-        ("n", "RliDHL-ADM-SOP-056 \u2022 Ruli District Hospital Laboratory \u2022 forms "
+        ("n", "RliDHL-ADM-SOP-060 \u2022 Ruli District Hospital Laboratory \u2022 forms "
               "prepared 14 November 2026"),
         ("b", ""),
         ("h", "Sheets in this workbook"),
@@ -808,7 +895,7 @@ def temperature_log():
               "extent of the excursion, assess each reagent and specimen against its "
               "storage specification, quarantine anything outside specification, and "
               "inform the Laboratory Quality Manager the same day. The full procedure is in "
-              "RliDHL-ADM-SOP-056, section 6.2."),
+              "RliDHL-ADM-SOP-060, section 6.2."),
         ("b", ""),
         ("h", "Rooms"),
         ("p", "Rooms are recorded because humidity and temperature control the growth of "
@@ -842,7 +929,9 @@ def temperature_log():
             c.alignment = Alignment(wrap_text=True, vertical="top")
         r += 1
 
-    wb.save(os.path.join(OUT, "Form RliDHL-ADM-SOP-056-F01 - Temperature monitoring fridges freezers and rooms.xlsx"))
+    review_block(ws, r + 2, 8, "Form RliDHL-ADM-SOP-060-F01",
+                 "RliDHL-ADM-SOP-060")
+    wb.save(os.path.join(OUT, "Form RliDHL-ADM-SOP-060-F01 - Temperature monitoring fridges freezers and rooms.xlsx"))
 
 
 if __name__ == "__main__":

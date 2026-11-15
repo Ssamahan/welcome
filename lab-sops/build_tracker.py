@@ -62,28 +62,37 @@ rows = [
           "name carries one."),
     ("b", ""),
     ("h", "Numbering"),
-    ("p", "The codes are RliDHL-ADM-SOP-053 to 059, version 001. The existing "
-          "management SOP series runs 1 to 52, and the 2026 biomedical equipment SOP is "
-          "ADM-008. 053 onwards is a free block: nothing in the Master List, in the "
-          "50-series folder or in the SOP review register uses these numbers. Check the "
-          "Master List again before issuing 060."),
+    ("p", "The codes are RliDHL-ADM-SOP-050 to 052 and 060 to 063, version 001. They "
+          "were taken from MASTER LIST 2025.docx, not assumed. That register carries 49 "
+          "ADM-SOP entries numbered 1 to 49, so the next free number was 050, not 053: "
+          "050, 051 and 052 were unused and the earlier draft of this pack wrongly "
+          "skipped them. Number 35 has never been used and number 49 is used twice, for "
+          "Biological Reference Intervals and for Meet the Clinicians."),
+    ("p", "060 to 063 were chosen deliberately rather than continuing at 053. The "
+          "laboratory holds at least two management SOPs numbered above 52 that were "
+          "never added to the Master List: a file named 52. Resolution of complaints "
+          "and, more seriously, RliDHL-ADM-SOP-008-VERS-005, which is the 2026 revision "
+          "of the biomedical equipment SOP and collides with the legacy 008 "
+          "Authorization. Until that is resolved, any number between 053 and 059 might "
+          "already be in use on paper. Confirm against the Master List and the physical "
+          "file before issuing anything in that range."),
     ("b", ""),
     ("h", "The seven documents"),
-    ("p", "053  Use, Care and Preventive Maintenance of the Microscope"),
-    ("p", "054  Operation, Care and Preventive Maintenance of the Centrifuge"),
-    ("p", "055  Operation, Care and Preventive Maintenance of the Water Bath"),
-    ("p", "056  Management and Maintenance of Non-Medical Laboratory Equipment"),
-    ("p", "057  Maintenance of Laboratory ICT Equipment and the Laboratory "
+    ("p", "050  Use, Care and Preventive Maintenance of the Microscope"),
+    ("p", "051  Operation, Care and Preventive Maintenance of the Centrifuge"),
+    ("p", "052  Operation, Care and Preventive Maintenance of the Water Bath"),
+    ("p", "060  Management and Maintenance of Non-Medical Laboratory Equipment"),
+    ("p", "061  Maintenance of Laboratory ICT Equipment and the Laboratory "
           "Information System"),
-    ("p", "058  Use, Care and Preventive Maintenance of Hematology Analysers"),
-    ("p", "059  Use, Care and Preventive Maintenance of the GeneXpert Dx System"),
+    ("p", "062  Use, Care and Preventive Maintenance of Hematology Analysers"),
+    ("p", "063  Use, Care and Preventive Maintenance of the GeneXpert Dx System"),
     ("b", ""),
     ("h", "The three forms"),
-    ("p", "058-F01  Hematology analyser daily maintenance and start-up log, one sheet "
+    ("p", "062-F01  Hematology analyser daily maintenance and start-up log, one sheet "
           "per month, one row per daily task"),
-    ("p", "059-F01  GeneXpert Dx System maintenance log, modelled on the Cepheid form "
+    ("p", "063-F01  GeneXpert Dx System maintenance log, modelled on the Cepheid form "
           "302-8386 Rev. C, with a permanent module calibration register"),
-    ("p", "056-F01  Temperature monitoring for fridges, freezers, cold boxes and "
+    ("p", "060-F01  Temperature monitoring for fridges, freezers, cold boxes and "
           "rooms, with a device register"),
     ("p", "Each form is issued as an Excel workbook with twelve monthly sheets, so the "
           "bench can either print a sheet or type into it. The forms are listed on the "
@@ -144,19 +153,19 @@ for i, h in enumerate(headers, 1):
 ws.row_dimensions[HR].height = 38
 
 SOPs = [
-    ("RliDHL-ADM-SOP-053-VERS-001",
+    ("RliDHL-ADM-SOP-050-VERS-001",
      "Use, Care and Preventive Maintenance of the Microscope"),
-    ("RliDHL-ADM-SOP-054-VERS-001",
+    ("RliDHL-ADM-SOP-051-VERS-001",
      "Operation, Care and Preventive Maintenance of the Centrifuge"),
-    ("RliDHL-ADM-SOP-055-VERS-001",
+    ("RliDHL-ADM-SOP-052-VERS-001",
      "Operation, Care and Preventive Maintenance of the Water Bath"),
-    ("RliDHL-ADM-SOP-056-VERS-001",
+    ("RliDHL-ADM-SOP-060-VERS-001",
      "Management and Maintenance of Non-Medical Laboratory Equipment"),
-    ("RliDHL-ADM-SOP-057-VERS-001",
+    ("RliDHL-ADM-SOP-061-VERS-001",
      "Maintenance of Laboratory ICT Equipment and the Laboratory Information System"),
-    ("RliDHL-ADM-SOP-058-VERS-001",
+    ("RliDHL-ADM-SOP-062-VERS-001",
      "Use, Care and Preventive Maintenance of Hematology Analysers"),
-    ("RliDHL-ADM-SOP-059-VERS-001",
+    ("RliDHL-ADM-SOP-063-VERS-001",
      "Use, Care and Preventive Maintenance of the GeneXpert Dx System"),
 ]
 
@@ -214,67 +223,67 @@ for i, h in enumerate(h2, 1):
     c.alignment = Alignment(wrap_text=True, vertical="center", horizontal="center")
 
 content = [
-    ("053 Microscope", "Daily, weekly and monthly care of the microscope", "6.3 \u2013 6.5",
+    ("050 Microscope", "Daily, weekly and monthly care of the microscope", "6.3 \u2013 6.5",
      "Dust cover is the single most effective action in this climate"),
-    ("053 Microscope", "Setting up Koehler illumination", "6.6",
+    ("050 Microscope", "Setting up Koehler illumination", "6.6",
      "Step-by-step; repeated after a lamp change or service"),
-    ("053 Microscope", "Oil immersion technique", "6.7",
+    ("050 Microscope", "Oil immersion technique", "6.7",
      "Oil is wiped off immediately, never left to harden"),
-    ("053 Microscope", "Annual preventive maintenance and acceptance criteria", "6.8",
+    ("050 Microscope", "Annual preventive maintenance and acceptance criteria", "6.8",
      "Eight-point checklist the service provider must report on"),
-    ("053 Microscope", "Faults and when to take it out of service", "6.9",
+    ("050 Microscope", "Faults and when to take it out of service", "6.9",
      "Includes fungal growth \u2013 stop using, do not clean"),
-    ("053 Microscope", "Humidity and storage", "6.10",
+    ("050 Microscope", "Humidity and storage", "6.10",
      "Ties to relative humidity below 70%"),
-    ("054 Centrifuge", "Balancing a load", "6.3",
+    ("051 Centrifuge", "Balancing a load", "6.3",
      "Every run, every speed, no exceptions"),
-    ("054 Centrifuge", "RCF versus rpm and the conversion formula", "6.4",
+    ("051 Centrifuge", "RCF versus rpm and the conversion formula", "6.4",
      "RCF is set directly wherever the instrument allows"),
-    ("054 Centrifuge", "Broken tube and spill inside the bowl", "6.6",
+    ("051 Centrifuge", "Broken tube and spill inside the bowl", "6.6",
      "30-minute wait before opening if infectious"),
-    ("054 Centrifuge", "Speed and timer verification limits", "6.8",
+    ("051 Centrifuge", "Speed and timer verification limits", "6.8",
      "\u00b1 10% speed, \u00b1 5% timer, every 6 months and after repair"),
-    ("054 Centrifuge", "Rotor life record and retirement", "6.9",
+    ("051 Centrifuge", "Rotor life record and retirement", "6.9",
      "Rotors have a finite life in hours or years"),
-    ("055 Water bath", "Water quality and filling", "6.1",
+    ("052 Water bath", "Water quality and filling", "6.1",
      "Distilled water only; tap water scales the heater"),
-    ("055 Water bath", "Daily temperature check and acceptance limits", "6.2 and 6.4",
+    ("052 Water bath", "Daily temperature check and acceptance limits", "6.2 and 6.4",
      "\u00b1 1.0 \u00b0C at 37 \u00b0C and at 56 \u00b0C"),
-    ("055 Water bath", "Weekly drain, clean and disinfect", "6.3",
+    ("052 Water bath", "Weekly drain, clean and disinfect", "6.3",
      "Biofilm appears within two weeks if neglected"),
-    ("055 Water bath", "Electrical safety", "6.5",
+    ("052 Water bath", "Electrical safety", "6.5",
      "RCD, dry control housing, cord inspection"),
-    ("056 Non-medical", "Full list of what counts as non-medical equipment", "3",
+    ("060 Non-medical", "Full list of what counts as non-medical equipment", "3",
      "Six classes: cold storage, water, air, power, environment, safety"),
-    ("056 Non-medical", "Refrigerator and cold chain temperature ranges", "6.2",
+    ("060 Non-medical", "Refrigerator and cold chain temperature ranges", "6.2",
      "Reagent 2\u20138 \u00b0C, blood bank 2\u20136 \u00b0C, freezer -20 \u00b0C"),
-    ("056 Non-medical", "Action on a temperature excursion", "6.2",
+    ("060 Non-medical", "Action on a temperature excursion", "6.2",
      "Do not discard on the reading alone; assess then decide"),
-    ("056 Non-medical", "Water distiller and deioniser maintenance", "6.3",
+    ("060 Non-medical", "Water distiller and deioniser maintenance", "6.3",
      "Includes conductivity acceptance limit"),
-    ("056 Non-medical", "Air conditioning and humidity control", "6.4",
+    ("060 Non-medical", "Air conditioning and humidity control", "6.4",
      "18\u201325 \u00b0C and below 70% RH \u2013 protects the microscopes"),
-    ("056 Non-medical", "UPS testing and battery replacement", "6.5",
+    ("060 Non-medical", "UPS testing and battery replacement", "6.5",
      "Monthly simulated mains failure, batteries every 3\u20135 years"),
-    ("056 Non-medical", "Fire extinguishers, eye wash, emergency shower", "6.6",
+    ("060 Non-medical", "Fire extinguishers, eye wash, emergency shower", "6.6",
      "Monthly and weekly checks with records"),
-    ("057 ICT", "ICT register contents", "6.1",
+    ("061 ICT", "ICT register contents", "6.1",
      "Includes OS version so out-of-support builds are visible"),
-    ("057 ICT", "Access control and confidentiality rules", "6.2",
+    ("061 ICT", "Access control and confidentiality rules", "6.2",
      "Named accounts, least privilege, quarterly account review"),
-    ("057 ICT", "Routine maintenance schedule", "6.3",
+    ("061 ICT", "Routine maintenance schedule", "6.3",
      "Daily to annual, in one table"),
-    ("057 ICT", "Backup frequency, retention and location", "6.4",
+    ("061 ICT", "Backup frequency, retention and location", "6.4",
      "Off-site copy of each weekly full backup"),
-    ("057 ICT", "Restore test", "6.3 and 6.4",
+    ("061 ICT", "Restore test", "6.3 and 6.4",
      "Monthly; a backup that has never been restored is not evidence"),
-    ("057 ICT", "Downtime procedure", "6.5",
+    ("061 ICT", "Downtime procedure", "6.5",
      "Paper register, entry on restoration, second-person check"),
-    ("057 ICT", "Change control for LIS and interfaces", "6.6",
+    ("061 ICT", "Change control for LIS and interfaces", "6.6",
      "Written approval before the change, validation after"),
-    ("057 ICT", "Data destruction before disposal", "6.8",
+    ("061 ICT", "Data destruction before disposal", "6.8",
      "Witnessed, recorded, storage wiped or destroyed"),
-    ("057 ICT", "Fault escalation table", "6.9",
+    ("061 ICT", "Fault escalation table", "6.9",
      "First action and escalation route for eight common faults"),
 ]
 
@@ -311,15 +320,15 @@ for i, h in enumerate(fh, 1):
     c.alignment = Alignment(wrap_text=True, vertical="center", horizontal="center")
 
 forms = [
-    ("RliDHL-ADM-SOP-058-F01", "Hematology analyser daily maintenance and start-up log",
-     "058", "Daily", "Excel, 12 monthly sheets", "Issued 14/11/2026"),
-    ("RliDHL-ADM-SOP-059-F01", "GeneXpert Dx System maintenance log, with module calibration register",
-     "059", "Daily to annual", "Excel, 12 monthly sheets plus register", "Issued 14/11/2026"),
-    ("RliDHL-ADM-SOP-056-F01", "Temperature monitoring: fridges, freezers, cold boxes and rooms",
-     "056", "Twice daily / daily", "Excel, device register plus 12 monthly sheets", "Issued 14/11/2026"),
-    ("RliDHL-ADM-SOP-053-F01", "Not yet created", "053", "Daily / weekly / monthly",
+    ("RliDHL-ADM-SOP-062-F01", "Hematology analyser daily maintenance and start-up log",
+     "062", "Daily", "Excel, 12 monthly sheets", "Issued 14/11/2026"),
+    ("RliDHL-ADM-SOP-063-F01", "GeneXpert Dx System maintenance log, with module calibration register",
+     "063", "Daily to annual", "Excel, 12 monthly sheets plus register", "Issued 14/11/2026"),
+    ("RliDHL-ADM-SOP-060-F01", "Temperature monitoring: fridges, freezers, cold boxes and rooms",
+     "060", "Twice daily / daily", "Excel, device register plus 12 monthly sheets", "Issued 14/11/2026"),
+    ("RliDHL-ADM-SOP-050-F01", "Not yet created", "050", "Daily / weekly / monthly",
      "Proposed", "Pending"),
-    ("RliDHL-ADM-SOP-054-F01", "Not yet created", "054", "Daily / weekly / monthly",
+    ("RliDHL-ADM-SOP-051-F01", "Not yet created", "051", "Daily / weekly / monthly",
      "Proposed", "Pending"),
 ]
 
