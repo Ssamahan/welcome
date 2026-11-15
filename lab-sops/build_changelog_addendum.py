@@ -113,15 +113,20 @@ ROWS = [
      "Laboratory Information System.docx"),
     ("58", "Use, Care and Preventive Maintenance of Hematology Analysers", "\u2014",
      "RliDHL-ADM-SOP-058-VERS-001",
-     "New SOP, covering the two analysers in service: Sysmex XN-330 (serial 17156, asset "
-     "RULIDH/LAB/ME/0501) and Sysmex XQ-320 (serial 12357, asset RULIDH/LAB/ME/0499). "
-     "Daily start-up, background count, IQC before patient samples, aspiration probe care, "
-     "cleaning cycles, calibration and its verification, service and the fault escalation "
-     "route. Instrument limits are deferred to each operator manual. Section 3.1 records "
-     "the withdrawal of the KX-21N, XS-500i, Pochi and Humacount 5 and states that this "
-     "SOP does not apply to them.",
-     "Confirm the XN-330 and XQ-320 asset codes against the inventory before the signature "
-     "run; both are printed in the SOP scope table.",
+     "New SOP, covering the three analysers in service in the Hematology section: Sysmex "
+     "XN-330 (serial 17156, asset RULIDH/LAB/ME/0501), Sysmex XQ-320 (serial 12357, asset "
+     "RULIDH/LAB/ME/0499) and the Alere Pima CD4 (serial PIMA-D-005378, asset "
+     "RULIDH/LAB/ME/0485). Daily start-up, background count, IQC before patient samples, "
+     "aspiration probe care, cleaning cycles, calibration and its verification, service "
+     "and the fault escalation route. The Pima has its own start-up clause, 6.3.1, "
+     "because it has no fluid system or background count, and its cartridge-lot and "
+     "portable-use rules are stated separately. Instrument limits are deferred to each "
+     "operator manual. Section 3.1 records the withdrawal of the KX-21N, XS-500i, Pochi "
+     "and Humacount 5 and states that this SOP does not apply to them.",
+     "The CD4 analyser was added to 058 at the Laboratory Manager's instruction of "
+     "November 2026, since the Pima is held in the Hematology section. Confirm whether the "
+     "CD4 bench SOP is to be merged into 058 or kept as a separate bench SOP; 058 "
+     "currently cites it as a supporting document.",
      "RliDHL-ADM-SOP-058-VERS-001 - Use, Care and Preventive Maintenance of Hematology "
      "Analysers.docx"),
     ("59", "Use, Care and Preventive Maintenance of the GeneXpert Dx System", "\u2014",
@@ -171,9 +176,11 @@ FORMS = [
      "Twice daily / daily",
      "Form RliDHL-ADM-SOP-056-F01 - Temperature monitoring fridges freezers and rooms.xlsx"),
     ("F01", "RliDHL-ADM-SOP-058-F01", "058",
-     "Excel, twelve monthly sheets, printable A4 landscape",
+     "Excel, twelve monthly sheets plus a year-long CD4 register, printable A4 landscape",
      "Start-up, background count, IQC outcome, probe inspection, shutdown and operator "
-     "initials for each haematology analyser, one row per task and one column per day.",
+     "initials for each Sysmex analyser, one row per task and one column per day; the Pima "
+     "CD4 has its own register carrying date, site, cartridge lot, control outcome and "
+     "number of patient runs, because it is portable and run on request rather than daily.",
      "Daily",
      "Form RliDHL-ADM-SOP-058-F01 - Hematology analyser daily maintenance log.xlsx"),
     ("F01", "RliDHL-ADM-SOP-059-F01", "059",

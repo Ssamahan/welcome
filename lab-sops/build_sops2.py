@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
 Adds the instrument-specific maintenance SOPs:
-  ADM-058  Hematology analysers (Sysmex XN-330 and XQ-320, the two in service)
+  ADM-058  Hematology analysers (Sysmex XN-330, Sysmex XQ-320 and the Alere Pima
+           CD4 analyser, the three in service)
   ADM-059  GeneXpert Dx System, written from Cepheid source material
 Reuses the layout helpers in build_sops.py.
 """
@@ -39,13 +40,16 @@ def hematology():
     )
     P(
         doc,
-        "The laboratory operates two analysers: the Sysmex XN-330 and the Sysmex XQ-320. "
-        "They are not the same instrument. The XN-330 is the larger of the two and "
-        "produces a full differential; the XQ-320 is a compact analyser used for the "
-        "routine workload and as the backup when the XN-330 is down. This SOP sets one "
-        "maintenance discipline that applies to both, and states separately where a limit "
-        "or an interval differs between them, so that the standard does not depend on "
-        "which instrument a sample happens to reach.",
+        "The laboratory operates three analysers in this section: the Sysmex XN-330, the "
+        "Sysmex XQ-320 and the Alere Pima CD4 analyser. They are not the same instrument. "
+        "The XN-330 is the larger of the two Sysmex instruments and produces a full "
+        "differential; the XQ-320 is a compact analyser used for the routine workload and "
+        "as the backup when the XN-330 is down; the Pima is a single-purpose, "
+        "battery-capable instrument that counts CD4 cells from a finger-prick or venous "
+        "sample and is used to stage and monitor HIV infection. This SOP sets one "
+        "maintenance discipline that applies to all three, and states separately where a "
+        "limit or an interval differs between them, so that the standard does not depend "
+        "on which instrument a sample happens to reach.",
     )
 
     H(doc, "2. Purpose")
@@ -60,34 +64,45 @@ def hematology():
     H(doc, "3. Scope")
     P(
         doc,
-        "This SOP applies to every automated hematology analyser in the Hematology "
-        "section and to any such analyser used at a linked site under this laboratory's "
-        "supervision.",
+        "This SOP applies to every automated analyser held in the Hematology section, "
+        "including the CD4 analyser, and to any such analyser used at a linked site under "
+        "this laboratory's supervision. That includes the Pima when it is carried to a "
+        "clinic or health centre for the day, in which case the same start-up, control and "
+        "recording requirements apply at the site of use.",
     )
     TBL(
         doc,
-        ["Analyser", "Serial no.", "Asset code", "Location", "Role"],
+        ["Analyser", "Serial no.", "Asset code", "Location", "Provision year", "Role"],
         [
             ("Sysmex XN-330", "17156", "RULIDH/LAB/ME/0501", "Hematology Room",
-             "Main analyser"),
+             "2025", "Main haematology analyser"),
             ("Sysmex XQ-320", "12357", "RULIDH/LAB/ME/0499", "Hematology Room",
-             "Routine workload and backup"),
+             "2025", "Routine workload and backup"),
+            ("Alere Pima CD4", "PIMA-D-005378", "RULIDH/LAB/ME/0485", "Hematology Room",
+             "2018", "CD4 count"),
         ],
-        widths=[3.4, 2.2, 3.8, 3.2, 4.0],
+        widths=[2.8, 2.4, 3.4, 2.6, 1.6, 3.8],
     )
     P(
         doc,
-        "Both instruments were supplied in 2025. The serial number and the asset code in "
-        "this table are the ones on the hospital equipment inventory, and they are what "
-        "must be written at the head of every maintenance log sheet, so that a record can "
-        "be traced to one physical instrument and not merely to \u201cthe Sysmex\u201d.",
+        "All three are held on the hospital equipment inventory under the asset code "
+        "shown. The serial number and the asset code in this table are what must be "
+        "written at the head of every maintenance log sheet, so that a record can be "
+        "traced to one physical instrument and not merely to \u201cthe Sysmex\u201d or "
+        "\u201cthe Pima\u201d.",
     )
     P(
         doc,
-        "The parameter list and the measuring principle are not identical between the two "
-        "instruments. Confirm the parameters each reports, and its own limits for "
-        "background, carryover and precision, against the operator manual held beside it. "
-        "Do not carry a limit from one instrument to the other.",
+        "The parameters, the measuring principle and the maintenance tasks are not "
+        "identical between the three instruments. The two Sysmex analysers aspirate "
+        "anticoagulated whole blood, dilute and lyse it, and count cells by impedance "
+        "and fluorescence flow cytometry. The Pima works differently: it takes a "
+        "capillary or venous sample into its own cartridge, the cartridge is the reaction "
+        "chamber, and the instrument reports an absolute CD4 count and percentage. It has "
+        "no reagents to lot-track in the way the Sysmex instruments do, and its "
+        "consumable is the cartridge itself. Confirm the parameters each reports, and its "
+        "own limits for background, carryover and precision, against the operator manual "
+        "held beside it. Do not carry a limit from one instrument to another.",
     )
     P(
         doc,
@@ -148,6 +163,15 @@ def hematology():
             ("Waste",
              "The diluted, lysed waste blood leaving the instrument, which is "
              "biohazardous and contains cyanide-free but still irritant reagents."),
+            ("CD4 count",
+             "The absolute number of CD4 T-lymphocytes per microlitre of blood, "
+             "reported with the CD4 percentage of lymphocytes. It is the laboratory "
+             "measure used to stage HIV infection and to decide when to start or "
+             "change antiretroviral treatment."),
+            ("Cartridge",
+             "The single-use Pima test cartridge. It contains the reagents and the "
+             "flow path, so it is the Pima's consumable in place of the diluent, lyse "
+             "and cleaner used on the Sysmex instruments."),
             ("PM", "Preventive maintenance."),
             ("ADF", "Assay definition file. Not used in hematology; listed for "
                     "completeness of the equipment vocabulary."),
@@ -225,6 +249,13 @@ def hematology():
             "put into routine use, and record the verification.",
             "Keep the waste container below the maximum level marked on it, and treat the "
             "contents as infectious waste.",
+            "For the Pima, check the cartridge lot number and expiry date on the foil "
+            "pouch before use, and store cartridges at the temperature the package insert "
+            "states. A cartridge that has been frozen, or left in the sun, is discarded "
+            "and not run, because the resulting count cannot be distinguished from a true "
+            "low CD4.",
+            "Record the cartridge lot in use on the working sheet and on the daily log, so "
+            "that a run of implausible CD4 results can be traced to a lot.",
         ]
     )
 
@@ -247,6 +278,43 @@ def hematology():
             "QC outcome, instrument temperature where displayed, and initials.",
             "Only then begin patient testing.",
         ]
+    )
+    P(
+        doc,
+        "The first six steps above are written for the Sysmex analysers, which have a "
+        "fluid system to prime and a background count to run. The Pima has neither. Its "
+        "start-up is shorter and is set out separately so that no step in the list above "
+        "is ticked for it that the instrument cannot actually perform.",
+    )
+    H(doc, "6.3.1 Daily start-up of the Alere Pima CD4 analyser", 3)
+    NUM(
+        doc,
+        [
+            "Confirm the Pima is charged, or connected to mains power through its "
+            "supply, and that the battery holds enough charge to complete the planned "
+            "runs. A run interrupted by a flat battery wastes the cartridge and the "
+            "sample.",
+            "Check the instrument temperature and that it has had time to equilibrate to "
+            "the room, particularly if it has been carried between rooms or used "
+            "outside.",
+            "Run the electronic or manufacturer-supplied check the manual requires, at "
+            "the interval it states, and record the outcome.",
+            "Run a CD4 control, at the level the bench SOP specifies, before the first "
+            "patient sample of the day. The Pima is a single-analyte instrument, so the "
+            "control is the whole of its daily quality evidence and is not optional.",
+            "Confirm the control lies within its assigned mean \u00b1 2 standard "
+            "deviations, and apply the rules in 6.6.",
+            "Record on the daily log: date, cartridge lot, control lot and outcome, "
+            "instrument check result, temperature if displayed, and initials.",
+            "Only then begin patient testing.",
+        ]
+    )
+    P(
+        doc,
+        "The Pima is portable and may be used in the clinic or at a health centre. When "
+        "it is moved, repeat the temperature equilibration and the control run at the new "
+        "site before testing, and record the site on the log. A control run in the "
+        "laboratory does not cover a run performed elsewhere.",
     )
 
     H(doc, "6.4 Daily, during and at the end of the shift", 2)
@@ -292,6 +360,13 @@ def hematology():
              "Readable output; barcode read at first attempt"),
             ("Monthly", "Run the extended cleaning or descaling cycle specified by the "
                         "manufacturer", "Background within limit afterwards"),
+            ("Monthly (Pima)", "Clean the exterior and the cartridge port with the "
+                               "solution the manual names; inspect the port for dried "
+                               "blood or dust and remove it",
+             "Port clean; cartridge seats without resistance"),
+            ("Monthly (Pima)", "Check the instrument check or the reference check the "
+                               "manual specifies, and the battery condition",
+             "Passes; battery completes a working day"),
             ("Monthly", "Inspect the apertures and the flow cell according to the manual, "
                         "and clean only as the manual permits",
              "No clot, no debris"),
@@ -380,6 +455,15 @@ def hematology():
     )
     P(
         doc,
+        "The Pima is serviced on the same schedule but against a shorter list. Its "
+        "scheduled visit covers the optical and electronic system, the cartridge port and "
+        "its seals, the battery and charging circuit, the enclosure and its earth "
+        "continuity, and a verification run against control material. It has no counting "
+        "aperture, no peristaltic pump and no reagent line, so those items on the table "
+        "above do not apply to it.",
+    )
+    P(
+        doc,
         "The service report is signed by the engineer and by the Laboratory Manager, filed "
         "with the equipment records, and the next service date is entered on the PM "
         "schedule in the format of the laboratory PM planner.",
@@ -408,6 +492,18 @@ def hematology():
              "Clean the window; check the label; service if persistent"),
             ("Analyser will not power up", "Power, fuse, stabiliser",
              "Check power; out of service"),
+            ("Pima cartridge rejected at insertion", "Cartridge not at room "
+                                                     "temperature, dirty cartridge "
+                                                     "port, expired lot",
+             "Equilibrate the cartridge, clean the port, check the lot; discard if expired"),
+            ("Pima run aborted part-way", "Low battery, instrument moved, cartridge "
+                                          "dislodged",
+             "Repeat on a new cartridge once the cause is corrected; record the abort"),
+            ("Implausible CD4 count (very low or very high)", "Clot or short sample, "
+                                                             "cartridge lot fault, "
+                                                             "control failure",
+             "Repeat on a fresh sample; if it recurs across samples, quarantine the "
+             "cartridge lot and run the control again"),
         ],
         widths=[5.0, 5.4, 6.2],
     )
@@ -440,6 +536,9 @@ def hematology():
             ("Analyser downtime exceeding one working day", "0"),
             ("Repeat runs caused by a specimen or instrument fault", "Monitored and trended"),
             ("Calibration records available for every calibration performed", "100%"),
+            ("CD4 control run before the first patient sample (Pima)", "100%"),
+            ("CD4 runs rejected for an expired or unrecorded cartridge lot", "0"),
+            ("Turnaround for a CD4 result requested at the clinic", "Same working day"),
         ],
         widths=[11.4, 5.2],
     )
@@ -451,6 +550,8 @@ def hematology():
              "6. Equipment > 7. PM and temperature logs"),
             ("IQC record and Levey-Jennings charts", "5 years", "Hematology folder"),
             ("Reagent and control lot record", "5 years", "Hematology folder"),
+            ("CD4 cartridge lot and run record, including site of testing", "5 years",
+             "Hematology folder"),
             ("Calibration and verification record", "5 years", "Equipment records"),
             ("Service report, signed", "Life of instrument + 5 years",
              "Equipment records"),
@@ -461,7 +562,10 @@ def hematology():
             "RliDHL-ADM-SOP-056 \u2013 Management and Maintenance of Non-Medical "
             "Laboratory Equipment (power protection)",
             "RliDHL-ADM-SOP-058 daily maintenance log form and the scheduled PM record",
-            "Bench SOP for the full blood count and for each analyser model in use",
+            "Bench SOP for the full blood count and for each analyser model in use, "
+            "including the CD4 bench SOP",
+            "HIV testing and treatment monitoring algorithm of the Rwanda Ministry of "
+            "Health, for the clinical use of the CD4 result",
         ],
         [
             "ISO 15189:2022, clauses 6.4 (equipment), 6.4.4 (preventive maintenance), "
@@ -474,6 +578,9 @@ def hematology():
             "quantitative measurement procedures.",
             "World Health Organization. Manual of basic haematology techniques, where "
             "applicable to the methods in use.",
+            "World Health Organization. Consolidated guidelines on HIV prevention, testing, "
+            "treatment, service delivery and monitoring, for the CD4 thresholds that "
+            "trigger clinical action.",
         ],
     )
     doc.save(os.path.join(OUT, f"RliDHL-ADM-SOP-{code}-VERS-001 - {title}.docx"))

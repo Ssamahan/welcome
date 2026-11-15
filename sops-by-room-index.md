@@ -93,9 +93,12 @@ Quality Manual, Safety Manual and Master List live. Six subfolders:
        Information System (workstations, server, printers, network, analyser interfaces,
        backup and restore, access control, downtime procedure, data destruction)
      - RliDHL-ADM-SOP-058  Use, Care and Preventive Maintenance of Hematology Analysers
-       (Sysmex XN-330 s/n 17156 and XQ-320 s/n 12357 only — start-up, background count,
-       IQC before patient samples, probe care, calibration, service; section 3.1 records
-       the withdrawal of the KX-21N, XS-500i, Pochi and Humacount 5)
+       (Sysmex XN-330 s/n 17156, XQ-320 s/n 12357 and Alere Pima CD4 s/n PIMA-D-005378,
+       asset RULIDH/LAB/ME/0485 — start-up, background count, IQC before patient samples,
+       probe care, calibration, service; section 3.1 records the withdrawal of the KX-21N,
+       XS-500i, Pochi and Humacount 5. The Pima is covered by its own start-up clause,
+       6.3.1, because it has no fluid system or background count, and by the cartridge-lot
+       and portable-use rules in 6.2 and 6.3.1)
      - RliDHL-ADM-SOP-059  Use, Care and Preventive Maintenance of the GeneXpert Dx System
        (written from Cepheid 301-7990 Rev. C, 302-8386 Rev. C and Operator Manual Ch. 9 —
        daily/weekly/monthly/quarterly/yearly tasks, module calibration at one year or
@@ -107,6 +110,9 @@ Quality Manual, Safety Manual and Master List live. Six subfolders:
    Three blank forms are issued beside them, each an Excel workbook with one sheet per
    month so it can be printed or typed into:
      - Form RliDHL-ADM-SOP-058-F01  Hematology analyser daily maintenance and start-up log
+       (twelve monthly sheets for the two Sysmex instruments, plus a year-long 'Pima CD4
+       register' sheet carrying date, site of use, cartridge lot, control outcome and the
+       number of patient runs)
      - Form RliDHL-ADM-SOP-059-F01  GeneXpert maintenance log (Cepheid task list, 2-letter
        initials row) plus a permanent Module calibration register
      - Form RliDHL-ADM-SOP-056-F01  Temperature monitoring for the three refrigerators,

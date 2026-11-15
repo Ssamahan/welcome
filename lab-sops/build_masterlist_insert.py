@@ -113,7 +113,7 @@ ROWS = [
      "14/11/2026", "14/11/2028", "RliDHL Office; all rooms"),
     ("58", "RliDHL-ADM-SOP-058-VERS-001",
      "Use, Care and Preventive Maintenance of Hematology Analysers", "14/11/2026",
-     "14/11/2028", "RliDHL Office; Hematology bench"),
+     "14/11/2028", "RliDHL Office; Hematology bench, CD4 bench"),
     ("59", "RliDHL-ADM-SOP-059-VERS-001",
      "Use, Care and Preventive Maintenance of the GeneXpert Dx System", "14/11/2026",
      "14/11/2028", "RliDHL Office; TB room, Molecular"),
@@ -197,12 +197,16 @@ NOTES = [
      "ISO 15189:2022 clauses 7.4.3 and 8.4 require the information system to be maintained "
      "and protected; it had no procedure."),
     ("058 Hematology analysers",
-     "The laboratory runs two analysers: the Sysmex XN-330 (serial 17156) and the Sysmex "
-     "XQ-320 (serial 12357), both supplied in 2025. Each had a bench SOP for running "
+     "The laboratory runs three analysers in this section: the Sysmex XN-330 (serial "
+     "17156) and XQ-320 (serial 12357), both supplied in 2025, and the Alere Pima CD4 "
+     "(serial PIMA-D-005378, 2018). Each had a bench SOP for running "
      "samples but none for the daily start-up, the background count, the care of the "
      "aspiration probe, the calibration interval or the service record. Written to cover "
-     "both, with each instrument's own limits left to its operator manual and its serial "
-     "and asset code printed in the scope so a record traces to one physical instrument."),
+     "all three, with each instrument's own limits left to its operator manual and its "
+     "serial and asset code printed in the scope so a record traces to one physical "
+     "instrument. The Pima has its own start-up clause (6.3.1) because it has no fluid "
+     "system or background count, and is recorded on a separate register page of the "
+     "form because it is portable."),
     ("059 GeneXpert Dx System",
      "Written from the Cepheid documents themselves \u2013 the maintenance presentation "
      "301-7990 Rev. C, the maintenance log 302-8386 Rev. C and Chapter 9 of the Operator "

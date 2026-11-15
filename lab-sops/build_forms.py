@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
 Builds the three tracking forms:
-  1. Daily PM log for Sysmex hematology analysers
+  1. Daily PM log for the hematology analysers \u2013 monthly sheets for the two
+     Sysmex instruments, a year-long register for the portable Alere Pima CD4
   2. Daily PM log for the GeneXpert Dx System, following the Cepheid log (302-8386 Rev. C)
   3. Temperature monitoring for refrigerators, freezer, cold box and rooms
 One worksheet per month, printable landscape on A4.
@@ -194,6 +195,68 @@ def hematology_log():
         ws.freeze_panes = ws.cell(row=hr + 1, column=first_day)
         setup_print(ws, ncols)
 
+    # ---- Pima CD4 register: one year-long sheet, not twelve monthly ones,
+    #      because the instrument is run when a CD4 is requested rather than daily.
+    ws = wb.create_sheet("Pima CD4 register")
+    PCOLS = ["Date", "Site", "Cartridge lot / expiry", "Control result",
+             "In / out 2 SD", "Instrument check", "Temp \u00b0C",
+             "Patient runs", "Initials", "Comments"]
+    ncols = len(PCOLS)
+
+    head(ws, "ALERE PIMA CD4 ANALYSER \u2013 DAILY CHECK AND RUN REGISTER",
+         f"RliDHL-ADM-SOP-058  \u2022  one line per day the instrument is used, "
+         f"whole year on one sheet  \u2022  {YEAR}", ncols)
+
+    id_block(ws, 5, [
+        ("Analyser", "Alere Pima CD4", 1),
+        ("Serial no.", "PIMA-D-005378", 1),
+        ("Asset no.", "RULIDH/LAB/ME/0485", 1),
+        ("Location", "Hematology Room", 1),
+    ], ncols)
+    id_block(ws, 6, [
+        ("Stored at", "Hematology Room", 1),
+        ("Used at", "Hematology Room / clinic / health centre \u2013 write the site", 3),
+    ], ncols)
+
+    hr = 8
+    for i, h in enumerate(PCOLS, 1):
+        ws.cell(row=hr, column=i, value=h)
+    style_header(ws, hr, ncols, height=34)
+
+    r = hr + 1
+    for _ in range(60):
+        for k in range(1, ncols + 1):
+            c = ws.cell(row=r, column=k)
+            c.border = BOX
+            c.font = Font(size=8)
+            c.alignment = CEN if k in (1, 5, 7, 8, 9) else LEFT
+            if k in (4, 6):
+                pass
+        r += 1
+    last = r - 1
+
+    # control failure / abstention block
+    rc = last + 2
+    ws.cell(row=rc, column=1, value="Runs rejected, aborted or repeated, with the "
+                                    "reason and the action taken:").font = Font(bold=True, size=8.5)
+    for rr in range(rc + 1, rc + 5):
+        ws.merge_cells(start_row=rr, start_column=1, end_row=rr, end_column=ncols)
+        for k in range(1, ncols + 1):
+            ws.cell(row=rr, column=k).border = BOX
+        ws.row_dimensions[rr].height = 16
+
+    rs = rc + 6
+    ws.cell(row=rs, column=1, value="Reviewed by (section head):").font = Font(bold=True, size=8.5)
+    ws.cell(row=rs, column=2, value="Name / signature / date").font = Font(size=8)
+    ws.merge_cells(start_row=rs, start_column=2, end_row=rs, end_column=6)
+    ws.cell(row=rs, column=2).border = BOX
+
+    widths = [10, 14, 20, 16, 12, 14, 8, 10, 9, 34]
+    for i, w in enumerate(widths, 1):
+        ws.column_dimensions[get_column_letter(i)].width = w
+    ws.freeze_panes = ws.cell(row=hr + 1, column=1)
+    setup_print(ws, ncols)
+
     # ---- instructions sheet
     ws = wb.create_sheet("How to use", 0)
     ws.column_dimensions["A"].width = 3
@@ -210,12 +273,21 @@ def hematology_log():
               "an instrument that had passed its checks."),
         ("b", ""),
         ("h", "How to fill it in"),
-        ("p", "1.  There are two analysers, the Sysmex XN-330 (serial 17156, asset "
+        ("p", "1.  There are three analysers. The Sysmex XN-330 (serial 17156, asset "
               "RULIDH/LAB/ME/0501) and the Sysmex XQ-320 (serial 12357, asset "
-              "RULIDH/LAB/ME/0499). They are not interchangeable records: tick the box at "
-              "the head of the sheet for the instrument the sheet belongs to, and keep one "
-              "sheet per instrument. If the reagent or control lot changes during the "
-              "month, write the new lot and the date of change in the comments box."),
+              "RULIDH/LAB/ME/0499) are recorded on the monthly sheets. The Alere Pima CD4 "
+              "analyser (serial PIMA-D-005378, asset RULIDH/LAB/ME/0485) is recorded on "
+              "the \u2018Pima CD4 register\u2019 sheet, because it is run when a CD4 is "
+              "requested rather than every working day. They are not interchangeable "
+              "records: tick the box at the head of the monthly sheet for the Sysmex "
+              "instrument the sheet belongs to, and keep one set of sheets per instrument. "
+              "If the reagent or control lot changes during the month, write the new lot "
+              "and the date of change in the comments box."),
+        ("p", "1a. The Pima register carries one line for each day the instrument is used. "
+              "Write the site, because the instrument is portable and a control run in the "
+              "laboratory does not cover a run performed at a clinic or health centre. "
+              "Write the number of patient runs, not the results themselves \u2013 those "
+              "belong in the CD4 register of results."),
         ("p", "2.  Each working day, tick the box for every task performed."),
         ("p", "3.  In the shaded yellow cells, write the actual value: the background "
               "count, the instrument temperature and the initials of the person who "
@@ -236,7 +308,7 @@ def hematology_log():
         ("p", "\u2022  the analyser has an unresolved pressure, fluidic or temperature "
               "error"),
         ("b", ""),
-        ("h", "Only two analysers are in service"),
+        ("h", "Only these three analysers are in service"),
         ("p", "The KX-21N, XS-500i, Pochi and Humacount 5 have been decommissioned. Do not "
               "open a sheet for them and do not record maintenance against them. If an "
               "analyser is withdrawn, close its sheet and mark the instrument out of "
