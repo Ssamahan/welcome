@@ -3,7 +3,10 @@
 **Written:** 14 November 2026
 **Repository:** `Ssamahan/welcome`, branch `arena/e9497493-welcome`
 **Working directory:** `/home/user/welcome`
-**HEAD:** `b394fad` (base `e85ac82` on `main`)
+**HEAD:** `17b2f54` (base `e85ac82` on `main`)
+**Drive copy:** `1WKXriYgfs_IkjZW5l9ylajcM0PjbZui2` in `SOPs by Room` (`1cMgzD3JfGr1dr-3hNbdgVJ-6hkgNDUDX`)
+> A future chat should read this from Drive. If the Drive copy and the repo copy
+> disagree, the repo copy is newer; re-upload it.
 
 This brief is for whoever picks this work up next. It is deliberately blunt about what
 is done, what is uncertain, and what was got wrong. Read section 11 before touching
