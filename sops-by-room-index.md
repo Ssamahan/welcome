@@ -104,8 +104,9 @@ Quality Manual, Safety Manual and Master List live. Six subfolders:
        daily/weekly/monthly/quarterly/yearly tasks, module calibration at one year or
        2,000 tests, Xpert Check, fan filters, monthly optics cleaning for a dusty site)
    All seven are VERS-001, effective 14/11/2026, review 14/11/2028. They are first
-   issues and not yet signed — the Head of Laboratory prepares and signs, the hospital
-   BMeT reviews, and the Director General approves and signs the cover block and
+   issues and not yet signed — the Laboratory Manager (Kelvin SAMAHANI) prepares and
+   signs, the Laboratory Quality Manager (Jean Paul NSENGIYUMVA) reviews, and the
+   Director General (Dr. Déogratias KANEZA) approves and signs the cover block and
    signature page before they are used. ISO 15189:2022 places the approval of a
    controlled laboratory document with the head of the institution.
 
@@ -115,8 +116,11 @@ Quality Manual, Safety Manual and Master List live. Six subfolders:
    Manufacturer manuals that ship with the instrument are cited as supplied with it and
    carry no link. Titles follow the Rwandan hospital posts: BMeT (Biomedical Equipment
    Technician), ICT Officer and IT Officer, not "equipment officer". The head of the
-   laboratory is the Head of Laboratory throughout; "Laboratory Manager" and "laboratory
-   director" are not used.
+   laboratory is the Laboratory Manager throughout. "Head of Laboratory", "Laboratory
+   Quality Officer" and "laboratory director" are not used. The BMeT (Biomedical
+   Equipment Technician) holds the equipment inventory, service records and contracts
+   and does the maintenance within the hospital's competence; the BMeT does not review
+   or approve SOPs.
 
    The letterhead is copied from Lab Tests - Normal Ranges, the laboratory's own current
    document, and reads REPUBLIC OF RWANDA / MINISTRY OF HEALTH / GAKENKE DISTRICT /

@@ -15,10 +15,10 @@ from docx.oxml import OxmlElement
 OUT = os.path.dirname(os.path.abspath(__file__))
 EFF = "14 / 11 / 2026"
 REV = "14 / 11 / 2028"
+REV_BY = "Jean Paul NSENGIYUMVA"
+REV_BY_T = "Laboratory Quality Manager"
 PREP = "Kelvin SAMAHANI"
-PREP_T = "Head of Laboratory"
-REV_BY = "Pacifique ISHIMWE"
-REV_BY_T = "BMeT"
+PREP_T = "Laboratory Manager"
 AUTH = "Dr. D\u00e9ogratias KANEZA"
 AUTH_T = "Director General"
 
@@ -150,7 +150,7 @@ def base_doc(code, title, version="001"):
         "The master copy of this SOP is held electronically in the laboratory "
         "Google Drive, folder SOPs by Room > 4. Reception > Administration > "
         "6. Equipment, Stock and Suppliers. One printed, signed copy is held by the "
-        "Head of Laboratory. Printed copies taken to a bench are uncontrolled unless "
+        "Laboratory Manager. Printed copies taken to a bench are uncontrolled unless "
         "stamped and signed."
     )
     p = doc.add_paragraph()
@@ -322,11 +322,12 @@ def tail(doc, records, supporting, references):
     H(doc, "11. Signature Page")
     P(
         doc,
-        "This SOP is prepared by the Head of Laboratory, reviewed for technical accuracy "
-        "by the hospital BMeT, and approved and signed by the Director General. It takes "
-        "effect on the date of that approval. The signature block below records the "
-        "approval; the staff list records that each member of staff has read and "
-        "understood the SOP and will work to it.",
+        "This SOP is prepared by the Laboratory Manager, reviewed by the Laboratory "
+        "Quality Manager, and approved and signed by the Director General. ISO "
+        "15189:2022 places the approval of a controlled laboratory document with the "
+        "head of the institution. The SOP takes effect on the date of that approval. The "
+        "signature block below records the three signatures; the staff list records that "
+        "each member of staff has read and understood the SOP and will work to it.",
     )
     TBL(
         doc,
@@ -354,7 +355,7 @@ def tail(doc, records, supporting, references):
     P(
         doc,
         "Handwritten amendments are authorised by the Director General, on the written "
-        "recommendation of the Head of Laboratory, before the next revision. Each "
+        "recommendation of the Laboratory Manager, before the next revision. Each "
         "amendment must be initialled and dated. The amendment is incorporated at the "
         "next revision and this page is cleared.",
     )
@@ -460,11 +461,11 @@ def microscope():
              "Approves this SOP and signs the cover block and the signature page. Under "
              "ISO 15189:2022 the approval of a controlled laboratory document rests with "
              "the head of the institution, not with the laboratory."),
-            ("Head of Laboratory",
+            ("Laboratory Manager",
              "Is accountable for this SOP and for the resources it requires. Authorises "
              "the purchase of replacement instruments and lenses. Signs service reports "
              "and countersigns the SOP for approval by the Director General."),
-            ("Laboratory Quality Officer",
+            ("Laboratory Quality Manager",
              "Maintains the PM schedule for every microscope, verifies that PM has been "
              "done on time, and reviews PM records monthly."),
             ("Bench staff (all sections)",
@@ -658,7 +659,7 @@ def microscope():
         doc,
         "A microscope with any of the faults below is taken out of service immediately, "
         "labelled OUT OF SERVICE with the date and the fault, and reported to the "
-        "Quality Officer. Results already produced on it in that shift are reviewed to "
+        "Quality Manager. Results already produced on it in that shift are reviewed to "
         "decide whether they are affected.",
     )
     TBL(
@@ -712,7 +713,8 @@ def microscope():
     H(doc, "7. Monitoring and Quality Indicators")
     P(
         doc,
-        "The Quality Officer reviews the following indicators every quarter and reports "
+        "The Laboratory Quality Manager reviews the following indicators every quarter "
+        "and reports "
         "them at the management review.",
     )
     TBL(
@@ -852,11 +854,11 @@ def centrifuge():
              "Approves this SOP and signs the cover block and the signature page. Under "
              "ISO 15189:2022 the approval of a controlled laboratory document rests with "
              "the head of the institution, not with the laboratory."),
-            ("Head of Laboratory",
+            ("Laboratory Manager",
              "Is accountable for this SOP and for the resources it requires. Authorises "
              "purchase and withdrawal from service. Signs service and verification "
              "reports, and countersigns the SOP for approval by the Director General."),
-            ("Laboratory Quality Officer",
+            ("Laboratory Quality Manager",
              "Maintains the verification schedule, reviews verification and PM records "
              "monthly, and investigates any out-of-limit verification."),
             ("Bench staff",
@@ -1045,7 +1047,7 @@ def centrifuge():
         "A centrifuge that fails verification is labelled OUT OF SERVICE and is not used "
         "for patient specimens until it has been adjusted and re-verified. Verification "
         "results are recorded in the centrifuge verification log, dated and signed by the "
-        "person who performed them and by the Quality Officer.",
+        "person who performed them and by the Quality Manager.",
     )
 
     H(doc, "6.9 Annual preventive maintenance", 2)
@@ -1221,11 +1223,11 @@ def waterbath():
              "Approves this SOP and signs the cover block and the signature page. Under "
              "ISO 15189:2022 the approval of a controlled laboratory document rests with "
              "the head of the institution, not with the laboratory."),
-            ("Head of Laboratory",
+            ("Laboratory Manager",
              "Is accountable for this SOP and for the resources it requires. Authorises "
              "withdrawal from service, and countersigns the SOP for approval by the "
              "Director General."),
-            ("Laboratory Quality Officer",
+            ("Laboratory Quality Manager",
              "Holds the calibration certificate for the reference thermometer, reviews "
              "the temperature log monthly, and investigates excursions."),
             ("Bench staff", "Check and record the temperature each working day, maintain "
@@ -1528,16 +1530,17 @@ def nonmedical():
              "Approves this SOP and signs the cover block and the signature page. Under "
              "ISO 15189:2022 the approval of a controlled laboratory document rests with "
              "the head of the institution, not with the laboratory."),
-            ("Head of Laboratory",
+            ("Laboratory Manager",
              "Is accountable for this SOP and for the resources it requires. Authorises "
              "purchase, replacement and disposal. Signs service contracts and service "
              "reports, and countersigns the SOP for approval by the Director General."),
-            ("Laboratory Quality Officer",
+            ("Laboratory Quality Manager",
              "Owns the non-medical equipment register, sets the maintenance calendar, and "
              "reviews logs monthly."),
             ("BMeT (Biomedical Equipment Technician)",
              "Holds the register, the maintenance log, the temperature and water quality "
-             "records, and schedules the contracted services."),
+             "records, and schedules the contracted services. Does not review or approve "
+             "laboratory documents."),
             ("Bench staff",
              "Record refrigerator temperatures twice daily, record water quality daily, "
              "and report any failure at once."),
@@ -1648,7 +1651,7 @@ def nonmedical():
             "Assess the affected reagents and specimens against the manufacturer's "
             "storage specification and the bench SOP. Reagents outside specification are "
             "quarantined, labelled, and referred to the section head for a decision.",
-            "Report to the Quality Officer the same day and enter the event in the "
+            "Report to the Quality Manager the same day and enter the event in the "
             "incident log.",
             "Do not return the unit to service until the fault is corrected and the "
             "temperature has been verified stable over 24 hours.",
@@ -1764,7 +1767,7 @@ def nonmedical():
     P(
         doc,
         "When a non-medical item fails, the bench reports it to the BMeT the same day. "
-        "The BMeT records it, arranges repair, and informs the Head of Laboratory "
+        "The BMeT records it, arranges repair, and informs the Laboratory Manager "
         "where the failure compromises a service. Where the failure affects "
         "patient testing, the contingency arrangements in RliDHL-ADM-SOP-047 apply.",
     )
@@ -1924,11 +1927,11 @@ def ict():
              "Approves this SOP and signs the cover block and the signature page. Under "
              "ISO 15189:2022 the approval of a controlled laboratory document rests with "
              "the head of the institution, not with the laboratory."),
-            ("Head of Laboratory",
+            ("Laboratory Manager",
              "Is accountable for this SOP and for the access rights of staff. Authorises "
              "changes to the LIS configuration in writing, and countersigns the SOP for "
              "approval by the Director General."),
-            ("Laboratory Quality Officer",
+            ("Laboratory Quality Manager",
              "Reviews the backup log, the downtime log and the ICT maintenance log "
              "monthly. Investigates any data loss or confidentiality incident."),
             ("ICT Officer",
@@ -2013,7 +2016,7 @@ def ict():
                         "opens and is complete."),
             ("Quarterly", "Review the ICT register against the physical equipment. Check "
                           "cabling and labelling. Review the downtime and incident logs "
-                          "with the Quality Officer."),
+                          "with the Quality Manager."),
             ("Annually", "Full hardware inventory audit. Review and renew the vendor "
                          "support contract. Test the disaster recovery plan, including "
                          "running the laboratory on the manual system for a defined "
@@ -2073,7 +2076,7 @@ def ict():
     NUM(
         doc,
         [
-            "The ICT Officer declares downtime, informs the Head of Laboratory and "
+            "The ICT Officer declares downtime, informs the Laboratory Manager and "
             "records the start time in the downtime log.",
             "Specimens are registered on the paper downtime register, which is kept at "
             "reception and is pre-printed with the same fields as the LIS.",
@@ -2088,7 +2091,7 @@ def ict():
             "The entries are checked by a second person against the paper record, and the "
             "check is signed.",
             "The downtime log is closed with the restoration time and the number of "
-            "specimens affected, and the event is reviewed with the Quality Officer.",
+            "specimens affected, and the event is reviewed with the Quality Manager.",
         ]
     )
     P(
@@ -2103,7 +2106,7 @@ def ict():
         [
             "Any change to the LIS configuration, an interface, a report template or a "
             "workstation that affects result handling is requested in writing and "
-            "approved by the Head of Laboratory before it is made. The change is recorded "
+            "approved by the Laboratory Manager before it is made. The change is recorded "
             "with the date, the person who made it and how it was verified.",
             "Operating system and application updates are applied in a defined change "
             "window, after a backup, and the LIS and each interface are tested afterwards.",
@@ -2164,7 +2167,7 @@ def ict():
                                                          "vendor immediately"),
             ("Suspected data breach or lost device", "Do not delete anything; secure the "
                                                      "area",
-             "Head of Laboratory and Quality Officer immediately"),
+             "Laboratory Manager and Laboratory Quality Manager immediately"),
         ],
         widths=[5.2, 5.6, 5.8],
     )

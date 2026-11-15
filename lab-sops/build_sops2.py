@@ -176,9 +176,10 @@ def hematology():
             ("BMeT",
              "Biomedical Equipment Technician. The hospital's biomedical engineering "
              "post, held by Pacifique ISHIMWE at Ruli District Hospital. The BMeT holds "
-             "the equipment inventory, the service records and the service contracts, "
-             "performs the maintenance within the hospital's competence, and reviews the "
-             "technical accuracy of an equipment SOP before it is approved."),
+             "the equipment inventory, the service records and the service contracts, and "
+             "performs the maintenance within the hospital's competence. The BMeT does "
+             "not review laboratory documents; that is the role of the Laboratory Quality "
+             "Manager."),
             ("ADF", "Assay definition file. Not used in hematology; listed for "
                     "completeness of the equipment vocabulary."),
         ],
@@ -194,16 +195,19 @@ def hematology():
              "Approves this SOP and signs the cover block and the signature page. Under "
              "ISO 15189:2022 the approval of a controlled laboratory document rests with "
              "the head of the institution, not with the laboratory."),
-            ("Head of Laboratory",
-             "Is accountable for this SOP and for the resources it requires. Authorises "
-             "the withdrawal of an analyser from service and the purchase of reagents and "
-             "service, and countersigns the SOP for approval by the Director General."),
+            ("Laboratory Manager",
+             "Prepares and signs this SOP, and reviews it before it goes for approval. Is "
+             "accountable for it and for the resources it requires. Authorises the "
+             "withdrawal of an analyser from service and the purchase of reagents and "
+             "service."),
+            ("Laboratory Quality Manager",
+             "Reviews this SOP when it is prepared and after every amendment, and "
+             "maintains the controlled document system, the review register and the "
+             "change log. Reviews QC trends monthly and investigates any period in which "
+             "a failed QC was followed by released results."),
             ("Section head, Hematology",
              "Reviews the daily maintenance log and the QC record every working day "
              "before results are released. Authorises a repeat run after a QC failure."),
-            ("Laboratory Quality Officer",
-             "Reviews QC trends monthly, maintains the PM schedule, and investigates any "
-             "period in which a failed QC was followed by released results."),
             ("Bench technologist",
              "Performs and records the daily and weekly tasks. Runs and interprets the "
              "background count and the IQC. Reports faults immediately."),
@@ -476,7 +480,7 @@ def hematology():
     )
     P(
         doc,
-        "The service report is signed by the engineer and by the Head of Laboratory, filed "
+        "The service report is signed by the engineer and by the Laboratory Manager, filed "
         "with the equipment records, and the next service date is entered on the PM "
         "schedule in the format of the laboratory PM planner.",
     )
@@ -705,7 +709,7 @@ def genexpert():
              "Approves this SOP and signs the cover block and the signature page. Under "
              "ISO 15189:2022 the approval of a controlled laboratory document rests with "
              "the head of the institution, not with the laboratory."),
-            ("Head of Laboratory",
+            ("Laboratory Manager",
              "Is accountable for this SOP and for the resources it requires. Ensures the "
              "annual calibration kits are budgeted and procured. Authorises withdrawal of "
              "a module from use, and countersigns the SOP for approval by the Director "
@@ -713,7 +717,7 @@ def genexpert():
             ("Molecular section head",
              "Holds the module calibration register and confirms before each run that "
              "every module in use is within its calibration date."),
-            ("Laboratory Quality Officer",
+            ("Laboratory Quality Manager",
              "Reviews the maintenance log and the calibration register monthly. "
              "Investigates any period in which a module was used out of calibration."),
             ("Bench technologist",

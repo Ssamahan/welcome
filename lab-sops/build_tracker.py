@@ -31,7 +31,7 @@ ws.column_dimensions["B"].width = 112
 
 rows = [
     ("t", "New equipment-maintenance SOPs \u2013 approval and issue tracker"),
-    ("n", "Prepared 14 November 2026 for the Head of Laboratory, Ruli District Hospital."),
+    ("n", "Prepared 14 November 2026 for the Laboratory Manager, Ruli District Hospital."),
     ("b", ""),
     ("h", "What this file is for"),
     ("p", "Seven SOPs were written in November 2026 to close gaps found during the "
@@ -41,9 +41,9 @@ rows = [
           "which is outside the 31 March 2027 window used by the SOP review register."),
     ("b", ""),
     ("h", "What has to happen before the SOPs can be used"),
-    ("p", "1.  The Head of Laboratory reads each SOP and prepares it, signing the cover "
+    ("p", "1.  The Laboratory Manager reads each SOP and prepares it, signing the cover "
           "block and the signature page."),
-    ("p", "2.  The hospital BMeT reviews it for technical accuracy and signs as reviewer."),
+    ("p", "2.  The Laboratory Quality Manager reviews it and signs as reviewer."),
     ("p", "3.  The Director General approves it, signing the cover block and the "
           "signature page. Under ISO 15189:2022 the approval of a controlled laboratory "
           "document rests with the head of the institution."),
@@ -129,8 +129,8 @@ ws.row_dimensions[3].height = 28
 
 headers = [
     "SOP code", "Title", "Version", "Proposed effective\ndate",
-    "Review due", "Prepared by\nHead of Laboratory\n(name / date)",
-    "Reviewed by\nBMeT\n(name / date)",
+    "Review due", "Prepared by\nLaboratory Manager\n(name / date)",
+    "Reviewed by\nLaboratory Quality Manager\n(name / date)",
     "Approved by\nDirector General\n(name / date)",
     "Signed scan\nfiled?", "Master List\nupdated?", "Status",
 ]
@@ -163,7 +163,7 @@ SOPs = [
 r = HR + 1
 for code, title in SOPs:
     vals = [code, title, "001", "14/11/2026", "14/11/2028",
-            "Kelvin SAMAHANI", "Pacifique ISHIMWE", "Dr. D\u00e9ogratias KANEZA",
+            "Kelvin SAMAHANI", "Jean Paul NSENGIYUMVA", "Dr. D\u00e9ogratias KANEZA",
             "No", "No", "Awaiting approval"]
     for i, v in enumerate(vals, 1):
         c = ws.cell(row=r, column=i, value=v)
@@ -175,7 +175,7 @@ for code, title in SOPs:
     ws.row_dimensions[r].height = 40
     r += 1
 
-dv = DataValidation(type="list", formula1='"Awaiting approval,Prepared - awaiting BMeT review,Reviewed - awaiting DG approval,Approved - in force,Superseded,Withdrawn"', allow_blank=True)
+dv = DataValidation(type="list", formula1='"Awaiting approval,Prepared - awaiting Quality Manager review,Reviewed - awaiting DG approval,Approved - in force,Superseded,Withdrawn"', allow_blank=True)
 ws.add_data_validation(dv)
 dv.add(f"K{HR+1}:K{r-1}")
 

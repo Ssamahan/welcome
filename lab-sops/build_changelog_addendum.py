@@ -129,7 +129,7 @@ ROWS = [
      "portable-use rules are stated separately. Instrument limits are deferred to each "
      "operator manual. Section 3.1 records the withdrawal of the KX-21N, XS-500i, Pochi "
      "and Humacount 5 and states that this SOP does not apply to them.",
-     "The CD4 analyser was added to 058 at the Head of Laboratory's instruction of "
+     "The CD4 analyser was added to 058 at the Laboratory Manager's instruction of "
      "November 2026, since the Pima is held in the Hematology section. Confirm whether the "
      "CD4 bench SOP is to be merged into 058 or kept as a separate bench SOP; 058 "
      "currently cites it as a supporting document.",
@@ -223,12 +223,12 @@ NOTES = [
                                    "review cycle, or track them on this addendum until "
                                    "then."),
     ("Status", "All seven SOPs and all three forms are VERS-001 first issues, effective "
-               "14/11/2026, review 14/11/2028. None is in force until the Head of "
-               "Laboratory has prepared it, the hospital BMeT has reviewed it, and the "
-               "Director General has approved it by signing the cover block and the "
-               "signature page. If signature happens later, change the "
-               "effective date in the document, the file name and this addendum to the "
-               "date of authorisation."),
+               "14/11/2026, review 14/11/2028. None is in force until the Laboratory "
+               "Manager has prepared it, the Laboratory Quality Manager (Jean Paul "
+               "NSENGIYUMVA) has reviewed it, and the Director General has approved it by "
+               "signing the cover block and the signature page. If signature happens "
+               "later, change the effective date in the document, the file name and this "
+               "addendum to the date of authorisation."),
     ("Sources and links", "Section 10 of every SOP now carries a numbered reference "
                           "list with a live link wherever a public source exists: ISO 15189:2022 "
                           "(iso.org/standard/76677), WHO Laboratory quality management system "

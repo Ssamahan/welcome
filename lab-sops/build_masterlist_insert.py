@@ -231,7 +231,7 @@ para(doc, "D.  Status", size=11, bold=True, color=NAVY, space_before=12, space_a
 para(doc,
      "All seven SOPs and all three forms are VERS-001 first issues. The effective date of "
      "14/11/2026 is the proposed date. None of them is in force until the Head of "
-     "Laboratory has prepared it, the hospital BMeT has reviewed it, and the Director "
+     "Laboratory Manager has prepared it, the Laboratory Quality Manager has reviewed it, and the Director "
      "General has approved it by signing the cover block and the signature page. Under "
      "ISO 15189:2022 the approval of a controlled laboratory document rests with the head "
      "of the institution. If signature happens on a later date, the effective date in this "
@@ -251,8 +251,8 @@ for i, h in enumerate(heads):
     c = sig.rows[0].cells[i]
     cell_text(c, h, bold=True, size=9, align=WD_ALIGN_PARAGRAPH.CENTER)
     shade(c, "D9E2F3")
-roles = ["Prepared by \u2013 Head of Laboratory",
-         "Reviewed by \u2013 BMeT",
+roles = ["Prepared by \u2013 Laboratory Manager",
+         "Reviewed by \u2013 Laboratory Quality Manager",
          "Approved by \u2013 Director General", ""]
 # rebuild with 3 data rows
 sig2 = doc.add_table(rows=4, cols=4)
