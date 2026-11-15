@@ -807,7 +807,7 @@ def temperature_log():
               "to a verified backup unit or a cold box, record the duration and the "
               "extent of the excursion, assess each reagent and specimen against its "
               "storage specification, quarantine anything outside specification, and "
-              "inform the Quality Officer the same day. The full procedure is in "
+              "inform the Laboratory Quality Officer the same day. The full procedure is in "
               "RliDHL-ADM-SOP-056, section 6.2."),
         ("b", ""),
         ("h", "Rooms"),

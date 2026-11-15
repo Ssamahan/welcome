@@ -230,9 +230,11 @@ for name, text in NOTES:
 para(doc, "D.  Status", size=11, bold=True, color=NAVY, space_before=12, space_after=4)
 para(doc,
      "All seven SOPs and all three forms are VERS-001 first issues. The effective date of "
-     "14/11/2026 is the proposed date. None of them is in force until the Laboratory "
-     "Manager has prepared it and the Director General has signed the cover block and the "
-     "signature page. If signature happens on a later date, the effective date in this "
+     "14/11/2026 is the proposed date. None of them is in force until the Head of "
+     "Laboratory has prepared it, the hospital BMeT has reviewed it, and the Director "
+     "General has approved it by signing the cover block and the signature page. Under "
+     "ISO 15189:2022 the approval of a controlled laboratory document rests with the head "
+     "of the institution. If signature happens on a later date, the effective date in this "
      "Master List insert, in the SOP cover block and in the file name must be changed to "
      "the date of authorisation. The approval route is tracked in \u201c00 - New SOP "
      "approvals - equipment maintenance block (Nov 2026).xlsx\u201d, in the same folder.",
@@ -249,9 +251,9 @@ for i, h in enumerate(heads):
     c = sig.rows[0].cells[i]
     cell_text(c, h, bold=True, size=9, align=WD_ALIGN_PARAGRAPH.CENTER)
     shade(c, "D9E2F3")
-roles = ["Prepared by \u2013 Laboratory Quality Officer",
-         "Approved by \u2013 Laboratory Manager",
-         "Authorised by \u2013 Director General", ""]
+roles = ["Prepared by \u2013 Head of Laboratory",
+         "Reviewed by \u2013 BMeT",
+         "Approved by \u2013 Director General", ""]
 # rebuild with 3 data rows
 sig2 = doc.add_table(rows=4, cols=4)
 sig2.style = "Table Grid"

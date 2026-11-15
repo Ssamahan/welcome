@@ -16,7 +16,9 @@ OUT = os.path.dirname(os.path.abspath(__file__))
 EFF = "14 / 11 / 2026"
 REV = "14 / 11 / 2028"
 PREP = "Kelvin SAMAHANI"
-PREP_T = "Laboratory Manager"
+PREP_T = "Head of Laboratory"
+REV_BY = "Pacifique ISHIMWE"
+REV_BY_T = "BMeT"
 AUTH = "Dr. D\u00e9ogratias KANEZA"
 AUTH_T = "Director General"
 
@@ -71,7 +73,7 @@ def base_doc(code, title, version="001"):
     r.font.size = Pt(11)
     r.font.color.rgb = RGBColor(0x44, 0x44, 0x44)
 
-    t = doc.add_table(rows=6, cols=2)
+    t = doc.add_table(rows=7, cols=2)
     t.style = "Table Grid"
     t.alignment = WD_TABLE_ALIGNMENT.CENTER
     rows = [
@@ -80,7 +82,8 @@ def base_doc(code, title, version="001"):
         ("Effective date", EFF),
         ("Next review date", REV),
         ("Prepared by", f"{PREP} \u2013 {PREP_T}"),
-        ("Authorised by", f"{AUTH} \u2013 {AUTH_T}"),
+        ("Reviewed by", f"{REV_BY} \u2013 {REV_BY_T}"),
+        ("Approved by", f"{AUTH} \u2013 {AUTH_T}"),
     ]
     for i, (k, v) in enumerate(rows):
         t.cell(i, 0).text = ""
@@ -181,6 +184,59 @@ def NUM(doc, items):
         p.add_run(it)
 
 
+def _render_refs(doc, references):
+    """Accepts a list of plain strings or of (text, url) tuples."""
+    norm = []
+    for r in references:
+        if isinstance(r, (tuple, list)):
+            norm.append((r[0], r[1] if len(r) > 1 else None))
+        else:
+            norm.append((r, None))
+    REF(doc, norm)
+
+
+def add_hyperlink(paragraph, url, text, size=Pt(9.5)):
+    """Insert a real clickable hyperlink run into a paragraph."""
+    from docx.opc.constants import RELATIONSHIP_TYPE as RT
+    part = paragraph.part
+    r_id = part.relate_to(url, RT.HYPERLINK, is_external=True)
+    hyperlink = OxmlElement("w:hyperlink")
+    hyperlink.set(qn("r:id"), r_id)
+    new_run = OxmlElement("w:r")
+    rPr = OxmlElement("w:rPr")
+    color = OxmlElement("w:color")
+    color.set(qn("w:val"), "0563C1")
+    rPr.append(color)
+    u = OxmlElement("w:u")
+    u.set(qn("w:val"), "single")
+    rPr.append(u)
+    sz = OxmlElement("w:sz")
+    sz.set(qn("w:val"), str(int(size.pt * 2)))
+    rPr.append(sz)
+    new_run.append(rPr)
+    t = OxmlElement("w:t")
+    t.text = text
+    new_run.append(t)
+    hyperlink.append(new_run)
+    paragraph._p.append(hyperlink)
+
+
+def REF(doc, entries):
+    """Numbered reference list. Each entry: (text, url or None).
+    A URL is rendered as a live clickable link after the citation."""
+    for i, (text, url) in enumerate(entries, 1):
+        p = doc.add_paragraph()
+        p.paragraph_format.left_indent = Cm(0.75)
+        p.paragraph_format.first_line_indent = Cm(-0.75)
+        p.paragraph_format.space_after = Pt(3)
+        p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+        p.add_run(f"{i}.  ").font.size = Pt(9.5)
+        r = p.add_run(text + ("  " if url else ""))
+        r.font.size = Pt(9.5)
+        if url:
+            add_hyperlink(p, url, url)
+
+
 def TBL(doc, headers, rows, widths=None):
     t = doc.add_table(rows=1, cols=len(headers))
     t.style = "Table Grid"
@@ -223,9 +279,27 @@ def tail(doc, records, supporting, references):
     B(doc, supporting)
 
     H(doc, "10. References")
-    NUM(doc, references)
+    _render_refs(doc, references)
 
     H(doc, "11. Signature Page")
+    P(
+        doc,
+        "This SOP is prepared by the Head of Laboratory, reviewed for technical accuracy "
+        "by the hospital BMeT, and approved and signed by the Director General. It takes "
+        "effect on the date of that approval. The signature block below records the "
+        "approval; the staff list records that each member of staff has read and "
+        "understood the SOP and will work to it.",
+    )
+    TBL(
+        doc,
+        ["Approval", "Name", "Job title", "Signature", "Date"],
+        [
+            ("Prepared by", PREP, PREP_T, "", ""),
+            ("Reviewed by", REV_BY, REV_BY_T, "", ""),
+            ("Approved by", AUTH, AUTH_T, "", ""),
+        ],
+        widths=[2.8, 4.0, 3.6, 3.4, 2.8],
+    )
     P(
         doc,
         "I have read and understood this version of the SOP and I will work to it. "
@@ -241,9 +315,10 @@ def tail(doc, records, supporting, references):
     H(doc, "12. Amendment Page")
     P(
         doc,
-        "Handwritten amendments authorised by the Laboratory Manager before the next "
-        "revision. Each amendment must be initialled and dated. The amendment is "
-        "incorporated at the next revision and this page is cleared.",
+        "Handwritten amendments are authorised by the Director General, on the written "
+        "recommendation of the Head of Laboratory, before the next revision. Each "
+        "amendment must be initialled and dated. The amendment is incorporated at the "
+        "next revision and this page is cleared.",
     )
     TBL(
         doc,
@@ -343,19 +418,25 @@ def microscope():
         doc,
         ["Role", "Responsibility"],
         [
+            ("Director General",
+             "Approves this SOP and signs the cover block and the signature page. Under "
+             "ISO 15189:2022 the approval of a controlled laboratory document rests with "
+             "the head of the institution, not with the laboratory."),
             ("Laboratory Manager",
-             "Approves this SOP. Authorises the purchase of replacement instruments and "
-             "lenses. Signs service reports."),
+             "Is accountable for this SOP and for the resources it requires. Authorises "
+             "the purchase of replacement instruments and lenses. Signs service reports "
+             "and countersigns the SOP for approval by the Director General."),
             ("Laboratory Quality Officer",
              "Maintains the PM schedule for every microscope, verifies that PM has been "
              "done on time, and reviews PM records monthly."),
             ("Bench staff (all sections)",
              "Perform the daily and weekly care described in this SOP. Report any optical "
              "or mechanical fault immediately. Do not dismantle the instrument."),
-            ("Equipment officer",
-             "Keeps the microscope inventory, the PM log and the service records. Holds "
-             "the service contract."),
-            ("Biomedical engineer or contracted service provider",
+            ("BMeT (Biomedical Equipment Technician)",
+             "Holds the microscope inventory, the PM log and the service records, and the "
+             "service contract. Performs the tasks the service provider is not contracted "
+             "for, and witnesses the annual PM."),
+            ("BMeT, or the contracted service provider",
              "Performs the annual preventive maintenance and any repair. Issues a signed "
              "service report for each visit."),
         ],
@@ -502,7 +583,7 @@ def microscope():
     P(
         doc,
         "Once every twelve months the service provider performs and documents the "
-        "following. The equipment officer checks that each item appears in the report.",
+        "following. The BMeT checks that each item appears in the report.",
     )
     TBL(
         doc,
@@ -626,14 +707,12 @@ def microscope():
             "Laboratory equipment inventory",
         ],
         [
-            "ISO 15189:2022, clauses 6.4 (equipment) and 7.3.1 (documentation of "
-            "examination procedures).",
-            "ISO 15189:2022, clause 6.4.4 on preventive maintenance and 6.4.5 on "
-            "malfunction reporting.",
-            "World Health Organization. Malaria microscopy quality assurance manual, "
-            "version 2. Geneva: WHO; 2016.",
-            "Manufacturer's operating manual for the microscope models in use at this "
-            "laboratory.",
+        ("ISO 15189:2022, Medical laboratories \u2014 Requirements for quality and competence. 4th edition. Geneva: International Organization for Standardization; 2022.",
+         "https://www.iso.org/standard/76677.html"),
+        "ISO 15189:2022, clauses 6.4 (equipment), 6.4.4 (preventive maintenance) and 6.4.5 (malfunction reporting).",
+        ("World Health Organization. Malaria microscopy quality assurance manual, version 2. Geneva: WHO; 2016.",
+         "https://iris.who.int/handle/10665/204266"),
+        "Manufacturer's operating manual for the microscope models in use at this laboratory: Olympus CX21FS1, Olympus CX21LEDFS1 and Zeiss Primo Star, held beside each instrument.",
         ],
     )
     doc.save(os.path.join(OUT, f"RliDHL-ADM-SOP-{code}-VERS-001 - {title}.docx"))
@@ -731,19 +810,24 @@ def centrifuge():
         doc,
         ["Role", "Responsibility"],
         [
+            ("Director General",
+             "Approves this SOP and signs the cover block and the signature page. Under "
+             "ISO 15189:2022 the approval of a controlled laboratory document rests with "
+             "the head of the institution, not with the laboratory."),
             ("Laboratory Manager",
-             "Approves this SOP. Authorises purchase and withdrawal from service. Signs "
-             "service and verification reports."),
+             "Is accountable for this SOP and for the resources it requires. Authorises "
+             "purchase and withdrawal from service. Signs service and verification "
+             "reports, and countersigns the SOP for approval by the Director General."),
             ("Laboratory Quality Officer",
              "Maintains the verification schedule, reviews verification and PM records "
              "monthly, and investigates any out-of-limit verification."),
             ("Bench staff",
              "Balance every load, run the instrument as instructed, clean after use, and "
              "report faults and breakages immediately."),
-            ("Equipment officer",
-             "Keeps the centrifuge inventory, the rotor life record, the verification log "
+            ("BMeT (Biomedical Equipment Technician)",
+             "Holds the centrifuge inventory, the rotor life record, the verification log "
              "and the service records."),
-            ("Biomedical engineer or service provider",
+            ("BMeT, or the service provider",
              "Performs the speed and timer verification, the annual PM, and all repairs. "
              "Issues a signed report."),
         ],
@@ -951,7 +1035,7 @@ def centrifuge():
     P(
         doc,
         "Rotors have a finite life expressed in hours of use or in years. The equipment "
-        "officer keeps a rotor life record for each rotor: the date it entered service, "
+        "BMeT keeps a rotor life record for each rotor: the date it entered service, "
         "the manufacturer's stated life, and the cumulative hours of use. A rotor that "
         "reaches its stated life, or that is dropped or shows a crack, is retired from "
         "service and destroyed, not stored.",
@@ -1010,14 +1094,12 @@ def centrifuge():
             "Laboratory equipment inventory",
         ],
         [
-            "ISO 15189:2022, clauses 6.4 (equipment), 6.4.4 (preventive maintenance) and "
-            "7.3.1.",
-            "ISO 15189:2022, clause 6.3.3 on decontamination and 7.8 on reports of "
-            "adverse incidents.",
-            "IEC 61010-2-020, Safety requirements for electrical equipment for "
-            "measurement, control and laboratory use \u2013 particular requirements for "
-            "laboratory centrifuges.",
-            "Manufacturer's operating and service manual for each centrifuge model in use.",
+        ("ISO 15189:2022, Medical laboratories \u2014 Requirements for quality and competence. 4th edition. Geneva: International Organization for Standardization; 2022.",
+         "https://www.iso.org/standard/76677.html"),
+        "ISO 15189:2022, clause 6.3.3 on decontamination and 7.8 on reports of adverse incidents.",
+        ("IEC 61010-2-020:2026, Safety requirements for electrical equipment for measurement, control and laboratory use \u2013 Part 2-020: Particular requirements for laboratory centrifuges. Edition 4.0. Geneva: International Electrotechnical Commission; 2026. Published on 2 September 2026; it cancels the 2016 third edition that earlier drafts of this SOP cited.",
+         "https://webstore.iec.ch/en/publication/90934"),
+        "Manufacturer's operating and service manual for each centrifuge model in use: centrifuge 1207 and HUMAX 4K.",
         ],
     )
     doc.save(os.path.join(OUT, f"RliDHL-ADM-SOP-{code}-VERS-001 - {title}.docx"))
@@ -1097,17 +1179,25 @@ def waterbath():
         doc,
         ["Role", "Responsibility"],
         [
-            ("Laboratory Manager", "Approves this SOP and authorises withdrawal from "
-                                   "service."),
+            ("Director General",
+             "Approves this SOP and signs the cover block and the signature page. Under "
+             "ISO 15189:2022 the approval of a controlled laboratory document rests with "
+             "the head of the institution, not with the laboratory."),
+            ("Laboratory Manager",
+             "Is accountable for this SOP and for the resources it requires. Authorises "
+             "withdrawal from service, and countersigns the SOP for approval by the "
+             "Director General."),
             ("Laboratory Quality Officer",
              "Holds the calibration certificate for the reference thermometer, reviews "
              "the temperature log monthly, and investigates excursions."),
             ("Bench staff", "Check and record the temperature each working day, maintain "
                             "the water level, and clean as scheduled."),
-            ("Equipment officer", "Keeps the inventory, the temperature log and the "
-                                  "service records."),
-            ("Biomedical engineer or service provider",
-             "Performs the annual PM, the electrical safety test and any repair."),
+            ("BMeT (Biomedical Equipment Technician)",
+             "Holds the inventory, the temperature log and the service records."),
+            ("BMeT, or the service provider",
+             "Performs the annual PM, the electrical safety test and any repair. The "
+             "BMeT performs the electrical safety test where the hospital holds the "
+             "test instrument, and witnesses the rest."),
         ],
         widths=[5.4, 11.2],
     )
@@ -1284,11 +1374,12 @@ def waterbath():
             "Laboratory equipment inventory",
         ],
         [
-            "ISO 15189:2022, clauses 6.4 (equipment) and 6.4.4 (preventive maintenance).",
-            "ISO 15189:2022, clause 7.3.2 on verification of measuring equipment.",
-            "World Health Organization. Laboratory biosafety manual, 4th edition. Geneva: "
-            "WHO; 2020.",
-            "Manufacturer's operating manual for the water bath model in use.",
+        ("ISO 15189:2022, Medical laboratories \u2014 Requirements for quality and competence. 4th edition. Geneva: International Organization for Standardization; 2022.",
+         "https://www.iso.org/standard/76677.html"),
+        "ISO 15189:2022, clause 7.3.2 on verification of measuring equipment.",
+        ("World Health Organization. Laboratory biosafety manual, 4th edition. Geneva: WHO; 2020.",
+         "https://www.who.int/publications/i/item/9789240011311"),
+        "Manufacturer's operating manual for the water bath models in use: Memmert and HumAqua 5.",
         ],
     )
     doc.save(os.path.join(OUT, f"RliDHL-ADM-SOP-{code}-VERS-001 - {title}.docx"))
@@ -1395,14 +1486,19 @@ def nonmedical():
         doc,
         ["Role", "Responsibility"],
         [
+            ("Director General",
+             "Approves this SOP and signs the cover block and the signature page. Under "
+             "ISO 15189:2022 the approval of a controlled laboratory document rests with "
+             "the head of the institution, not with the laboratory."),
             ("Laboratory Manager",
-             "Approves this SOP, authorises purchase, replacement and disposal, and signs "
-             "service contracts and service reports."),
+             "Is accountable for this SOP and for the resources it requires. Authorises "
+             "purchase, replacement and disposal. Signs service contracts and service "
+             "reports, and countersigns the SOP for approval by the Director General."),
             ("Laboratory Quality Officer",
              "Owns the non-medical equipment register, sets the maintenance calendar, and "
              "reviews logs monthly."),
-            ("Equipment officer",
-             "Keeps the register, the maintenance log, the temperature and water quality "
+            ("BMeT (Biomedical Equipment Technician)",
+             "Holds the register, the maintenance log, the temperature and water quality "
              "records, and schedules the contracted services."),
             ("Bench staff",
              "Record refrigerator temperatures twice daily, record water quality daily, "
@@ -1629,8 +1725,8 @@ def nonmedical():
     H(doc, "6.8 Failure and downtime", 2)
     P(
         doc,
-        "When a non-medical item fails, the bench reports it to the equipment officer the "
-        "same day. The officer records it, arranges repair, and informs the Laboratory "
+        "When a non-medical item fails, the bench reports it to the BMeT the same day. "
+        "The BMeT records it, arranges repair, and informs the Laboratory "
         "Manager where the failure compromises a service. Where the failure affects "
         "patient testing, the contingency arrangements in RliDHL-ADM-SOP-047 apply.",
     )
@@ -1672,12 +1768,12 @@ def nonmedical():
             "RliDHL-ADM-SOP-057 \u2013 Maintenance of ICT Equipment",
         ],
         [
-            "ISO 15189:2022, clauses 6.3 (accommodation and environmental conditions) and "
-            "6.4 (equipment).",
-            "ISO 15189:2022, clause 6.4.4 on preventive maintenance.",
-            "World Health Organization. Laboratory biosafety manual, 4th edition. Geneva: "
-            "WHO; 2020.",
-            "Manufacturer's manuals for each item on the register.",
+        ("ISO 15189:2022, Medical laboratories \u2014 Requirements for quality and competence. 4th edition. Geneva: International Organization for Standardization; 2022.",
+         "https://www.iso.org/standard/76677.html"),
+        "ISO 15189:2022, clause 6.4.4 on preventive maintenance.",
+        ("World Health Organization. Laboratory biosafety manual, 4th edition. Geneva: WHO; 2020.",
+         "https://www.who.int/publications/i/item/9789240011311"),
+        "Manufacturer's manuals for each item on the register.",
         ],
     )
     doc.save(os.path.join(OUT, f"RliDHL-ADM-SOP-{code}-VERS-001 - {title}.docx"))
@@ -1751,7 +1847,7 @@ def ict():
     P(
         doc,
         "Hospital-wide network, email and the hospital information system are administered "
-        "by the hospital ICT department and are outside the scope of this SOP, except "
+        "by the hospital IT Officer and are outside the scope of this SOP, except "
         "where the laboratory depends on them for results and where the laboratory must "
         "report a fault.",
     )
@@ -1786,17 +1882,22 @@ def ict():
         doc,
         ["Role", "Responsibility"],
         [
+            ("Director General",
+             "Approves this SOP and signs the cover block and the signature page. Under "
+             "ISO 15189:2022 the approval of a controlled laboratory document rests with "
+             "the head of the institution, not with the laboratory."),
             ("Laboratory Manager",
-             "Approves this SOP and the access rights of staff. Authorises changes to the "
-             "LIS configuration in writing."),
+             "Is accountable for this SOP and for the access rights of staff. Authorises "
+             "changes to the LIS configuration in writing, and countersigns the SOP for "
+             "approval by the Director General."),
             ("Laboratory Quality Officer",
              "Reviews the backup log, the downtime log and the ICT maintenance log "
              "monthly. Investigates any data loss or confidentiality incident."),
-            ("ICT focal person (laboratory)",
+            ("ICT Officer",
              "A named member of laboratory staff who carries out the routine tasks in this "
              "SOP, keeps the ICT register, and is the single point of contact with the "
-             "hospital ICT department and the LIS vendor."),
-            ("Hospital ICT department",
+             "IT Officer and the LIS vendor."),
+            ("IT Officer (hospital IT)",
              "Administers the network, the server where it is centralised, and hospital "
              "email. Responds to laboratory fault reports."),
             ("LIS vendor",
@@ -1840,7 +1941,7 @@ def ict():
             "paper at the bench, and are changed when there is any reason to believe they "
             "are known to another person.",
             "Accounts of staff who leave, or who move to another department, are disabled "
-            "on the last working day. The ICT focal person checks the user list against "
+            "on the last working day. The ICT Officer checks the user list against "
             "the staff list every quarter and reports discrepancies to the Laboratory "
             "Manager.",
             "Screens lock automatically after a period set by policy, not longer than ten "
@@ -1934,7 +2035,7 @@ def ict():
     NUM(
         doc,
         [
-            "The ICT focal person declares downtime, informs the Laboratory Manager and "
+            "The ICT Officer declares downtime, informs the Laboratory Manager and "
             "records the start time in the downtime log.",
             "Specimens are registered on the paper downtime register, which is kept at "
             "reception and is pre-printed with the same fields as the LIS.",
@@ -1943,7 +2044,7 @@ def ict():
             "downtime.",
             "The cause and the expected duration are communicated to clinical staff so "
             "that urgent testing can be prioritised.",
-            "On restoration, the ICT focal person confirms that the system and the "
+            "On restoration, the ICT Officer confirms that the system and the "
             "analyser interfaces are working, then supervises the entry of the downtime "
             "records into the LIS.",
             "The entries are checked by a second person against the paper record, and the "
@@ -2011,17 +2112,17 @@ def ict():
         ["Fault", "First action", "Escalation"],
         [
             ("Workstation will not start", "Check power, UPS, monitor cable",
-             "ICT focal person; spare workstation"),
-            ("Cannot log in", "Check account status with the ICT focal person",
-             "Hospital ICT department"),
+             "ICT Officer; spare workstation"),
+            ("Cannot log in", "Check account status with the ICT Officer",
+             "IT Officer"),
             ("Printer will not print", "Check paper, toner, queue, cable",
-             "ICT focal person; call the provider"),
+             "ICT Officer; call the provider"),
             ("Analyser results not reaching the LIS", "Check the interface cable and the "
                                                        "middleware service",
              "LIS vendor"),
             ("LIS slow or unresponsive", "Note the time and the number of users",
-             "Hospital ICT department and vendor"),
-            ("Server down", "Declare downtime per 6.5", "Hospital ICT department and "
+             "IT Officer and vendor"),
+            ("Server down", "Declare downtime per 6.5", "IT Officer and "
                                                          "vendor immediately"),
             ("Suspected data breach or lost device", "Do not delete anything; secure the "
                                                      "area",
@@ -2069,15 +2170,15 @@ def ict():
             "RliDHL-ADM-SOP-019 \u2013 Document and Record Control",
         ],
         [
-            "ISO 15189:2022, clause 7.6 (control of data and information management) and "
-            "clause 7.6.6 on contingency and downtime.",
-            "ISO 15189:2022, clauses 6.4 (equipment) and 8.4 (control of records).",
-            "ISO/IEC 27001:2022, Information security management systems, where the "
-            "hospital operates a certified system.",
-            "Rwanda Ministry of Health guidance on protection of personal health data, and "
-            "Law No. 058/2021 on the protection of personal data and privacy.",
-            "Manufacturer and vendor documentation for the LIS and the analyser "
-            "interfaces in use.",
+        ("ISO 15189:2022, Medical laboratories \u2014 Requirements for quality and competence. 4th edition. Geneva: International Organization for Standardization; 2022.",
+         "https://www.iso.org/standard/76677.html"),
+        "ISO 15189:2022, clause 7.6 (control of data and information management) and clause 7.6.6 on contingency and downtime.",
+        "ISO 15189:2022, clauses 6.4 (equipment) and 8.4 (control of records).",
+        ("ISO/IEC 27001:2022, Information security, cybersecurity and privacy protection \u2014 Information security management systems \u2014 Requirements. Geneva: ISO/IEC; 2022, with Amendment 1:2024, where the hospital operates a certified system.",
+         "https://www.iso.org/standard/27001"),
+        ("Republic of Rwanda. Law No. 058/2021 of 13/10/2021 relating to the protection of personal data and privacy. Official Gazette n\u00b0 Special of 15/10/2021.",
+         "https://cyber.gov.rw/fileadmin/user_upload/NCSA/Documents/Laws/OG_Special_of_15.10.2021_Amakuru_bwite.pdf"),
+        "Manufacturer and vendor documentation for the LIS and the analyser interfaces in use.",
         ],
     )
     doc.save(os.path.join(OUT, f"RliDHL-ADM-SOP-{code}-VERS-001 - {title}.docx"))

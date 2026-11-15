@@ -41,14 +41,17 @@ rows = [
           "which is outside the 31 March 2027 window used by the SOP review register."),
     ("b", ""),
     ("h", "What has to happen before the SOPs can be used"),
-    ("p", "1.  The Laboratory Manager reads each SOP and prepares it, signing the cover "
+    ("p", "1.  The Head of Laboratory reads each SOP and prepares it, signing the cover "
           "block and the signature page."),
-    ("p", "2.  The Director General authorises it, signing the cover block."),
-    ("p", "3.  The signed scans are uploaded next to the Word files in "
+    ("p", "2.  The hospital BMeT reviews it for technical accuracy and signs as reviewer."),
+    ("p", "3.  The Director General approves it, signing the cover block and the "
+          "signature page. Under ISO 15189:2022 the approval of a controlled laboratory "
+          "document rests with the head of the institution."),
+    ("p", "4.  The signed scans are uploaded next to the Word files in "
           "4. Reception > Administration > 6. Equipment, Stock and Suppliers."),
-    ("p", "4.  The SOP is entered in the Master List with its code, title, effective "
+    ("p", "5.  The SOP is entered in the Master List with its code, title, effective "
           "date and review date, in the crosscutting section."),
-    ("p", "5.  Bench staff sign the signature page to record that they have read and "
+    ("p", "6.  Bench staff sign the signature page to record that they have read and "
           "understood it."),
     ("b", ""),
     ("h", "Important"),

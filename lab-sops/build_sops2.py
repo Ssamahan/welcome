@@ -173,6 +173,12 @@ def hematology():
              "flow path, so it is the Pima's consumable in place of the diluent, lyse "
              "and cleaner used on the Sysmex instruments."),
             ("PM", "Preventive maintenance."),
+            ("BMeT",
+             "Biomedical Equipment Technician. The hospital's biomedical engineering "
+             "post, held by Pacifique ISHIMWE at Ruli District Hospital. The BMeT holds "
+             "the equipment inventory, the service records and the service contracts, "
+             "performs the maintenance within the hospital's competence, and reviews the "
+             "technical accuracy of an equipment SOP before it is approved."),
             ("ADF", "Assay definition file. Not used in hematology; listed for "
                     "completeness of the equipment vocabulary."),
         ],
@@ -184,9 +190,14 @@ def hematology():
         doc,
         ["Role", "Responsibility"],
         [
+            ("Director General",
+             "Approves this SOP and signs the cover block and the signature page. Under "
+             "ISO 15189:2022 the approval of a controlled laboratory document rests with "
+             "the head of the institution, not with the laboratory."),
             ("Laboratory Manager",
-             "Approves this SOP. Authorises the withdrawal of an analyser from service "
-             "and the purchase of reagents and service."),
+             "Is accountable for this SOP and for the resources it requires. Authorises "
+             "the withdrawal of an analyser from service and the purchase of reagents and "
+             "service, and countersigns the SOP for approval by the Director General."),
             ("Section head, Hematology",
              "Reviews the daily maintenance log and the QC record every working day "
              "before results are released. Authorises a repeat run after a QC failure."),
@@ -196,9 +207,10 @@ def hematology():
             ("Bench technologist",
              "Performs and records the daily and weekly tasks. Runs and interprets the "
              "background count and the IQC. Reports faults immediately."),
-            ("Equipment officer",
-             "Keeps the analyser inventory, the service record and the contract with the "
-             "supplier."),
+            ("BMeT (Biomedical Equipment Technician)",
+             "Holds the analyser inventory, the service record and the contract with the "
+             "supplier. Performs the electrical safety checks and the tasks within the "
+             "hospital's competence, and witnesses the annual service."),
             ("Supplier service engineer",
              "Performs the scheduled and corrective service visits and issues a signed "
              "service report."),
@@ -568,19 +580,20 @@ def hematology():
             "Health, for the clinical use of the CD4 result",
         ],
         [
-            "ISO 15189:2022, clauses 6.4 (equipment), 6.4.4 (preventive maintenance), "
-            "7.3.2 (verification) and 7.3.7 (quality control).",
+            ("ISO 15189:2022, Medical laboratories \u2014 Requirements for quality and competence. 4th edition. Geneva: International Organization for Standardization; 2022, clauses 6.4 (equipment), 6.4.4 (preventive maintenance), 7.3.2 (verification) and 7.3.7 (quality control).",
+             "https://www.iso.org/standard/76677.html"),
             "ISO 15189:2022, clause 7.3.6 on documentation of examination procedures.",
-            "Manufacturer's operator and service manuals for each analyser model in use, "
-            "held beside the instrument.",
-            "Clinical and Laboratory Standards Institute. GP41, Quality management system "
-            "approaches for the laboratory, and C24, Statistical quality control for "
-            "quantitative measurement procedures.",
-            "World Health Organization. Manual of basic haematology techniques, where "
-            "applicable to the methods in use.",
-            "World Health Organization. Consolidated guidelines on HIV prevention, testing, "
-            "treatment, service delivery and monitoring, for the CD4 thresholds that "
-            "trigger clinical action.",
+            ("Clinical and Laboratory Standards Institute. C24, Statistical Quality Control for Quantitative Measurement Procedures: Principles and Definitions. 4th edition. Wayne, PA: CLSI; 2016.",
+             "https://clsi.org/shop/standards/c24/"),
+            ("Clinical and Laboratory Standards Institute. QMS01, A Quality Management System Model for Laboratory Services. 6th edition. Wayne, PA: CLSI; 2026.",
+             "https://clsi.org/shop/standards/qms01/"),
+            ("World Health Organization. Laboratory quality management system: handbook. Geneva: WHO; 2011, on the management of equipment records.",
+             "https://www.who.int/publications/i/item/9789241548274"),
+            ("World Health Organization. Consolidated guidelines on HIV prevention, testing, treatment, service delivery and monitoring: recommendations for a public health approach. Geneva: WHO; 2021, for the CD4 thresholds that trigger clinical action.",
+             "https://www.who.int/publications/i/item/9789240031593"),
+            ("Rwanda Ministry of Health. National guidelines for prevention and management of HIV. Kigali: Ministry of Health; 2020, for the national algorithm that sets when a CD4 count is requested.",
+             "https://www.prepwatch.org/wp-content/uploads/2022/08/Rwanda-National-HIV-Guidelines-for-Prevention-Management-of-HIV-2020.pdf"),
+            "Manufacturer's operator and service manuals for each analyser model in use (Sysmex XN-330, Sysmex XQ-320, Alere Pima CD4), supplied with the instrument and held beside it; no public link, because the manual is model- and serial-specific.",
         ],
     )
     doc.save(os.path.join(OUT, f"RliDHL-ADM-SOP-{code}-VERS-001 - {title}.docx"))
@@ -688,9 +701,15 @@ def genexpert():
         doc,
         ["Role", "Responsibility"],
         [
+            ("Director General",
+             "Approves this SOP and signs the cover block and the signature page. Under "
+             "ISO 15189:2022 the approval of a controlled laboratory document rests with "
+             "the head of the institution, not with the laboratory."),
             ("Laboratory Manager",
-             "Approves this SOP. Ensures the annual calibration kits are budgeted and "
-             "procured. Authorises withdrawal of a module from use."),
+             "Is accountable for this SOP and for the resources it requires. Ensures the "
+             "annual calibration kits are budgeted and procured. Authorises withdrawal of "
+             "a module from use, and countersigns the SOP for approval by the Director "
+             "General."),
             ("Molecular section head",
              "Holds the module calibration register and confirms before each run that "
              "every module in use is within its calibration date."),
@@ -700,8 +719,8 @@ def genexpert():
             ("Bench technologist",
              "Performs and records the daily, weekly and monthly tasks. Reports errors and "
              "module failures immediately."),
-            ("Cepheid authorised service provider or the laboratory's designated trained "
-             "officer",
+            ("Cepheid authorised service provider, or the laboratory technologist "
+             "designated in writing for this task",
              "Performs the annual calibration and any repair, and issues the calibration "
              "certificate."),
         ],
@@ -873,12 +892,12 @@ def genexpert():
             ("Quarterly",
              "Replace the fan filters and prefilters, review the error and system logs, "
              "and confirm that no module is approaching its calibration limit",
-             "Trained laboratory officer"),
+             "Trained laboratory technologist"),
             ("Annually, or after 2,000 tests on a module, whichever comes first",
              "Calibrate every module with the Xpert Check kit. One kit covers four "
              "modules. Record the calibration date for each module separately.",
-             "Cepheid authorised service provider, or a trained officer where the "
-             "laboratory is authorised to perform it"),
+             "Cepheid authorised service provider, or a trained laboratory technologist "
+             "where the laboratory is authorised to perform it"),
             ("Annually",
              "Full preventive maintenance by the service provider, including I-CORE "
              "condition, syringe and plunger mechanism, door sensors, fans and "
@@ -887,7 +906,7 @@ def genexpert():
             ("As needed",
              "Update the assay definition file after a software upgrade; print the system "
              "log report; clean the I-CORE; re-run a module that has failed",
-             "Trained laboratory officer"),
+             "Trained laboratory technologist"),
             ("After any repair or module replacement",
              "Calibrate the replacement module before it is used for patient testing",
              "Service provider"),
@@ -1070,18 +1089,15 @@ def genexpert():
             "Sample processing using GeneXpert (TB folder)",
         ],
         [
-            "Cepheid. GeneXpert\u00ae Dx System Operator Manual, Chapter 9, Service and "
-            "Maintenance. The copy held in the laboratory is the authoritative version.",
-            "Cepheid. GeneXpert\u00ae Dx System Maintenance presentation, document "
-            "301-7990 Rev. C.",
-            "Cepheid. GeneXpert\u00ae System Maintenance Log, document 302-8386 Rev. C.",
-            "Cepheid. Xpert\u00ae MTB/RIF and Xpert\u00ae MTB/RIF Ultra assay package "
-            "inserts, for the handling requirements that affect instrument use.",
-            "Global Laboratory Initiative. Xpert MTB/RIF Training Package, Module 10, "
-            "Maintenance, adapted from Cepheid.",
-            "ISO 15189:2022, clauses 6.4 (equipment), 6.4.4 (preventive maintenance) and "
-            "7.3.2 (verification of measuring equipment).",
-            "ISO 15189:2022, clause 7.6 (control of data and information).",
+            ("Cepheid. GeneXpert\u00ae Maintenance: GeneXpert Dx System, document 301-7990 Rev. C. August 2021.",
+             "https://www.cepheid.com/content/dam/www-cepheid-com/documents/documents/Cepheid-GeneXpertDx-Maintenenace%20presentation-Global-301-7990-Rev.C-English%20.pdf"),
+            ("Global Laboratory Initiative. Training package on Xpert MTB/RIF, Module 10, Maintenance, adapted from Cepheid.",
+             "https://www.stoptb.org/who-we-are/stop-tb-working-groups/global-laboratory-initiative-gli/training-packages/xpert-mtbrif"),
+            "Cepheid. GeneXpert\u00ae System Maintenance Log, document 302-8386 Rev. C. Supplied with the instrument.",
+            "Cepheid. GeneXpert\u00ae Dx System Operator Manual, Chapter 9, Service and Maintenance. Supplied with the instrument; the copy held in the laboratory is the authoritative version.",
+            "Cepheid. Xpert\u00ae MTB/RIF and Xpert\u00ae MTB/RIF Ultra assay package inserts, for the handling requirements that affect instrument use.",
+            ("ISO 15189:2022, Medical laboratories \u2014 Requirements for quality and competence. 4th edition. Geneva: ISO; 2022, clauses 6.4 (equipment), 6.4.4 (preventive maintenance), 7.3.2 (verification) and 7.6 (control of data and information).",
+             "https://www.iso.org/standard/76677.html"),
         ],
     )
     doc.save(os.path.join(OUT, f"RliDHL-ADM-SOP-{code}-VERS-001 - {title}.docx"))

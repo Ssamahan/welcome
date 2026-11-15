@@ -104,8 +104,17 @@ Quality Manual, Safety Manual and Master List live. Six subfolders:
        daily/weekly/monthly/quarterly/yearly tasks, module calibration at one year or
        2,000 tests, Xpert Check, fan filters, monthly optics cleaning for a dusty site)
    All seven are VERS-001, effective 14/11/2026, review 14/11/2028. They are first
-   issues and not yet signed — the Laboratory Manager and the Director General must
-   sign the cover block and signature page before they are used.
+   issues and not yet signed — the Head of Laboratory prepares and signs, the hospital
+   BMeT reviews, and the Director General approves and signs the cover block and
+   signature page before they are used. ISO 15189:2022 places the approval of a
+   controlled laboratory document with the head of the institution.
+
+   Every SOP now ends its reference list (section 10) with a live hyperlink wherever a
+   public source exists — ISO 15189:2022, the WHO handbooks and guidelines, Rwanda Law
+   No. 058/2021, IEC and CLSI standards, and the Cepheid and GLI GeneXpert material.
+   Manufacturer manuals that ship with the instrument are cited as supplied with it and
+   carry no link. Titles follow the Rwandan hospital posts: BMeT (Biomedical Equipment
+   Technician), ICT Officer and IT Officer, not "equipment officer".
 
    Three blank forms are issued beside them, each an Excel workbook with one sheet per
    month so it can be printed or typed into:
