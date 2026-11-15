@@ -27,13 +27,16 @@ These apply everywhere, so every room computer should point here as well as to i
 
 1. Hematology (Hematology, CD4)
 Hematology subfolder — full blood count analysers and their bench work:
-KX-21N, Sysmex Pochi, Humacount 5, plus the RliDHL-HEM coded SOPs.
+Sysmex XN-330 (s/n 17156) and XQ-320 (s/n 12357) only — the KX-21N, XS-500i, Pochi
+and Humacount 5 were decommissioned and their legacy SOPs are superseded, plus the
+RliDHL-HEM coded SOPs.
 CD4 subfolder — Pima CD4, FACSCount usage and maintenance, T-CD4 sample preparation,
 CD4 sample rejection, CD4 enumeration by FACSCount flow cytometer.
 
 2. Biochemistry (Biochemistry, Serology, Blood Transfusion)
 Biochemistry subfolder — Cobas c 111 chemistry: Glucose, Urea, Creatinine, Calcium,
-ALT/ALAT, AST/ASAT, total and direct bilirubin, CRP; also Humastar 80 / Humalyzer 3500.
+ALT/ALAT, AST/ASAT, total and direct bilirubin, CRP. The Humastar 80 and Humalyzer 3500
+were decommissioned and disposed of; only the Cobas c 111 remains.
 Serology subfolder — HIV rapid testing (Determine, Unigold, STAT-PAK, Alere Combo),
 Syphilis RPR, HBsAg, Cryptococcal antigen, H. pylori stool antigen, pregnancy test,
 rheumatoid factor, ASLO.
@@ -90,8 +93,9 @@ Quality Manual, Safety Manual and Master List live. Six subfolders:
        Information System (workstations, server, printers, network, analyser interfaces,
        backup and restore, access control, downtime procedure, data destruction)
      - RliDHL-ADM-SOP-058  Use, Care and Preventive Maintenance of Hematology Analysers
-       (Sysmex KX-21N, XS-500i, XN-330, XQ-320, Pochi, Humacount 5 — start-up, background
-       count, IQC before patient samples, probe care, calibration, service)
+       (Sysmex XN-330 s/n 17156 and XQ-320 s/n 12357 only — start-up, background count,
+       IQC before patient samples, probe care, calibration, service; section 3.1 records
+       the withdrawal of the KX-21N, XS-500i, Pochi and Humacount 5)
      - RliDHL-ADM-SOP-059  Use, Care and Preventive Maintenance of the GeneXpert Dx System
        (written from Cepheid 301-7990 Rev. C, 302-8386 Rev. C and Operator Manual Ch. 9 —
        daily/weekly/monthly/quarterly/yearly tasks, module calibration at one year or
@@ -105,8 +109,9 @@ Quality Manual, Safety Manual and Master List live. Six subfolders:
      - Form RliDHL-ADM-SOP-058-F01  Hematology analyser daily maintenance and start-up log
      - Form RliDHL-ADM-SOP-059-F01  GeneXpert maintenance log (Cepheid task list, 2-letter
        initials row) plus a permanent Module calibration register
-     - Form RliDHL-ADM-SOP-056-F01  Temperature monitoring for fridges, freezers, cold
-       boxes and rooms, with a device register of required ranges
+     - Form RliDHL-ADM-SOP-056-F01  Temperature monitoring for the three refrigerators,
+       the sample-transport cold box and the four rooms, with a device register of
+       required ranges. No freezer is in service, so none is listed.
 
    Also here: the Master List insert sheet carrying the rows for 053-059 and the three
    forms in Master List column order, and the approval tracker

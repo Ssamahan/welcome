@@ -113,13 +113,15 @@ ROWS = [
      "Laboratory Information System.docx"),
     ("58", "Use, Care and Preventive Maintenance of Hematology Analysers", "\u2014",
      "RliDHL-ADM-SOP-058-VERS-001",
-     "New SOP, covering all six analysers in service: Sysmex KX-21N, XS-500i, XN-330, "
-     "XQ-320, Pochi and Humacount 5. Daily start-up, background count, IQC before patient "
-     "samples, aspiration probe care, cleaning cycles, calibration and its verification, "
-     "service and the fault escalation route. Model-specific limits are deferred to each "
-     "operator manual because the six instruments mix 3-part and 5-part differentials.",
-     "Give the asset number and serial number of each of the six analysers so the form can "
-     "be pre-printed per instrument.",
+     "New SOP, covering the two analysers in service: Sysmex XN-330 (serial 17156, asset "
+     "RULIDH/LAB/ME/0501) and Sysmex XQ-320 (serial 12357, asset RULIDH/LAB/ME/0499). "
+     "Daily start-up, background count, IQC before patient samples, aspiration probe care, "
+     "cleaning cycles, calibration and its verification, service and the fault escalation "
+     "route. Instrument limits are deferred to each operator manual. Section 3.1 records "
+     "the withdrawal of the KX-21N, XS-500i, Pochi and Humacount 5 and states that this "
+     "SOP does not apply to them.",
+     "Confirm the XN-330 and XQ-320 asset codes against the inventory before the signature "
+     "run; both are printed in the SOP scope table.",
      "RliDHL-ADM-SOP-058-VERS-001 - Use, Care and Preventive Maintenance of Hematology "
      "Analysers.docx"),
     ("59", "Use, Care and Preventive Maintenance of the GeneXpert Dx System", "\u2014",

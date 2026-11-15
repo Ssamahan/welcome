@@ -197,11 +197,12 @@ NOTES = [
      "ISO 15189:2022 clauses 7.4.3 and 8.4 require the information system to be maintained "
      "and protected; it had no procedure."),
     ("058 Hematology analysers",
-     "The laboratory runs six analysers: Sysmex KX-21N, XS-500i, XN-330, XQ-320, Pochi and "
-     "the Humacount 5. Each had a bench SOP for running samples but none for the daily "
-     "start-up, the background count, the care of the aspiration probe, the calibration "
-     "interval or the service record. Written to cover all six, with the model-specific "
-     "limits left to each operator manual."),
+     "The laboratory runs two analysers: the Sysmex XN-330 (serial 17156) and the Sysmex "
+     "XQ-320 (serial 12357), both supplied in 2025. Each had a bench SOP for running "
+     "samples but none for the daily start-up, the background count, the care of the "
+     "aspiration probe, the calibration interval or the service record. Written to cover "
+     "both, with each instrument's own limits left to its operator manual and its serial "
+     "and asset code printed in the scope so a record traces to one physical instrument."),
     ("059 GeneXpert Dx System",
      "Written from the Cepheid documents themselves \u2013 the maintenance presentation "
      "301-7990 Rev. C, the maintenance log 302-8386 Rev. C and Chapter 9 of the Operator "

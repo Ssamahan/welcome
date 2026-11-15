@@ -3,7 +3,7 @@
 Builds the three tracking forms:
   1. Daily PM log for Sysmex hematology analysers
   2. Daily PM log for the GeneXpert Dx System, following the Cepheid log (302-8386 Rev. C)
-  3. Temperature monitoring for fridges, freezers and rooms
+  3. Temperature monitoring for refrigerators, cold box and rooms
 One worksheet per month, printable landscape on A4.
 """
 import os, calendar
@@ -109,10 +109,10 @@ def hematology_log():
              f"initial and tick the box each day", ncols)
 
         id_block(ws, 4, [
-            ("Analyser model", "", 1),
-            ("Serial no.", "", 1),
-            ("Asset no.", "", 1),
-            ("Location", "", 1),
+            ("Analyser", "\u25a1 Sysmex XN-330   \u25a1 Sysmex XQ-320", 1),
+            ("Serial no.", "17156 / 12357", 1),
+            ("Asset no.", "ME/0501 / ME/0499", 1),
+            ("Location", "Hematology Room", 1),
         ], ncols)
         id_block(ws, 5, [
             ("Diluent lot / exp", "", 1),
@@ -210,8 +210,11 @@ def hematology_log():
               "an instrument that had passed its checks."),
         ("b", ""),
         ("h", "How to fill it in"),
-        ("p", "1.  Enter the analyser model, serial number and asset number once, at the "
-              "top of each monthly sheet. If the reagent or control lot changes during the "
+        ("p", "1.  There are two analysers, the Sysmex XN-330 (serial 17156, asset "
+              "RULIDH/LAB/ME/0501) and the Sysmex XQ-320 (serial 12357, asset "
+              "RULIDH/LAB/ME/0499). They are not interchangeable records: tick the box at "
+              "the head of the sheet for the instrument the sheet belongs to, and keep one "
+              "sheet per instrument. If the reagent or control lot changes during the "
               "month, write the new lot and the date of change in the comments box."),
         ("p", "2.  Each working day, tick the box for every task performed."),
         ("p", "3.  In the shaded yellow cells, write the actual value: the background "
@@ -232,6 +235,12 @@ def hematology_log():
         ("p", "\u2022  there is a clot, a short sample or a repeated aspiration error"),
         ("p", "\u2022  the analyser has an unresolved pressure, fluidic or temperature "
               "error"),
+        ("b", ""),
+        ("h", "Only two analysers are in service"),
+        ("p", "The KX-21N, XS-500i, Pochi and Humacount 5 have been decommissioned. Do not "
+              "open a sheet for them and do not record maintenance against them. If an "
+              "analyser is withdrawn, close its sheet and mark the instrument out of "
+              "service on the inventory."),
         ("b", ""),
         ("h", "Calibration is not recorded on this form"),
         ("p", "Calibration and verification are recorded on a separate calibration record, "
@@ -527,7 +536,7 @@ def temperature_log():
     # device register
     ws = wb.create_sheet("Device register")
     head(ws, "TEMPERATURE MONITORING \u2013 DEVICE REGISTER",
-         "Register each fridge, freezer, cold box and air-conditioned room before logging "
+         "Register each refrigerator, cold box and air-conditioned room before logging "
          "temperatures for it.", 9)
     hr = 4
     cols = ["No.", "Device / room", "Location", "Asset no.",
@@ -538,14 +547,22 @@ def temperature_log():
     style_header(ws, hr, 9, height=40)
 
     EXAMPLES = [
-        ("Reagent fridge 1", "Hematology bench", "", "2 \u00b0C to 8 \u00b0C", "", "", "", "Twice daily"),
-        ("Reagent fridge 2", "Biochemistry bench", "", "2 \u00b0C to 8 \u00b0C", "", "", "", "Twice daily"),
-        ("Blood bank fridge", "Blood transfusion", "", "2 \u00b0C to 6 \u00b0C", "", "", "", "Twice daily"),
-        ("Freezer", "Molecular / TB", "", "-20 \u00b0C \u00b1 5 \u00b0C", "", "", "", "Twice daily"),
-        ("Room \u2013 Laboratory", "Main laboratory", "", "18 \u00b0C to 25 \u00b0C", "", "", "", "Daily"),
-        ("Room \u2013 TB", "TB room", "", "18 \u00b0C to 25 \u00b0C", "", "", "", "Daily"),
-        ("Room \u2013 Molecular", "GeneXpert area", "", "per operator manual", "", "", "", "Daily"),
-        ("Room \u2013 Reception", "Reception", "", "18 \u00b0C to 25 \u00b0C", "", "", "", "Daily"),
+        ("Refrigerator \u2013 BB R625 S", "Biochemistry Room",
+         "RBC/RCBT.RW/GV/FR001/19", "2 \u00b0C to 8 \u00b0C", "", "", "", "Twice daily"),
+        ("Refrigerator \u2013 0914327-03", "Biochemistry Room",
+         "RULIDH/LAB/ME/0106", "2 \u00b0C to 8 \u00b0C", "", "", "", "Twice daily"),
+        ("Refrigerator \u2013 FIOCCHETTI", "TB Preparation Room",
+         "RULIDH/LAB/ME/0105", "2 \u00b0C to 8 \u00b0C", "", "", "", "Twice daily"),
+        ("Cold box \u2013 sample transport", "Reception", "", "2 \u00b0C to 8 \u00b0C",
+         "", "", "", "At departure and arrival"),
+        ("Room \u2013 Hematology", "Hematology Room", "", "18 \u00b0C to 25 \u00b0C",
+         "", "", "", "Daily"),
+        ("Room \u2013 Biochemistry", "Biochemistry Room", "", "18 \u00b0C to 25 \u00b0C",
+         "", "", "", "Daily"),
+        ("Room \u2013 TB testing", "TB Testing Room", "", "18 \u00b0C to 25 \u00b0C",
+         "", "", "", "Daily"),
+        ("Room \u2013 TB preparation", "TB Preparation Room", "",
+         "18 \u00b0C to 25 \u00b0C", "", "", "", "Daily"),
     ]
     r = hr + 1
     for i, ex in enumerate(EXAMPLES, 1):
@@ -567,10 +584,10 @@ def temperature_log():
         ws.column_dimensions[get_column_letter(i)].width = w
     note = r + 9
     ws.cell(row=note, column=1,
-            value="Ranges: reagent refrigerator 2\u20138 \u00b0C, blood bank refrigerator "
-                  "2\u20136 \u00b0C, freezer -20 \u00b0C \u00b1 5 \u00b0C, cold box "
-                  "2\u20138 \u00b0C in transit. Rooms: 18\u201325 \u00b0C and below 70% "
-                  "relative humidity, per RliDHL-ADM-SOP-056.").font = Font(italic=True, size=8.5)
+            value="Ranges: refrigerator 2\u20138 \u00b0C, cold box 2\u20138 \u00b0C in "
+                  "transit, rooms 18\u201325 \u00b0C and below 70% relative humidity, per "
+                  "RliDHL-ADM-SOP-056. The laboratory has no freezer in service; the "
+                  "register lists what exists, not what a generic form would expect.").font = Font(italic=True, size=8.5)
     ws.merge_cells(start_row=note, start_column=1, end_row=note, end_column=9)
     ws.cell(row=note, column=1).alignment = Alignment(wrap_text=True, vertical="top")
     ws.row_dimensions[note].height = 30
@@ -582,7 +599,7 @@ def temperature_log():
         ndays = calendar.monthrange(YEAR, mnum)[1]
         ncols = 2 + ndays + 3
         head(ws, "TEMPERATURE MONITORING RECORD",
-             f"{mname} {YEAR}  \u2022  fridges, freezers and rooms  \u2022  "
+             f"{mname} {YEAR}  \u2022  refrigerators, cold box and rooms  \u2022  "
              f"RliDHL-ADM-SOP-056", ncols)
 
         id_block(ws, 4, [
@@ -601,14 +618,14 @@ def temperature_log():
         style_header(ws, hr, ncols, height=30)
 
         DEVICES = [
-            ("Reagent fridge 1", "2\u20138 \u00b0C"),
-            ("Reagent fridge 2", "2\u20138 \u00b0C"),
-            ("Blood bank fridge", "2\u20136 \u00b0C"),
-            ("Freezer", "-20 \u00b0C \u00b1 5"),
-            ("Room \u2013 Laboratory", "18\u201325 \u00b0C"),
-            ("Room \u2013 TB", "18\u201325 \u00b0C"),
-            ("Room \u2013 Molecular", "per manual"),
-            ("Room \u2013 Reception", "18\u201325 \u00b0C"),
+            ("Refrigerator \u2013 BB R625 S", "2\u20138 \u00b0C"),
+            ("Refrigerator \u2013 0914327-03", "2\u20138 \u00b0C"),
+            ("Refrigerator \u2013 FIOCCHETTI", "2\u20138 \u00b0C"),
+            ("Cold box \u2013 transport", "2\u20138 \u00b0C"),
+            ("Room \u2013 Hematology", "18\u201325 \u00b0C"),
+            ("Room \u2013 Biochemistry", "18\u201325 \u00b0C"),
+            ("Room \u2013 TB testing", "18\u201325 \u00b0C"),
+            ("Room \u2013 TB preparation", "18\u201325 \u00b0C"),
             ("", ""),
             ("", ""),
         ]
@@ -677,14 +694,15 @@ def temperature_log():
     ws.column_dimensions["A"].width = 3
     ws.column_dimensions["B"].width = 100
     lines = [
-        ("t", "Temperature monitoring \u2013 fridges, freezers and rooms"),
+        ("t", "Temperature monitoring \u2013 refrigerators, cold box and rooms"),
         ("n", "RliDHL-ADM-SOP-056 \u2022 Ruli District Hospital Laboratory \u2022 forms "
               "prepared 14 November 2026"),
         ("b", ""),
         ("h", "Sheets in this workbook"),
-        ("p", "Device register \u2013 fill this in once. It lists every temperature-"
-              "controlled device and room, its required range, the identity of its "
-              "thermometer or data logger and the person responsible."),
+        ("p", "Device register \u2013 fill this in once. It is pre-filled with the "
+              "refrigerators, cold box and rooms that are actually on the hospital "
+              "equipment inventory. There is no freezer in service, so none is listed. "
+              "Add a device only when it exists and has been assigned a required range."),
         ("p", "Jan to Dec \u2013 one monitoring sheet per month."),
         ("b", ""),
         ("h", "How to record"),
@@ -712,7 +730,7 @@ def temperature_log():
               "hygrometer, add the humidity reading to the comments box."),
         ("b", ""),
         ("h", "Minimum expectations"),
-        ("p", "\u2022  Refrigerators and freezers: twice every working day."),
+        ("p", "\u2022  Refrigerators: twice every working day."),
         ("p", "\u2022  Rooms: once every working day."),
         ("p", "\u2022  Cold boxes: at departure and at arrival."),
         ("p", "\u2022  Data loggers: downloaded and filed at least monthly, in addition "

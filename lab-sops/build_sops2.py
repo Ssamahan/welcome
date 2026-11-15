@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Adds the instrument-specific maintenance SOPs:
-  ADM-058  Hematology analysers (Sysmex and others)
+  ADM-058  Hematology analysers (Sysmex XN-330 and XQ-320, the two in service)
   ADM-059  GeneXpert Dx System, written from Cepheid source material
 Reuses the layout helpers in build_sops.py.
 """
@@ -39,10 +39,13 @@ def hematology():
     )
     P(
         doc,
-        "The laboratory operates several analyser models of different generations side "
-        "by side, and this SOP sets one maintenance discipline that applies to all of "
-        "them, so that the standard does not depend on which bench a sample happens to "
-        "reach.",
+        "The laboratory operates two analysers: the Sysmex XN-330 and the Sysmex XQ-320. "
+        "They are not the same instrument. The XN-330 is the larger of the two and "
+        "produces a full differential; the XQ-320 is a compact analyser used for the "
+        "routine workload and as the backup when the XN-330 is down. This SOP sets one "
+        "maintenance discipline that applies to both, and states separately where a limit "
+        "or an interval differs between them, so that the standard does not depend on "
+        "which instrument a sample happens to reach.",
     )
 
     H(doc, "2. Purpose")
@@ -63,23 +66,28 @@ def hematology():
     )
     TBL(
         doc,
-        ["Analyser in use", "Status of documentation", "Where the manual is"],
+        ["Analyser", "Serial no.", "Asset code", "Location", "Role"],
         [
-            ("Sysmex KX-21N", "Legacy SOP on file, uncoded", "Hematology folder"),
-            ("Sysmex XS-500i", "Legacy SOP and operator manual on file", "Hematology "
-                                                                        "folder"),
-            ("Sysmex XN-330", "Operator manual on file", "Hematology folder"),
-            ("Sysmex XQ-320", "Operator manual on file", "Hematology folder"),
-            ("Sysmex Pochi", "Legacy SOP on file, uncoded", "Hematology folder"),
-            ("Humacount 5", "Legacy SOP on file, uncoded", "Hematology folder"),
+            ("Sysmex XN-330", "17156", "RULIDH/LAB/ME/0501", "Hematology Room",
+             "Main analyser"),
+            ("Sysmex XQ-320", "12357", "RULIDH/LAB/ME/0499", "Hematology Room",
+             "Routine workload and backup"),
         ],
-        widths=[4.6, 6.6, 5.4],
+        widths=[3.4, 2.2, 3.8, 3.2, 4.0],
     )
     P(
         doc,
-        "The parameter list and the measuring principle differ between these models. "
-        "Confirm the parameters each instrument reports, and its own limits for "
-        "background, carryover and precision, against the operator manual held beside it.",
+        "Both instruments were supplied in 2025. The serial number and the asset code in "
+        "this table are the ones on the hospital equipment inventory, and they are what "
+        "must be written at the head of every maintenance log sheet, so that a record can "
+        "be traced to one physical instrument and not merely to \u201cthe Sysmex\u201d.",
+    )
+    P(
+        doc,
+        "The parameter list and the measuring principle are not identical between the two "
+        "instruments. Confirm the parameters each reports, and its own limits for "
+        "background, carryover and precision, against the operator manual held beside it. "
+        "Do not carry a limit from one instrument to the other.",
     )
     P(
         doc,
@@ -88,6 +96,31 @@ def hematology():
         "also does not replace the manufacturer's manual. Where the manual requires a "
         "task more often, or an additional task, the manual prevails and this SOP is "
         "amended at the next review.",
+    )
+    H(doc, "3.1  Analysers withdrawn from service")
+    P(
+        doc,
+        "Four analysers that this laboratory once used have been decommissioned: the "
+        "Sysmex KX-21N (serial B9854, asset RULIDH/LAB/ME/0087), the Sysmex XS-500i "
+        "(serial 11491, asset RULIDH/LAB/ME/0108), the Pochi and the Humacount 5. They "
+        "appear on the hospital inventory as physically absent and disposed of, or were "
+        "never held on it.",
+    )
+    P(
+        doc,
+        "This SOP therefore does not apply to them, and no maintenance is performed on "
+        "them. Their legacy bench SOPs are retained in the Hematology folder for "
+        "historical reference only and are marked superseded; they must not be used to "
+        "run a sample. If any of these instruments is reintroduced, it must be added to "
+        "the table in section 3, commissioned and verified against its own manual, and "
+        "this SOP amended before it is used for patient testing.",
+    )
+    P(
+        doc,
+        "The same rule applies in reverse: when the XN-330 or the XQ-320 is withdrawn, "
+        "the maintenance log is closed, the instrument is marked out of service on the "
+        "inventory, and this SOP is amended at the next review so that the record does "
+        "not describe an instrument the laboratory no longer has.",
     )
 
     H(doc, "4. Definitions and Abbreviations")
