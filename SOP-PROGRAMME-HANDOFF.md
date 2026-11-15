@@ -3,14 +3,45 @@
 **Written:** 14 November 2026
 **Repository:** `Ssamahan/welcome`, branch `arena/e9497493-welcome`
 **Working directory:** `/home/user/welcome`
-**HEAD:** `17b2f54` (base `e85ac82` on `main`)
-**Drive copy:** `1WKXriYgfs_IkjZW5l9ylajcM0PjbZui2` in `SOPs by Room` (`1cMgzD3JfGr1dr-3hNbdgVJ-6hkgNDUDX`)
+**HEAD:** latest commit on the branch — run `git log -1` rather than trusting a
+hash written here
+**This file:** Drive `1WKXriYgfs_IkjZW5l9ylajcM0PjbZui2` in `SOPs by Room` (`1cMgzD3JfGr1dr-3hNbdgVJ-6hkgNDUDX`)
+
 > A future chat should read this from Drive. If the Drive copy and the repo copy
 > disagree, the repo copy is newer; re-upload it.
 
 This brief is for whoever picks this work up next. It is deliberately blunt about what
 is done, what is uncertain, and what was got wrong. Read section 11 before touching
 anything, and section 12 before promising the user anything.
+
+---
+
+## 0. BLUF — the seven things that matter most
+
+1. **The pack is built, uploaded, and unsigned.** Seven SOPs, three forms, a tracker, a
+   change-log addendum and a Master List insert sheet. All seven SOPs are first issues,
+   effective 14/11/2026, review 14/11/2028, and **not one is signed**. The pack is not
+   usable for assessment until the Laboratory Manager, the Laboratory Quality Manager and
+   the Director General have signed.
+2. **The Master List has NOT been edited.** Only an insert sheet exists. The register
+   still does not carry 050–063. Do not tell the user otherwise.
+3. **The ADM series is 1–49, not 1–52.** `MASTER LIST 2025.docx` holds 49 crosscutting
+   SOPs numbered 1–49. So 050 was the genuinely free number, and the original 053 start
+   was a mistake that had to be corrected.
+4. **Two code collisions are unresolved and one is already propagated.** Number **008**
+   is on both *Authorization* and *Use and Maintenance of Biomedical Equipment* VERS-005,
+   and all seven new SOPs cite the latter in their reference lists. Number **049** is
+   carried twice. Only the Laboratory Manager and DG can settle these.
+5. **Equipment scope is verified.** In service: Sysmex XN-330, XQ-320 and Alere Pima CD4.
+   Decommissioned and confined to a withdrawal clause: KX-21N, XS-500i, Pochi, Humacount 5,
+   Humastar 80, Humalyzer 3500. **No Pochi in service.** A freezer was acquired
+   11 August 2026 and has no asset code yet — never write "no freezer in service".
+6. **Job titles are a user correction, not a preference.** BMeT (not "Equipment
+   Officer"), ICT/IT Officer, Laboratory Manager (not "Head of Laboratory", not "Lab
+   Director"). BMeT reviews nothing.
+7. **Never assert a fact about a document you have not opened.** The 053 error came from
+   quoting "next free" out of working notes instead of reading the register. Read the
+   source.
 
 ---
 
@@ -73,6 +104,7 @@ All seven SOPs carry the two logos (verified: `word/media/image1.jpeg` and
 ```
 Lab 2026
 └── SOPs by Room            1cMgzD3JfGr1dr-3hNbdgVJ-6hkgNDUDX
+    ├── SOP-PROGRAMME-HANDOFF.md   1WKXriYgfs_IkjZW5l9ylajcM0PjbZui2
     ├── START HERE (Doc)    1zwjkF719aWq21jkNe-8HyNfdwCSQN95MMbHRXWs0hZk
     ├── 0. Shared           1R2FkrhA3gd9Fk_h101ksTcy0X_9oQ-bd
     ├── 1. Hematology       10RodALRgBrwk4NZ5_Va5BvSqxDWDJjlh
@@ -116,7 +148,7 @@ lab-sops/
     └── ruli-hospital.png       Ruli District Hospital logo
 ```
 
-Build all six, in this order matters not, but they must all exit 0:
+Build all six; all must exit 0:
 
 ```bash
 cd lab-sops
@@ -124,6 +156,9 @@ python3 build_sops.py && python3 build_sops2.py && python3 build_forms.py \
   && python3 build_tracker.py && python3 build_masterlist_insert.py \
   && python3 build_changelog_addendum.py
 ```
+
+A silent exception leaves the previous artefact on disk and looks like success. Always
+check exit codes, and re-verify the output.
 
 ### Helper API in `build_sops.py`
 
@@ -186,6 +221,12 @@ LABORATORY DEPARTMENT
 P.O. BOX 1285 KIGALI  •  Tel: (+250) 0781 316 368  •  E-mail: ruli.hospital@moh.gov.rw
 Website: rulihospital.rw
 ```
+
+Above the address block sit the two logos, extracted from the same source document: the
+Rwanda coat of arms on the left, the Ruli District Hospital logo ("Kigali Archidiocese /
+Ruli District Hospital", *Cura Cum Caritate*) on the right, at the source proportions
+(crest 2.62 cm, Ruli 2.46 cm), with the crest's white padding trimmed so both share a
+visual baseline.
 
 The source document still shows the **old** number `0782 000 853`. The user instructed
 the change to `0781316368`; it was applied here and **not** in the source document.
@@ -365,7 +406,8 @@ These are all real failures from this session. Do not rediscover them.
 - `google_docs.replace_text` returns `success:true` with an **empty** `replaceAllText:{}`
   when nothing matched. An em-dash mismatch caused exactly this — check
   `occurrencesChanged`, and `find_text` first when unsure.
-- `trash_file` 403 is not retryable. **Never reconstruct a file ID.**
+- `trash_file` 403 is not retryable. **Never reconstruct a file ID**, even from a nearby
+  listing: a single mistyped character returns 404 and wastes a call.
 
 ### Environment
 
@@ -389,7 +431,7 @@ These are all real failures from this session. Do not rediscover them.
 | 7 | **Day-level proof of coverage** on monthly sheets | User decision | Offered, not requested |
 | 8 | **Freezer model/serial/asset** blank pending inventory | User | Awaiting user |
 | 9 | **Signature** — none of the seven SOPs is signed; the pack is unsigned first issue | User | Awaiting |
-| 10 | **Master List itself** has not been edited — only an insert sheet provided. The register still does not carry 050–063 | User | By design |
+| 10 | **Master List itself** has not been edited — only an insert sheet provided | User | By design |
 
 **Item 10 matters.** The insert sheet is a *proposal* to paste in. Nothing has been
 added to `MASTER LIST 2025.docx`. Do not tell the user the Master List has been updated.
@@ -451,8 +493,7 @@ ch, rh = cm2px(2.62), cm2px(2.46)
 # baseline, then draw the 7 address lines centred beneath
 ```
 
-**Always run all six builders and require exit 0 before uploading.** A silent exception
-leaves the previous artefact on disk, which looks like success.
+**Always run all six builders and require exit 0 before uploading.**
 
 ---
 
