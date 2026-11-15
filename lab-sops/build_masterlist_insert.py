@@ -70,9 +70,36 @@ style = doc.styles["Normal"]
 style.font.name = "Times New Roman"
 style.font.size = Pt(10)
 
-# ---- header
+# ---- header: crest left, Ruli logo right
+ASSETS = os.path.join(OUT, "assets")
+_logo = doc.add_table(rows=1, cols=2)
+_logo.alignment = WD_TABLE_ALIGNMENT.CENTER
+_logo.autofit = False
+_lw = Cm(12.4)
+_logo.columns[0].width = _lw
+_logo.columns[1].width = _lw
+for _i in (0, 1):
+    _logo.cell(0, _i).width = _lw
+_p = _logo.cell(0, 0).paragraphs[0]
+_p.alignment = WD_ALIGN_PARAGRAPH.LEFT
+_p.paragraph_format.space_after = Pt(0)
+_p.add_run().add_picture(os.path.join(ASSETS, "rwanda-crest.jpeg"), height=Cm(2.0))
+_p = _logo.cell(0, 1).paragraphs[0]
+_p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+_p.paragraph_format.space_after = Pt(0)
+_p.add_run().add_picture(os.path.join(ASSETS, "ruli-hospital.png"), height=Cm(1.88))
+_bd = OxmlElement("w:tblBorders")
+for _e in ("top", "left", "bottom", "right", "insideH", "insideV"):
+    _x = OxmlElement(f"w:{_e}")
+    _x.set(qn("w:val"), "none")
+    _x.set(qn("w:sz"), "0")
+    _bd.append(_x)
+_logo._tbl.tblPr.append(_bd)
+
+para(doc, "REPUBLIC OF RWANDA \u2022 MINISTRY OF HEALTH \u2022 GAKENKE DISTRICT",
+     size=8, bold=True, color=GREY, align=WD_ALIGN_PARAGRAPH.CENTER, space_after=1)
 para(doc, "RULI DISTRICT HOSPITAL \u2013 LABORATORY DEPARTMENT",
-     size=9, bold=True, color=GREY, align=WD_ALIGN_PARAGRAPH.CENTER, space_after=2)
+     size=10, bold=True, color=NAVY, align=WD_ALIGN_PARAGRAPH.CENTER, space_after=2)
 para(doc, "MASTER LIST \u2013 INSERT SHEET",
      size=15, bold=True, color=NAVY, align=WD_ALIGN_PARAGRAPH.CENTER, space_after=2)
 para(doc, "New documents issued 14 November 2026: SOP 053 to 059 and Forms F01",

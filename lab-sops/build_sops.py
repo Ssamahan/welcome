@@ -22,6 +22,11 @@ PREP_T = "Laboratory Manager"
 AUTH = "Dr. D\u00e9ogratias KANEZA"
 AUTH_T = "Director General"
 
+# ---- branding assets, extracted from "Lab Tests - Normal Ranges 2026.docx" ----
+ASSETS = os.path.join(OUT, "assets")
+LOGO_RULI = os.path.join(ASSETS, "ruli-hospital.png")
+LOGO_CREST = os.path.join(ASSETS, "rwanda-crest.jpeg")
+
 
 def shade(cell, hexcolor="D9D9D9"):
     tcPr = cell._tc.get_or_add_tcPr()
@@ -30,6 +35,89 @@ def shade(cell, hexcolor="D9D9D9"):
     shd.set(qn("w:color"), "auto")
     shd.set(qn("w:fill"), hexcolor)
     tcPr.append(shd)
+
+
+def d(H):
+    H.paragraph_format.space_after = Pt(0)
+    H.paragraph_format.space_before = Pt(0)
+    H.paragraph_format.line_spacing = 1.0
+    return H
+
+
+def letterhead(doc):
+    """Republic of Rwanda crest (left) and Ruli DH logo (right) above the
+    official address block - same arrangement and proportions as the
+    Laboratory Normal Ranges template."""
+    sec = doc.sections[0]
+    usable = sec.page_width - sec.left_margin - sec.right_margin
+
+    # two-cell borderless table: crest | Ruli logo
+    t = doc.add_table(rows=1, cols=2)
+    t.alignment = WD_TABLE_ALIGNMENT.CENTER
+    t.autofit = False
+    left, right = int(usable * 0.42), int(usable * 0.58)
+    t.columns[0].width = left
+    t.columns[1].width = right
+
+    c0, c1 = t.cell(0, 0), t.cell(0, 1)
+    c0.width, c1.width = left, right
+
+    p0 = d(c0.paragraphs[0])
+    p0.alignment = WD_ALIGN_PARAGRAPH.LEFT
+    p0.add_run().add_picture(LOGO_CREST, height=Cm(2.62))
+
+    p1 = d(c1.paragraphs[0])
+    p1.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    p1.add_run().add_picture(LOGO_RULI, height=Cm(2.46))
+
+    # kill all borders on the layout table
+    tblPr = t._tbl.tblPr
+    borders = OxmlElement("w:tblBorders")
+    for edge in ("top", "left", "bottom", "right", "insideH", "insideV"):
+        e = OxmlElement(f"w:{edge}")
+        e.set(qn("w:val"), "none")
+        e.set(qn("w:sz"), "0")
+        borders.append(e)
+    tblPr.append(borders)
+
+    # ---- official address block (verbatim) ----
+    for text, size in (
+        ("REPUBLIC OF RWANDA", 10),
+        ("MINISTRY OF HEALTH", 10),
+        ("GAKENKE DISTRICT", 10),
+        ("RULI DISTRICT HOSPITAL", 13),
+        ("LABORATORY DEPARTMENT", 11),
+    ):
+        p = d(doc.add_paragraph())
+        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r = p.add_run(text)
+        r.bold = True
+        r.font.size = Pt(size)
+
+    p = d(doc.add_paragraph())
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r = p.add_run("P.O. BOX 1285 KIGALI   \u2022   Tel: (+250) 0781 316 368   \u2022   "
+                  "E-mail: ruli.hospital@moh.gov.rw")
+    r.font.size = Pt(8)
+
+    p = d(doc.add_paragraph())
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p.paragraph_format.space_after = Pt(10)
+    r = p.add_run("Website: rulihospital.rw")
+    r.font.size = Pt(8)
+
+    # thin rule under the letterhead
+    p = d(doc.add_paragraph())
+    pPr = p._p.get_or_add_pPr()
+    pbdr = OxmlElement("w:pBdr")
+    b = OxmlElement("w:bottom")
+    b.set(qn("w:val"), "single")
+    b.set(qn("w:sz"), "8")
+    b.set(qn("w:space"), "1")
+    b.set(qn("w:color"), "1F4E79")
+    pbdr.append(b)
+    pPr.append(pbdr)
+    p.paragraph_format.space_after = Pt(6)
 
 
 def base_doc(code, title, version="001"):
@@ -46,42 +134,8 @@ def base_doc(code, title, version="001"):
         s.left_margin = Cm(2.0)
         s.right_margin = Cm(2.0)
 
-    # ---- cover block ----
-    p = doc.add_paragraph()
-    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    r = p.add_run("REPUBLIC OF RWANDA")
-    r.bold = True
-    r.font.size = Pt(10)
-    p = doc.add_paragraph()
-    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    r = p.add_run("MINISTRY OF HEALTH")
-    r.bold = True
-    r.font.size = Pt(10)
-    p = doc.add_paragraph()
-    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    r = p.add_run("GAKENKE DISTRICT")
-    r.bold = True
-    r.font.size = Pt(10)
-    p = doc.add_paragraph()
-    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    r = p.add_run("RULI DISTRICT HOSPITAL")
-    r.bold = True
-    r.font.size = Pt(13)
-    p = doc.add_paragraph()
-    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    r = p.add_run("LABORATORY DEPARTMENT")
-    r.bold = True
-    r.font.size = Pt(11)
-    p = doc.add_paragraph()
-    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    r = p.add_run("P.O. BOX 1285 KIGALI   \u2022   Tel: (+250) 0781 316 368   \u2022   "
-                  "E-mail: ruli.hospital@moh.gov.rw")
-    r.font.size = Pt(8)
-    p = doc.add_paragraph()
-    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    r = p.add_run("Website: rulihospital.rw")
-    r.font.size = Pt(8)
-    p.paragraph_format.space_after = Pt(14)
+    # ---- letterhead: logos + official address block ----
+    letterhead(doc)
 
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
